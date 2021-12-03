@@ -3,22 +3,25 @@ import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: { createdAt: 'created', updatedAt: 'updated' } })
 export class User {
   @Prop({ required: true })
-  name: string;
+  name!: string;
 
   @Prop({ required: true, unique: true })
-  email: string;
+  email!: string;
 
   @Prop({ required: true })
-  password: string;
+  password!: string;
 
   @Prop({ default: '' })
-  avatar: string;
+  avatar!: string;
 
   @Prop({ default: Date.now })
-  date: Date;
+  created!: Date;
+
+  @Prop({ default: Date.now })
+  updated!: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

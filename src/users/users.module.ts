@@ -14,6 +14,7 @@ import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
   ],
   providers: [UsersService, AuthService],
   controllers: [UsersController],
+  exports: [UsersService],
 })
 export class UsersModule {
   configure(consumer: MiddlewareConsumer) {

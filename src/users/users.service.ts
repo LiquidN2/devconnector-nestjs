@@ -9,7 +9,7 @@ import { User, UserDocument } from './schemas/user.schema';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name) private readonly model: Model<UserDocument>,
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -22,20 +22,20 @@ export class UsersService {
 
     const userData = { ...createUserDto, avatar };
 
-    const user = await this.model.create(userData);
+    const user = await this.userModel.create(userData);
 
     return await user.save();
   }
 
   async remove(id: string) {
-    return this.model.remove({ id });
+    return this.userModel.remove({ id });
   }
 
   async findById(id: string) {
-    return this.model.findById(id);
+    return this.userModel.findById(id);
   }
 
   async findByEmail(email: string) {
-    return this.model.findOne({ email });
+    return this.userModel.findOne({ email });
   }
 }
