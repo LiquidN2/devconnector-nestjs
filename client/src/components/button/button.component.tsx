@@ -28,6 +28,6 @@ export const ButtonPrimary = styled(Button)`
   color: white;
 
   &:hover {
-    color: var(--color-grey-dark);
+    background-color: var(--color-primary-dark);
   }
 `;

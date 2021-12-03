@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
-export const SignInContainer = styled.div``;
+export const SignUpContainer = styled.div``;
 
-export const SignInHeading = styled.h1`
+export const SignUpHeading = styled.h1`
   color: var(--color-grey-darkest);
   font-weight: 400;
   text-align: center;
   margin-bottom: 4rem;
 `;
 
-export const SignInFormContainer = styled.form`
+export const SignUpFormContainer = styled.form`
   display: flex;
   flex-direction: column;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import FormInput from '../form/form-input.component';
@@ -9,16 +9,28 @@ import {
   SignInHeading,
   SignInFormContainer,
   ButtonsGroup,
+  FormError,
 } from './signin.styles';
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit: FormEventHandler = e => {
+    e.preventDefault();
+    console.log(email, password);
+  };
 
   return (
     <SignInContainer>
+      <Helmet>
+        <title>DevConnector | Sign In</title>
+      </Helmet>
+
       <SignInHeading>Welcome Back!</SignInHeading>
-      <SignInFormContainer>
+
+      <SignInFormContainer onSubmit={handleSubmit}>
         <FormInput
           label=""
           id="email"
@@ -40,10 +52,12 @@ const SignIn: React.FC = () => {
           handleChange={e => setPassword(e.currentTarget.value)}
         />
         <ButtonsGroup>
-          <ButtonPrimary>Sign In</ButtonPrimary>
-          <Button>Reset</Button>
+          <ButtonPrimary type="submit">Sign In</ButtonPrimary>
+          <Button type="reset">Reset</Button>
         </ButtonsGroup>
       </SignInFormContainer>
+
+      {error && <FormError>{error}</FormError>}
     </SignInContainer>
   );
 };
