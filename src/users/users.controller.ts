@@ -1,5 +1,8 @@
 import { Controller, Get, Post, Body, Session } from '@nestjs/common';
 
+// Custom Decorators
+import { CurrentUser } from './decorators/current-user.decorator';
+
 // Interceptors
 import { Serialize } from '../interceptors/serialize.interceptor';
 
@@ -11,6 +14,9 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { SigninDto } from './dtos/signin.dto';
 import { UserDto } from './dtos/user.dto';
+
+// Schema
+import { User } from './schemas/user.schema';
 
 @Controller('/api/auth')
 @Serialize(UserDto)
@@ -26,8 +32,8 @@ export class UsersController {
   }
 
   @Get('/whoami')
-  whoAmI() {
-    return 'whoami';
+  whoAmI(@CurrentUser() currentUser: User) {
+    return currentUser;
   }
 
   @Post('/signup')
