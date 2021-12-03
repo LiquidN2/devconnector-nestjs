@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Session } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Session,
+  UseGuards,
+} from '@nestjs/common';
+
+// Guards
+import { AuthGuard } from '../guards/auth.guard';
 
 // Custom Decorators
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -26,12 +36,8 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
-  @Get()
-  findUsers() {
-    return 'List of users';
-  }
-
   @Get('/whoami')
+  @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() currentUser: User) {
     return currentUser;
   }
@@ -48,5 +54,10 @@ export class UsersController {
     const user = await this.authService.signin(body.email, body.password);
     session.userId = user.id;
     return user;
+  }
+
+  @Post('/signout')
+  signout(@Session() session: any) {
+    session.userId = null;
   }
 }

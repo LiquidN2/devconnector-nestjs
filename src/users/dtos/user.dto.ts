@@ -11,5 +11,11 @@ export class UserDto {
   avatar: string;
 
   @Expose()
-  date: Date;
+  isAdmin: boolean;
+
+  @Expose()
+  created: Date;
+
+  @Expose()
+  updated: Date;
 }

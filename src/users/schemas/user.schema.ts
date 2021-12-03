@@ -17,6 +17,9 @@ export class User {
   @Prop({ default: '' })
   avatar!: string;
 
+  @Prop({ default: false })
+  isAdmin: boolean;
+
   @Prop({ default: Date.now })
   created!: Date;
 
