@@ -21,7 +21,9 @@ export class ProfilesService {
   }
 
   async findByUserId(userId: string) {
-    return this.profileModel.findOne({ user: new Types.ObjectId(userId) });
+    return this.profileModel
+      .findOne({ user: new Types.ObjectId(userId) })
+      .populate('user', ['name', 'email', 'avatar']);
   }
 
   async create(userId: string, createProfileDto: CreateProfileDto) {
