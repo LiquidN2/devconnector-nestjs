@@ -1,9 +1,8 @@
-import styled from 'styled-components';
+import { css } from 'styled-components';
 
-export const StyledSvg = styled.svg`
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--color-grey-dark);
-  fill: none;
-  transition: color 0.2s;
+export const IconStyle = css`
+  width: 2.2rem;
+  height: 2.2rem;
+  fill: var(--color-grey-dark);
+  transition: fill 0.2s;
 `;

@@ -19,7 +19,7 @@ export const HeaderTopNavBtn = styled.button`
     cursor: pointer;
 
     svg {
-      color: var(--color-primary);
+      fill: var(--color-primary);
     }
   }
 `;

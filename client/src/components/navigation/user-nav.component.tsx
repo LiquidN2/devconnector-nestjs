@@ -18,14 +18,14 @@ const UserNav: React.FC = () => {
   return (
     <UserNavContainer>
       <UserNavAvatar
-        src="img/users/user-4.jpg"
+        src="/img/users/user-4.jpg"
         onClick={handleToggleDropdown}
       />
       {!dropdownHidden && (
         <UserNavDropdown>
           <UserNavLink to="/profile">Profile</UserNavLink>
           <UserNavLink to="/connections">Connections</UserNavLink>
-          <UserNavLink to="/post">Posts</UserNavLink>
+          <UserNavLink to="/posts">Posts</UserNavLink>
           <UserNavButton>Sign Out</UserNavButton>
         </UserNavDropdown>
       )}
