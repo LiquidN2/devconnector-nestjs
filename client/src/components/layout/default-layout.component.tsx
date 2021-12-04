@@ -1,15 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import Header from '../header/header.component';
+
 const DefaultLayout: React.FC = () => {
   return (
     <div>
-      <header>
-        <div>Logo</div>
-        <div>Search</div>
-        <div>User Nav</div>
-      </header>
-      <nav>Main Nav</nav>
+      <Header />
       <main>
         <div>Profile box</div>
         <Outlet />

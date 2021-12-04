@@ -1,3 +1,4 @@
+import { resolve } from 'path';
 import { Module, ValidationPipe, MiddlewareConsumer } from '@nestjs/common';
 import { APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -8,6 +9,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -25,9 +27,14 @@ import { ProfilesModule } from './profiles/profiles.module';
       }),
     }),
 
+    // API Modules
     UsersModule,
-
     ProfilesModule,
+
+    // Serve Static Files
+    ServeStaticModule.forRoot({
+      rootPath: resolve(__dirname, '..', 'client', 'build'),
+    }),
   ],
 
   controllers: [AppController],
