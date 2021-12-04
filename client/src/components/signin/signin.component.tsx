@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useState } from 'react';
+import React, { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import FormInput from '../form/form-input.component';
@@ -20,6 +20,11 @@ const SignIn: React.FC = () => {
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
     console.log(email, password);
+  };
+
+  const handleResetForm: MouseEventHandler<HTMLButtonElement> = () => {
+    setEmail('');
+    setPassword('');
   };
 
   return (
@@ -53,7 +58,9 @@ const SignIn: React.FC = () => {
         />
         <ButtonsGroup>
           <ButtonPrimary type="submit">Sign In</ButtonPrimary>
-          <Button type="reset">Reset</Button>
+          <Button type="reset" onClick={handleResetForm}>
+            Reset
+          </Button>
         </ButtonsGroup>
       </SignInFormContainer>
 

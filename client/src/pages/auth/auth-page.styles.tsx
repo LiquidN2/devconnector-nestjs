@@ -7,7 +7,7 @@ export const AuthPageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  //background-color: red;
+  background-color: var(--color-primary-light);
 `;
 
 export const FormBox = styled.div`
