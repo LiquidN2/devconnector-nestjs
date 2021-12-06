@@ -8,15 +8,14 @@ import {
 } from './form-checkbox.styles';
 
 interface FormCheckboxProps {
-  label: string;
   id: string;
 }
 
-const FormCheckbox: React.FC<FormCheckboxProps> = ({ label, id }) => {
+const FormCheckbox: React.FC<FormCheckboxProps> = ({ id, children }) => {
   return (
     <InputGroup>
       <CheckboxContainer htmlFor={id}>
-        {label}
+        {children}
         <CheckboxInput type="checkbox" id={id} />
         <CheckMark />
       </CheckboxContainer>

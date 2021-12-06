@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.div`
   height: 7rem;
   border-bottom: 1px solid var(--color-grey-lighter);
+  background-color: white;
 
   & > div {
     height: 100%;

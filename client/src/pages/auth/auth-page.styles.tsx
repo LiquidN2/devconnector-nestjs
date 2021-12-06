@@ -5,16 +5,25 @@ export const AuthPageContainer = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: var(--color-primary-light);
 `;
 
+export const FormBoxContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const FormBox = styled.div`
-  flex: 1;
+  //flex: 1;
 
   background-color: white;
-  max-width: 50rem;
+  width: 50rem;
   margin: 0 auto;
   padding: 4rem;
 

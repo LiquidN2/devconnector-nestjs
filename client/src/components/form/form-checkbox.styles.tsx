@@ -41,7 +41,7 @@ export const CheckboxContainer = styled.label`
   margin-bottom: 1.2rem;
   cursor: pointer;
   font-family: inherit;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: var(--color-grey-dark);
   padding-top: 0.5rem;
 

@@ -13,7 +13,7 @@ export const StyledSocialLink = styled.a`
   transition: color 0.2s;
 
   &:not(:last-child) {
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
   }
 
   &:hover {

@@ -9,6 +9,8 @@ import ProfilePage from './pages/profile/profile-page.component';
 import PostsPage from './pages/posts/posts-page.component';
 import ConnectionsPage from './pages/connections/connections-page.component';
 
+import ProfileEditMain from './pages/profile/profile-edit-main.component';
+
 // import PublicRoute from './routes/public-route.component';
 
 import './App.scss';
@@ -26,7 +28,7 @@ const App: React.FC = () => {
         </Route>
 
         <Route path="/profile/edit" element={<DefaultLayout />}>
-          <Route path="main" element={<ProfilePage />} />
+          <Route path="main" element={<ProfileEditMain />} />
           <Route path="education" element={<ProfilePage />} />
           <Route path="experience" element={<ProfilePage />} />
         </Route>

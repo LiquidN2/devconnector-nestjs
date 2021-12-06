@@ -1,8 +1,9 @@
 import React, { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 import FormInput from '../form/form-input.component';
-import { ButtonPrimary, Button } from '../button/button.component';
+import { ButtonPrimary, Button } from '../UI/button.component';
 
 import {
   SignInContainer,
@@ -17,9 +18,17 @@ const SignIn: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSubmit: FormEventHandler = e => {
+  const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();
-    console.log(email, password);
+    // console.log(email, password);
+    const response = await axios.post('/api/auth/signin', {
+      email,
+      password,
+    });
+
+    const { data } = response;
+
+    console.log(data);
   };
 
   const handleResetForm: MouseEventHandler<HTMLButtonElement> = () => {

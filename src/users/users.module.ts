@@ -1,7 +1,7 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { AuthService } from './auth.service';
+// import { AuthServiceTs } from './auth.service';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
 import { User, UserSchema } from './schemas/user.schema';
@@ -12,7 +12,7 @@ import { CurrentUserMiddleware } from './middlewares/current-user.middleware';
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  providers: [UsersService, AuthService],
+  providers: [UsersService],
   controllers: [UsersController],
   exports: [UsersService],
 })

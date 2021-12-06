@@ -1,17 +1,39 @@
 import React from 'react';
 
-import { ProfileContainer, Col1 } from './profile-page.styles';
+import { Helmet } from 'react-helmet';
+
+import {
+  ProfileContainer,
+  ColLeft,
+  ColRight,
+  ColMiddle,
+  EditProfileBtn,
+} from './profile-page.styles';
 
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
+import ProfileSummary from '../../components/profile/profile-summary.component';
+import ProfileExperience from '../../components/profile/profile-experience.component';
+import ProfileEducation from '../../components/profile/profile-education.component';
+import ProfileSkills from '../../components/profile/profile-skills.component';
 
 const ProfilePage: React.FC = () => {
   return (
     <ProfileContainer>
-      <Col1>
+      <Helmet>
+        <title>DevConnector | Profile</title>
+      </Helmet>
+      <ColLeft>
         <ProfileBaseBox />
-      </Col1>
-      <div>col 2</div>
-      <div>col 3</div>
+        <EditProfileBtn>Edit Profile</EditProfileBtn>
+      </ColLeft>
+      <ColMiddle>
+        <ProfileSummary />
+        <ProfileExperience />
+        <ProfileEducation />
+      </ColMiddle>
+      <ColRight>
+        <ProfileSkills />
+      </ColRight>
     </ProfileContainer>
   );
 };

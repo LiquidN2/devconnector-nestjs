@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { Module, ValidationPipe, MiddlewareConsumer } from '@nestjs/common';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 const cookieSession = require('cookie-session');
@@ -9,8 +10,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { AuthModule } from './auth/auth.module';
+// import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -29,23 +30,27 @@ import { AuthModule } from './auth/auth.module';
     }),
 
     // API Modules
+    AuthModule,
     UsersModule,
     ProfilesModule,
 
-    // Serve Static Files
+    // Static Files Module
     ServeStaticModule.forRoot({
       rootPath: resolve(__dirname, '..', 'client', 'build'),
     }),
-
-    AuthModule,
   ],
-
-  controllers: [AppController],
 
   providers: [
     AppService,
+
+    // Global Validation
     { provide: APP_PIPE, useValue: new ValidationPipe({ whitelist: true }) },
+
+    // Global Guard
+    // { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
+
+  controllers: [AppController],
 })
 export class AppModule {
   constructor(private readonly configService: ConfigService) {}

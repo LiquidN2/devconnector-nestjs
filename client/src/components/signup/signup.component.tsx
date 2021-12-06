@@ -3,7 +3,8 @@ import { Helmet } from 'react-helmet';
 
 import FormInput from '../form/form-input.component';
 import FormCheckbox from '../form/form-checkbox.component';
-import { ButtonPrimary, Button } from '../button/button.component';
+import { ButtonPrimary, Button } from '../UI/button.component';
+import { LinkText } from '../UI/link.component';
 
 import {
   SignUpContainer,
@@ -94,10 +95,12 @@ const SignUp: React.FC = () => {
           value={confirmPassword}
           handleChange={e => setConfirmPassword(e.currentTarget.value)}
         />
-        <FormCheckbox
-          label="I agree with the Terms & Conditions"
-          id="agreetnc"
-        />
+        <FormCheckbox id="agreetnc">
+          I agree with the{' '}
+          <LinkText href="#" target="_blank">
+            Terms & Conditions
+          </LinkText>
+        </FormCheckbox>
         <ButtonsGroup>
           <ButtonPrimary type="submit">Sign Up</ButtonPrimary>
           <Button type="reset" onClick={handleResetForm}>
