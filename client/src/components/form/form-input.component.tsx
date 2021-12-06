@@ -1,12 +1,12 @@
 import React, { ChangeEventHandler } from 'react';
 
-import { InputGroup, InputLabel, Input } from './form-input.styles';
+import { InputGroup, InputLabel, Input, TextArea } from './form-input.styles';
 
 export interface FormInputProps {
   label: string;
-  handleChange: ChangeEventHandler<HTMLInputElement>;
+  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   value?: string;
-  type: string;
+  type?: string;
   id?: string;
   name?: string;
   required?: boolean;
@@ -15,7 +15,7 @@ export interface FormInputProps {
 
 const FormInput: React.FC<FormInputProps> = ({
   label,
-  type,
+  type = 'text',
   handleChange,
   ...otherProps
 }) => {
@@ -26,7 +26,11 @@ const FormInput: React.FC<FormInputProps> = ({
           {label}
         </InputLabel>
       ) : null}
-      <Input onChange={handleChange} type={type} {...otherProps} />
+      {type === 'textarea' ? (
+        <TextArea onChange={handleChange} {...otherProps} rows={7} />
+      ) : (
+        <Input onChange={handleChange} type={type} {...otherProps} />
+      )}
     </InputGroup>
   );
 };

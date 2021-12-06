@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const InputGroup = styled.div`
   margin-bottom: 2.5rem;
@@ -10,11 +10,7 @@ export const InputGroup = styled.div`
   }
 `;
 
-export const InputLabel = styled.label`
-  color: var(--color-grey-dark);
-`;
-
-export const Input = styled.input`
+const InputTextStyles = css`
   font-family: inherit;
   font-size: 1.6rem;
   color: var(--color-grey-dark);
@@ -36,4 +32,17 @@ export const Input = styled.input`
     outline: none;
     border: 1px solid var(--color-primary);
   }
+`;
+
+export const InputLabel = styled.label`
+  color: var(--color-grey-dark);
+  font-size: 1.6rem;
+`;
+
+export const Input = styled.input`
+  ${InputTextStyles}
+`;
+
+export const TextArea = styled.textarea`
+  ${InputTextStyles};
 `;

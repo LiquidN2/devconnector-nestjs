@@ -5,7 +5,7 @@ export const Button = styled.button`
   font-family: inherit;
   font-size: 1.6rem;
   border: none;
-  padding: 2rem;
+  padding: 1.4rem 1.8rem;
   transition: background-color 0.2s;
   cursor: pointer;
   color: var(--color-grey-dark);
