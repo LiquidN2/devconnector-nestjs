@@ -1,7 +1,7 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 
 import SocialLink from './social-link.component';
-import Modal from '../modal/modal.component';
 
 import {
   BoxContainer,
@@ -19,20 +19,11 @@ import {
   SocialMediaContainer,
 } from './profile-base-box.styles';
 
-import {
-  ButtonPrimary,
-  ButtonLinkPrimary,
-  BtnLinkEditPrimary,
-} from '../UI/button.component';
-import IconEdit from '../icons/icon-edit.component';
+import { BtnLinkEditPrimary } from '../UI/button.component';
 
 const ProfileBaseBox: React.FC = () => {
-  const [modalHidden, setModalHidden] = useState(true);
-
-  const handleToggleModalHidden: MouseEventHandler<HTMLButtonElement> = e => {
-    setModalHidden(false);
-    console.log('base', modalHidden);
-  };
+  const location = useLocation();
+  const { pathname } = location;
 
   return (
     <>
@@ -66,16 +57,12 @@ const ProfileBaseBox: React.FC = () => {
           <SocialLink type="linkedin" url="#" label="johndoe" />
         </SocialMediaContainer>
 
-        <BtnLinkEditPrimary to="/profile/edit/main">
-          Edit Profile
-        </BtnLinkEditPrimary>
-
-        {/*<ButtonPrimary onClick={handleToggleModalHidden}>*/}
-        {/*  Edit Contact Details*/}
-        {/*</ButtonPrimary>*/}
+        {pathname.startsWith('/profile') && (
+          <BtnLinkEditPrimary to="/profile/edit/main">
+            Edit Profile
+          </BtnLinkEditPrimary>
+        )}
       </BoxContainer>
-
-      {/*<Modal isHidden={modalHidden} setModalHidden={setModalHidden} />*/}
     </>
   );
 };

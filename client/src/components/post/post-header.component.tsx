@@ -1,0 +1,64 @@
+import React, { MouseEventHandler, useState } from 'react';
+import IconElipsisH from '../icons/icon-elipsis-h.component';
+
+import {
+  HeaderContainer,
+  UserContainer,
+  UserImage,
+  UserDescription,
+  UserName,
+  UserTitle,
+  MenuAndTimeContainer,
+  PostTime,
+  PostMenuContainer,
+  PostMenuButton,
+  ArrowUp,
+  DropDownMenu,
+  DropDownMenuBtn,
+} from './post-header.styles';
+
+const MenuButton: React.FC<{
+  onClick: MouseEventHandler<HTMLButtonElement>;
+}> = ({ onClick }) => {
+  return (
+    <PostMenuButton onClick={onClick}>
+      <IconElipsisH />
+    </PostMenuButton>
+  );
+};
+
+const PostHeader: React.FC = () => {
+  const [dropDownHidden, setDropDownHidden] = useState(true);
+
+  const toggleDropDownHidden: MouseEventHandler<HTMLButtonElement> = () => {
+    setDropDownHidden(!dropDownHidden);
+  };
+
+  return (
+    <HeaderContainer>
+      <UserContainer>
+        <UserImage src="/img/users/user-4.jpg" alt="user name" />
+        <UserDescription>
+          <UserName>John Doe</UserName>
+          <UserTitle>Developer</UserTitle>
+        </UserDescription>
+      </UserContainer>
+
+      <MenuAndTimeContainer>
+        <PostTime>2 hours ago</PostTime>
+        <MenuButton onClick={toggleDropDownHidden} />
+        {dropDownHidden ? (
+          <DropDownMenu>
+            <ArrowUp />
+            <DropDownMenuBtn>Edit</DropDownMenuBtn>
+            <DropDownMenuBtn>Delete</DropDownMenuBtn>
+          </DropDownMenu>
+        ) : (
+          <div />
+        )}
+      </MenuAndTimeContainer>
+    </HeaderContainer>
+  );
+};
+
+export default PostHeader;

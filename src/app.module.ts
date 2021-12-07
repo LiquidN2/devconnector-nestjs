@@ -35,19 +35,21 @@ import { AuthModule } from './auth/auth.module';
     ProfilesModule,
 
     // Static Files Module
-    // ServeStaticModule.forRootAsync({
-    //   inject: [ConfigService],
-    //   useFactory: async (configService: ConfigService) => {
-    //     if (configService.get<string>('NODE_ENV') === 'production') {
-    //       return [{ rootPath: resolve(__dirname, '..', 'client', 'build') }];
-    //     }
-    //     return [{ rootPath: resolve(__dirname) }];
-    //   },
-    // }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client', 'build'),
-      exclude: ['/api*'],
+    ServeStaticModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        const rootPath =
+          configService.get<string>('NODE_ENV') === 'production'
+            ? resolve(__dirname, '..', 'client', 'build')
+            : './';
+
+        return [{ rootPath, exclude: ['/api*'] }];
+      },
     }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'client', 'build'),
+    //   exclude: ['/api*'],
+    // }),
   ],
 
   providers: [

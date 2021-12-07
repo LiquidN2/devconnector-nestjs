@@ -1,15 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
 
 import {
-  ProfileContainer,
+  ContentContainer,
   ColLeft,
   ColRight,
   ColMiddle,
-  EditProfileBtn,
-} from './profile-page.styles';
+} from '../../components/layout/content-layout.styles';
 
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
 import ProfileSummary from '../../components/profile/profile-summary.component';
@@ -18,10 +16,8 @@ import ProfileEducation from '../../components/profile/profile-education.compone
 import ProfileSkills from '../../components/profile/profile-skills.component';
 
 const ProfilePage: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
-    <ProfileContainer>
+    <ContentContainer>
       <Helmet>
         <title>DevConnector | Profile</title>
       </Helmet>
@@ -36,7 +32,7 @@ const ProfilePage: React.FC = () => {
       <ColRight>
         <ProfileSkills />
       </ColRight>
-    </ProfileContainer>
+    </ContentContainer>
   );
 };
 

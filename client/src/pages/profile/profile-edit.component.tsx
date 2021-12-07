@@ -1,10 +1,14 @@
 import React from 'react';
 
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
-import { ProfileContainer, ColLeft, ColRightSpan } from './profile-page.styles';
 import EditMain from '../../components/profile/forms/edit-main.component';
 import EditExperience from '../../components/profile/edit-experience.component';
 import EditEducation from '../../components/profile/edit-education.component';
+import {
+  ContentContainer,
+  ColLeft,
+  ColRightSpan,
+} from '../../components/layout/content-layout.styles';
 
 interface PropFileEditProps {
   section: 'main' | 'education' | 'experience';
@@ -12,7 +16,7 @@ interface PropFileEditProps {
 
 const ProfileEdit: React.FC<PropFileEditProps> = ({ section }) => {
   return (
-    <ProfileContainer>
+    <ContentContainer>
       <ColLeft>
         <ProfileBaseBox />
       </ColLeft>
@@ -21,7 +25,7 @@ const ProfileEdit: React.FC<PropFileEditProps> = ({ section }) => {
         {section === 'experience' && <EditExperience />}
         {section === 'education' && <EditEducation />}
       </ColRightSpan>
-    </ProfileContainer>
+    </ContentContainer>
   );
 };
 
