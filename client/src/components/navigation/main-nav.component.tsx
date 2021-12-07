@@ -24,7 +24,6 @@ export const MainNav: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
     if (location.pathname.startsWith('/profile/edit')) {
       setLinks([
         {

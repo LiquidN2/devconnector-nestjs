@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 
 import FormInput from '../../form/form-input.component';
 import ContentBox from '../../content-box/content-box.component';
-import { ButtonPrimary, Button } from '../../UI/button.component';
+import { BtnSavePrimary, BtnLinkGoBack } from '../../UI/button.component';
 
-import { EditMainContainer, ButtonsGroup } from './edit-main.styles';
+import { FormContainer, ButtonsGroup } from './edit-main.styles';
 
 const EditMain: React.FC = () => {
+  const handleSubmit: FormEventHandler = e => {
+    e.preventDefault();
+  };
+
   return (
     <ContentBox heading="Update Your Profile">
-      <EditMainContainer>
+      <FormContainer onSubmit={handleSubmit}>
         <FormInput
           label="Handle"
           handleChange={e => console.log()}
@@ -37,10 +41,10 @@ const EditMain: React.FC = () => {
         </div>
 
         <ButtonsGroup>
-          <ButtonPrimary>Update Profile</ButtonPrimary>
-          <Button type="button">Back to Profile View</Button>
+          <BtnSavePrimary>Save Changes</BtnSavePrimary>
+          <BtnLinkGoBack to="/profile">Back to Profile View</BtnLinkGoBack>
         </ButtonsGroup>
-      </EditMainContainer>
+      </FormContainer>
     </ContentBox>
   );
 };

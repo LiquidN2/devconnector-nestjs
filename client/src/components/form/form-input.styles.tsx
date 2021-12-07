@@ -45,4 +45,5 @@ export const Input = styled.input`
 
 export const TextArea = styled.textarea`
   ${InputTextStyles};
+  resize: none;
 `;

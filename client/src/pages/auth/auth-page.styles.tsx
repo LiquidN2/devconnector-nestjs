@@ -50,7 +50,7 @@ export const AuthNavContainer = styled.div`
 export const AuthNavLink = styled(NavLink)`
   flex-grow: 1;
   display: block;
-  padding: 1.4rem;
+  padding: var(--button-paddings);
 
   font-size: 1.6rem;
   text-align: center;

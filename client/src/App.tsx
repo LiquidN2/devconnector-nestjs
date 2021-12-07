@@ -9,7 +9,7 @@ import ProfilePage from './pages/profile/profile-page.component';
 import PostsPage from './pages/posts/posts-page.component';
 import ConnectionsPage from './pages/connections/connections-page.component';
 
-import ProfileEditMain from './pages/profile/profile-edit-main.component';
+import ProfileEdit from './pages/profile/profile-edit.component';
 
 // import PublicRoute from './routes/public-route.component';
 
@@ -22,15 +22,26 @@ const App: React.FC = () => {
         {/* PRIVATE Access Only */}
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Navigate to="/posts" />} />
+          <Route
+            path="profile/edit/main"
+            element={<ProfileEdit section="main" />}
+          />
+          <Route
+            path="profile/edit/experience"
+            element={<ProfileEdit section="experience" />}
+          />
+          <Route
+            path="profile/edit/education"
+            element={<ProfileEdit section="education" />}
+          />
+          <Route
+            path="profile/edit/*"
+            element={<Navigate to="/profile/edit/main" />}
+          />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="posts" element={<PostsPage />} />
           <Route path="connections" element={<ConnectionsPage />} />
-        </Route>
-
-        <Route path="/profile/edit" element={<DefaultLayout />}>
-          <Route path="main" element={<ProfileEditMain />} />
-          <Route path="education" element={<ProfilePage />} />
-          <Route path="experience" element={<ProfilePage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
 
         {/* PUBLIC Access Only  */}

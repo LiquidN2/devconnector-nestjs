@@ -8,6 +8,8 @@ import IconMapMarker from '../icons/icon-mapmarker.component';
 import IconCalendar from '../icons/icon-calendar.component';
 import IconGradCap from '../icons/icon-grad-cap.component';
 import IconSchool from '../icons/icon-school.component';
+import IconEdit from '../icons/icon-edit.component';
+import IconTrash from '../icons/icon-trash.component';
 
 import {
   Container,
@@ -16,6 +18,8 @@ import {
   Location,
   Time,
   Description,
+  ButtonEdit,
+  ButtonDelete,
 } from './education-experience-item.styles';
 
 interface EducationExperienceItemProps {
@@ -25,6 +29,7 @@ interface EducationExperienceItemProps {
   location: string;
   time: string;
   description: string;
+  editable?: boolean;
 }
 
 const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
@@ -34,26 +39,27 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
   location,
   time,
   description,
+  editable = false,
 }) => {
   const renderHeadingIcon = () => {
     switch (type) {
       case 'education':
-        return <IconGradCap />;
+        return <IconGradCap className="col-1" />;
 
       default:
       case 'experience':
-        return <IconBriefCase />;
+        return <IconBriefCase className="col-1" />;
     }
   };
 
   const renderSubHeadingIcon = () => {
     switch (type) {
       case 'education':
-        return <IconSchool />;
+        return <IconSchool className="col-1" />;
 
       case 'experience':
       default:
-        return <IconBuilding />;
+        return <IconBuilding className="col-1" />;
     }
   };
 
@@ -65,11 +71,23 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
       {renderSubHeadingIcon()}
       <SubHeading>{subtitle}</SubHeading>
 
-      <IconMapMarker />
+      <IconMapMarker className="col-1" />
       <Location>{location}</Location>
 
-      <IconCalendar />
+      <IconCalendar className="col-1" />
       <Time>{time}</Time>
+
+      {editable && (
+        <ButtonEdit>
+          <IconEdit />
+        </ButtonEdit>
+      )}
+
+      {editable && (
+        <ButtonDelete>
+          <IconTrash />
+        </ButtonDelete>
+      )}
 
       <Description>{description}</Description>
     </Container>

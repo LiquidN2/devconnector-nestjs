@@ -1,7 +1,10 @@
 import styled, { css } from 'styled-components';
 
 import Container from '../../components/UI/container.component';
-import { ButtonPrimary } from '../../components/UI/button.component';
+import {
+  ButtonPrimary,
+  ButtonLinkPrimary,
+} from '../../components/UI/button.component';
 
 export const ProfileContainer = styled(Container)`
   display: flex;
@@ -42,6 +45,6 @@ export const ColMiddle = styled.div`
 
 export const ColRightSpan = ColMiddle;
 
-export const EditProfileBtn = styled(ButtonPrimary)`
+export const EditProfileBtn = styled(ButtonLinkPrimary)`
   width: 100%;
 `;

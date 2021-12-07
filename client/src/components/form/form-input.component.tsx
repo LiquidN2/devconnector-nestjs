@@ -27,7 +27,7 @@ const FormInput: React.FC<FormInputProps> = ({
         </InputLabel>
       ) : null}
       {type === 'textarea' ? (
-        <TextArea onChange={handleChange} {...otherProps} rows={7} />
+        <TextArea onChange={handleChange} {...otherProps} rows={3} />
       ) : (
         <Input onChange={handleChange} type={type} {...otherProps} />
       )}

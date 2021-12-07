@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Helmet } from 'react-helmet';
 
@@ -16,7 +17,11 @@ import ProfileExperience from '../../components/profile/profile-experience.compo
 import ProfileEducation from '../../components/profile/profile-education.component';
 import ProfileSkills from '../../components/profile/profile-skills.component';
 
+import { ButtonPrimary } from '../../components/UI/button.component';
+
 const ProfilePage: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <ProfileContainer>
       <Helmet>
@@ -24,7 +29,7 @@ const ProfilePage: React.FC = () => {
       </Helmet>
       <ColLeft>
         <ProfileBaseBox />
-        <EditProfileBtn>Edit Profile</EditProfileBtn>
+        {/*<EditProfileBtn to="/profile/edit/main">Edit Profile</EditProfileBtn>*/}
       </ColLeft>
       <ColMiddle>
         <ProfileSummary />
