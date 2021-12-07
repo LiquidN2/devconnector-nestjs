@@ -1,26 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { FormEventHandler, useState } from 'react';
 
 import ContentBox from '../../content-box/content-box.component';
 import FormInput from '../../form/form-input.component';
 import FormDatePicker from '../../form/form-datepicker.component';
-import { BtnSavePrimary, Button } from '../../UI/button.component';
+import { BtnSavePrimary } from '../../UI/button.component';
 
-const FormContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 3rem;
-`;
+import { FormContainer, FullWidth } from './experience-form.styles';
 
 const ExperienceForm: React.FC = () => {
+  const [position, setPosition] = useState('');
+  const [company, setCompany] = useState('');
   const [from, setFrom] = useState<Date>(new Date());
-  const [to, setTo] = useState<Date>(new Date());
+  const [to, setTo] = useState<Date | null>(null);
+  const [location, setLocation] = useState('');
+
+  const handleSubmit: FormEventHandler = e => {
+    e.preventDefault();
+    console.log('form submitted');
+  };
 
   return (
-    <ContentBox heading="Add new work experience">
-      <FormContainer>
-        <FormInput label="Position" handleChange={e => console.log(e)} />
-        <FormInput label="Company" handleChange={e => console.log(e)} />
+    <ContentBox heading="Work Experience Details">
+      <FormContainer onSubmit={handleSubmit}>
+        <FormInput
+          label="Position"
+          id="position"
+          value={position}
+          handleChange={e => setPosition(e.currentTarget.value)}
+        />
+        <FormInput
+          label="Company"
+          id="company"
+          value={company}
+          handleChange={e => setCompany(e.currentTarget.value)}
+        />
         <FormDatePicker
           label="From"
           value={from}
@@ -33,11 +46,14 @@ const ExperienceForm: React.FC = () => {
           onChange={setTo}
           format="dd/MM/y"
         />
-        <div style={{ gridColumn: '1 / -1', marginBottom: '2rem' }}>
-          <FormInput label="Location" handleChange={e => console.log(e)} />
-        </div>
+        <FullWidth>
+          <FormInput
+            label="Location"
+            value={location}
+            handleChange={e => setLocation(e.currentTarget.value)}
+          />
+        </FullWidth>
         <BtnSavePrimary>Save</BtnSavePrimary>
-        {/*<Button>Close</Button>*/}
       </FormContainer>
     </ContentBox>
   );

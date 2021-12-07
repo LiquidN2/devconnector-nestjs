@@ -8,8 +8,8 @@ export const Overlay = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
   transition: all 0.2s;
-  //opacity: 0;
 `;
 
 export const Content = styled.div`
@@ -18,17 +18,21 @@ export const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 200;
-  //padding: 5rem;
-  //width: 50rem;
-  //height: 50rem;
   background-color: white;
-  //opacity: 0;
   transition: all 0.2s;
 `;
 
 export const ButtonClose = styled.button`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2rem;
+  right: 2rem;
   cursor: pointer;
+  border: none;
+  background: none;
+
+  &:hover > {
+    svg {
+      fill: var(--color-primary);
+    }
+  }
 `;

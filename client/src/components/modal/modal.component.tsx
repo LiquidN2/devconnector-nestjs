@@ -1,9 +1,6 @@
-import React, {
-  ButtonHTMLAttributes,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from 'react';
+import React, { MouseEventHandler, useEffect, useState } from 'react';
+
+import IconTimes from '../icons/icon-times.component';
 
 import { Overlay, Content, ButtonClose } from './modal.styles';
 
@@ -25,7 +22,7 @@ const Modal: React.FC<ModalProps> = ({
     setTimeout(() => {
       setOverlayOpacity(1);
       setContentOpacity(1);
-    }, 200);
+    }, 100);
   }, [modalHidden]);
 
   const handleCloseModal: MouseEventHandler<HTMLButtonElement> = () => {
@@ -33,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({
     setContentOpacity(0);
     setTimeout(() => {
       setModalHidden(true);
-    }, 200);
+    }, 100);
   };
 
   return !modalHidden ? (
@@ -41,7 +38,9 @@ const Modal: React.FC<ModalProps> = ({
       <Overlay style={{ opacity: `${overlayOpacity}` }} />
 
       <Content style={{ opacity: `${contentOpacity}` }}>
-        <ButtonClose onClick={handleCloseModal}>Close</ButtonClose>
+        <ButtonClose onClick={handleCloseModal}>
+          <IconTimes />
+        </ButtonClose>
         {children}
       </Content>
     </>

@@ -7,7 +7,7 @@ import {
 } from './form-datepicker.styles';
 
 interface FormDatePickerProps {
-  value: Date;
+  value: Date | null;
   onChange: (date: Date) => void;
   format?: string;
   label?: string;
