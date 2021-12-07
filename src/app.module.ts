@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { Module, ValidationPipe, MiddlewareConsumer } from '@nestjs/common';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -35,14 +35,18 @@ import { AuthModule } from './auth/auth.module';
     ProfilesModule,
 
     // Static Files Module
-    ServeStaticModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        if (configService.get<string>('NODE_ENV') === 'production') {
-          return [{ rootPath: resolve(__dirname, '..', 'client', 'build') }];
-        }
-        return [{ rootPath: resolve(__dirname) }];
-      },
+    // ServeStaticModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) => {
+    //     if (configService.get<string>('NODE_ENV') === 'production') {
+    //       return [{ rootPath: resolve(__dirname, '..', 'client', 'build') }];
+    //     }
+    //     return [{ rootPath: resolve(__dirname) }];
+    //   },
+    // }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client', 'build'),
+      exclude: ['/api*'],
     }),
   ],
 
