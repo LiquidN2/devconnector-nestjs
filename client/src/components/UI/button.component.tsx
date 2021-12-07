@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styled, { css, StyledComponent } from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -75,15 +75,18 @@ export const ButtonLinkPrimary = styled(ButtonLink)`
 const withIcon = (
   Icon: StyledComponent<any, any>,
   Btn: StyledComponent<any, any>,
-): React.FC<{ to?: string }> => {
-  return ({ children, to, ...props }) => {
+): React.FC<{
+  to?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+}> => {
+  return ({ children, to, onClick, ...props }) => {
     return to ? (
       <Btn to={to} {...props}>
         <Icon />
         {children}
       </Btn>
     ) : (
-      <Btn {...props}>
+      <Btn onClick={onClick} {...props}>
         <Icon />
         {children}
       </Btn>
