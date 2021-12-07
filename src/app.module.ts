@@ -35,8 +35,14 @@ import { AuthModule } from './auth/auth.module';
     ProfilesModule,
 
     // Static Files Module
-    ServeStaticModule.forRoot({
-      rootPath: resolve(__dirname, '..', 'client', 'build'),
+    ServeStaticModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        if (configService.get<string>('NODE_ENV') === 'production') {
+          return [{ rootPath: resolve(__dirname, '..', 'client', 'build') }];
+        }
+        return [{ rootPath: resolve(__dirname) }];
+      },
     }),
   ],
 
