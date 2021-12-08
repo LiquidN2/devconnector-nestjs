@@ -7,7 +7,6 @@ import { BtnAddPrimary, BtnLinkGoBack } from '../UI/button.component';
 import EducationExperienceItem from './education-experience-item.component';
 import Modal from '../modal/modal.component';
 import EducationForm from './forms/education-form.component';
-import ExperienceForm from './forms/experience-form.component';
 
 const EditEducation: React.FC = () => {
   const [modalHidden, setModalHidden] = useState(true);

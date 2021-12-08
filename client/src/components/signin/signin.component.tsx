@@ -16,7 +16,7 @@ import {
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error] = useState('');
 
   const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();

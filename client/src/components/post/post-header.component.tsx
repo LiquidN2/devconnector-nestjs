@@ -10,7 +10,6 @@ import {
   UserTitle,
   MenuAndTimeContainer,
   PostTime,
-  PostMenuContainer,
   PostMenuButton,
   ArrowUp,
   DropDownMenu,
@@ -18,7 +17,7 @@ import {
 } from './post-header.styles';
 
 const MenuButton: React.FC<{
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLElement>;
 }> = ({ onClick }) => {
   return (
     <PostMenuButton onClick={onClick}>
@@ -30,7 +29,7 @@ const MenuButton: React.FC<{
 const PostHeader: React.FC = () => {
   const [dropDownHidden, setDropDownHidden] = useState(true);
 
-  const toggleDropDownHidden: MouseEventHandler<HTMLButtonElement> = () => {
+  const toggleDropDownHidden: MouseEventHandler<HTMLElement> = () => {
     setDropDownHidden(!dropDownHidden);
   };
 
@@ -47,14 +46,14 @@ const PostHeader: React.FC = () => {
       <MenuAndTimeContainer>
         <PostTime>2 hours ago</PostTime>
         <MenuButton onClick={toggleDropDownHidden} />
-        {dropDownHidden ? (
+        {!dropDownHidden ? (
           <DropDownMenu>
             <ArrowUp />
             <DropDownMenuBtn>Edit</DropDownMenuBtn>
             <DropDownMenuBtn>Delete</DropDownMenuBtn>
           </DropDownMenu>
         ) : (
-          <div />
+          <div style={{ position: 'absolute', right: '0', top: '3.3rem' }} />
         )}
       </MenuAndTimeContainer>
     </HeaderContainer>

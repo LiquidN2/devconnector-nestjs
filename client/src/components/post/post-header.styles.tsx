@@ -46,8 +46,8 @@ export const MenuAndTimeContainer = styled.div`
   width: 50%;
   position: relative;
 
-  & > *:not(:last-child) {
-    margin-right: 0.5rem;
+  & > *:not(:first-child) {
+    margin-left: 1rem;
   }
 `;
 
@@ -61,17 +61,27 @@ export const PostMenuContainer = styled.div`
   position: relative;
 `;
 
-export const PostMenuButton = styled.button`
+export const PostMenuButton = styled.div`
   border: none;
   background-color: transparent;
-  font-size: 1.3rem;
-  padding: 1rem;
+  //font-size: 1.3rem;
+  //padding: 1.2rem;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+  position: relative;
 
   &:hover {
     cursor: pointer;
+    background-color: var(--color-grey-lightest);
   }
 
   svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: 1.5rem;
     width: 1.5rem;
     fill: var(--color-grey-light);
@@ -97,12 +107,12 @@ export const DropDownMenu = styled.div`
 export const ArrowUp = styled.div`
   height: 1rem;
   width: 1rem;
-  border-top: 1px solid var(--color-grey-light);
-  border-left: 1px solid var(--color-grey-light);
+  border-top: 1px solid var(--color-grey-lighter);
+  border-left: 1px solid var(--color-grey-lighter);
   background-color: white;
   transform: rotate(45deg);
   position: absolute;
-  right: 1.7rem;
+  right: 1rem;
   top: -0.6rem;
 `;
 
@@ -110,6 +120,7 @@ export const DropDownMenuBtn = styled.button`
   background-color: white;
   border: none;
   padding: 1rem 0;
+  z-index: 100;
 
   color: var(--color-primary);
 

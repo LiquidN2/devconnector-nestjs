@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Paragraph } from '../UI/paragraph.component';
-
 import IconBriefCase from '../icons/icon-briefcase.component';
 import IconBuilding from '../icons/icon-building.component';
 import IconMapMarker from '../icons/icon-mapmarker.component';
