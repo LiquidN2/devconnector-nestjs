@@ -4,6 +4,7 @@ import {
   ColMiddle,
   ColRight,
   ContentContainer,
+  ColRightSpan,
 } from '../../components/layout/content-layout.styles';
 import { Helmet } from 'react-helmet';
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
@@ -19,10 +20,9 @@ const ProfilePage: React.FC = () => {
       <ColLeft>
         <ProfileBaseBox />
       </ColLeft>
-      <ColMiddle>
+      <ColRightSpan>
         <Post />
-      </ColMiddle>
-      <ColRight>Connects</ColRight>
+      </ColRightSpan>
     </ContentContainer>
   );
 };
