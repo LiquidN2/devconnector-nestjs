@@ -1,15 +1,15 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
+
+import ProfileBaseBox from '../../components/profile/profile-base-box.component';
+import PostForm from '../../components/post/post-form.component';
+import Post from '../../components/post/post.component';
+
 import {
   ColLeft,
-  ColMiddle,
-  ColRight,
   ContentContainer,
   ColRightSpan,
 } from '../../components/layout/content-layout.styles';
-import { Helmet } from 'react-helmet';
-import ProfileBaseBox from '../../components/profile/profile-base-box.component';
-
-import Post from '../../components/post/post.component';
 
 const ProfilePage: React.FC = () => {
   return (
@@ -21,6 +21,7 @@ const ProfilePage: React.FC = () => {
         <ProfileBaseBox />
       </ColLeft>
       <ColRightSpan>
+        <PostForm />
         <Post />
       </ColRightSpan>
     </ContentContainer>

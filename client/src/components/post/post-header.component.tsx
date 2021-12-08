@@ -1,10 +1,11 @@
 import React, { MouseEventHandler, useState } from 'react';
 import IconElipsisH from '../icons/icon-elipsis-h.component';
 
+import Avatar from '../avatar/avatar.component';
+
 import {
   HeaderContainer,
   UserContainer,
-  UserImage,
   UserDescription,
   UserName,
   UserTitle,
@@ -36,7 +37,7 @@ const PostHeader: React.FC = () => {
   return (
     <HeaderContainer>
       <UserContainer>
-        <UserImage src="/img/users/user-4.jpg" alt="user name" />
+        <Avatar src="/img/users/user-4.jpg" />
         <UserDescription>
           <UserName>John Doe</UserName>
           <UserTitle>Developer</UserTitle>

@@ -14,18 +14,10 @@ export const UserContainer = styled.div`
   align-items: center;
 `;
 
-export const UserImage = styled.img`
-  width: 4rem;
-  height: 4rem;
-  border-radius: 10rem;
-  margin-right: 1.5rem;
-  border: 1px solid transparent;
-  cursor: pointer;
-`;
-
 export const UserDescription = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 1rem;
 `;
 
 export const UserName = styled.p`
