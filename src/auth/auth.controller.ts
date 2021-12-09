@@ -20,7 +20,7 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 enum AuthPath {
   Root = '/api/auth',
-  WhoAmI = 'whoami',
+  WhoAmI = '/whoami',
   SignIn = '/signin',
   SignUp = '/signup',
 }

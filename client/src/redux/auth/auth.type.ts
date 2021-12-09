@@ -1,3 +1,13 @@
+export interface FullfilledPayload {
+  access_token: string;
+}
+
+export interface AuthError {
+  statusCode: number;
+  message: string;
+  error: string;
+}
+
 export enum AuthStatusType {
   Authenticated = 'authenticated',
   Unauthenticated = 'unauthenticated',
@@ -16,5 +26,5 @@ export type AuthStatus =
 export interface AuthState {
   token: string | undefined;
   status: AuthStatus;
-  error: string | undefined;
+  error: any;
 }

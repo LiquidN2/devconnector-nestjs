@@ -11,7 +11,7 @@ interface DropdownMenuProps {
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
   hidden,
   children,
-  top = '4.8rem',
+  top = '3.3rem',
   right = '0',
 }) => {
   return !hidden ? (

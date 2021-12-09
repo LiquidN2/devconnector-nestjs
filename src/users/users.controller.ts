@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 
 // Guards
-import { AuthGuard } from '../guards/auth.guard';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 // Custom Decorators
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -30,33 +30,14 @@ import { User } from './schemas/user.schema';
 
 @Controller('/api/user')
 @Serialize(UserDto)
+@UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(
     private usersService: UsersService, // private authService: AuthService,
   ) {}
 
   @Get('/whoami')
-  @UseGuards(AuthGuard)
-  whoAmI(@CurrentUser() currentUser: User) {
-    return currentUser;
-  }
-
-  // @Post('/signup')
-  // async signup(@Body() body: CreateUserDto, @Session() session: any) {
-  //   const user = await this.authService.signup(body);
-  //   session.userId = user.id;
-  //   return user;
-  // }
-  //
-  // @Post('/signin')
-  // async signin(@Body() body: SigninDto, @Session() session: any) {
-  //   const user = await this.authService.signin(body.email, body.password);
-  //   session.userId = user.id;
-  //   return user;
-  // }
-
-  @Post('/signout')
-  signout(@Session() session: any) {
-    session.userId = null;
+  async whoami(@CurrentUser() user: any) {
+    return await this.usersService.findByEmail(user.email);
   }
 }

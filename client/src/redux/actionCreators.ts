@@ -1,1 +1,1 @@
-export { signInAsync } from './auth';
+export { signInAsync, signout, setToken, clearAuthError } from './auth';

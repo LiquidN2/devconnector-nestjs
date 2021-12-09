@@ -1,5 +1,11 @@
-import React, { FormEventHandler, MouseEventHandler, useState } from 'react';
+import React, {
+  FormEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
 
 import FormInput from '../form/form-input.component';
 import { ButtonPrimary, Button } from '../UI/button.component';
@@ -13,13 +19,31 @@ import {
 } from './signin.styles';
 
 import { useActions } from '../../hooks/useActions';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { selectAuthError } from '../../redux/auth/auth.selector';
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error] = useState('');
+  const [email, setEmail] = useState('test@test.com');
+  const [password, setPassword] = useState('asdvasdvasdv');
+  const [error, setError] = useState('');
 
-  const { signInAsync } = useActions();
+  const { signInAsync, clearAuthError } = useActions();
+  const authError = useAppSelector(selectAuthError);
+
+  useEffect(() => {
+    clearAuthError();
+  }, []);
+
+  useEffect(() => {
+    if (!authError) {
+      setError('');
+      return;
+    }
+
+    if (authError && authError.message) {
+      setError(authError.message);
+    }
+  }, [authError]);
 
   const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();

@@ -33,7 +33,7 @@ const ConnectionItem: React.FC<ConnectionItemProps> = ({ type = 'active' }) => {
         return (
           <ConnectionMenuContainer>
             <MenuButton onClick={toggleDropdownHidden} />
-            <DropdownMenu hidden={dropdownHidden}>
+            <DropdownMenu hidden={dropdownHidden} top="4.8rem">
               <DropdownMenuOption
                 type="button"
                 onClick={() => console.log('clicked')}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import DefaultLayout from './components/layout/default-layout.component';
@@ -11,7 +11,8 @@ import ConnectionsPage from './pages/connections/connections-page.component';
 
 import ProfileEdit from './pages/profile/profile-edit.component';
 
-// import PublicRoute from './routes/public-route.component';
+import PrivateRoute from './routes/private-route.component';
+import PublicRoute from './routes/public-route.component';
 
 import './App.scss';
 
@@ -20,7 +21,14 @@ const App: React.FC = () => {
     <>
       <Routes>
         {/* PRIVATE Access Only */}
-        <Route path="/" element={<DefaultLayout />}>
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <DefaultLayout />
+            </PrivateRoute>
+          }
+        >
           <Route index element={<Navigate to="/posts" />} />
           <Route
             path="profile/edit/main"
@@ -48,9 +56,9 @@ const App: React.FC = () => {
         <Route
           path="auth"
           element={
-            // <PublicRoute>
-            <AuthPage />
-            // </PublicRoute>
+            <PublicRoute>
+              <AuthPage />
+            </PublicRoute>
           }
         >
           <Route index element={<Navigate to="/auth/signin" />} />
