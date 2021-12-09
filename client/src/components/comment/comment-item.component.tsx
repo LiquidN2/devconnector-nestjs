@@ -5,7 +5,6 @@ import Avatar from '../avatar/avatar.component';
 import {
   CommentContainer,
   UserPhotoContainer,
-  UserPhoto,
   UserName,
   CommentDateTime,
   CommentContent,

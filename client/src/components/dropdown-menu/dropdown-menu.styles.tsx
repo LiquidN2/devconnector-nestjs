@@ -22,6 +22,6 @@ export const ArrowUp = styled.div`
   background-color: white;
   transform: rotate(45deg);
   position: absolute;
-  right: 1rem;
+  right: 0.8rem;
   top: -0.6rem;
 `;

@@ -3,7 +3,6 @@ import React, { FormEventHandler, useState } from 'react';
 import { FormContainer, BtnAddComment } from './comment-form.styles';
 
 import FormInput from '../form/form-input.component';
-import { ButtonPrimary } from '../UI/button.component';
 
 const CommentForm: React.FC = () => {
   const [comment, setComment] = useState('');

@@ -6,7 +6,7 @@ import ConnectionItem from './connection-item.component';
 const ConnectionPending: React.FC = () => {
   return (
     <ConnectionBox heading="Pending Connection Request" subHeading="1 request">
-      <ConnectionItem />
+      <ConnectionItem type="pending" />
     </ConnectionBox>
   );
 };

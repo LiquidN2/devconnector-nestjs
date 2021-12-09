@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useState } from 'react';
 
 import Avatar from '../avatar/avatar.component';
-import MenuButton from '../UI/button-menu.component';
+import MenuButton from '../dropdown-menu/button-menu.component';
 import DropdownMenu from '../dropdown-menu/dropdown-menu.component';
 import DropdownMenuOption from '../dropdown-menu/dropdown-menu-option.component';
 

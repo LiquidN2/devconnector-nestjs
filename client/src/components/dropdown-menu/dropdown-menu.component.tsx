@@ -4,13 +4,19 @@ import { MenuContainer, ArrowUp } from './dropdown-menu.styles';
 
 interface DropdownMenuProps {
   hidden: boolean;
+  top?: string;
+  right?: string;
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ hidden, children }) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  hidden,
+  children,
+  top = '4.8rem',
+  right = '0',
+}) => {
   return !hidden ? (
-    <MenuContainer>
+    <MenuContainer style={{ top, right }}>
       <ArrowUp />
-
       {children}
     </MenuContainer>
   ) : (

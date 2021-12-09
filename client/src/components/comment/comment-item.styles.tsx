@@ -16,13 +16,6 @@ export const UserPhotoContainer = styled.div`
   grid-row: 1 / span 2;
 `;
 
-export const UserPhoto = styled.img`
-  height: 4rem;
-  width: 4rem;
-  border-radius: 50%;
-  grid-row: 1 / span 2;
-`;
-
 export const UserName = styled.span`
   font-size: 1.4rem;
   font-weight: 500;

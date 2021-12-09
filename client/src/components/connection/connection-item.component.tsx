@@ -1,9 +1,10 @@
 import React, { MouseEventHandler, useState } from 'react';
 
 import Avatar from '../avatar/avatar.component';
-import MenuButton from '../UI/button-menu.component';
+import MenuButton from '../dropdown-menu/button-menu.component';
 import DropdownMenu from '../dropdown-menu/dropdown-menu.component';
 import DropdownMenuOption from '../dropdown-menu/dropdown-menu-option.component';
+import { ButtonPrimary, Button } from '../UI/button.component';
 
 import {
   ConnectionItemContainer,
@@ -14,11 +15,43 @@ import {
   ConnectionMenuContainer,
 } from './connection-item.styles';
 
-const ConnectionItem: React.FC = () => {
+interface ConnectionItemProps {
+  type?: 'pending' | 'active';
+}
+
+const ConnectionItem: React.FC<ConnectionItemProps> = ({ type = 'active' }) => {
   const [dropdownHidden, setDropdownHidden] = useState(true);
 
   const toggleDropdownHidden: MouseEventHandler<HTMLElement> = () => {
     setDropdownHidden(!dropdownHidden);
+  };
+
+  const renderMenu = (type: 'pending' | 'active') => {
+    switch (type) {
+      default:
+      case 'active':
+        return (
+          <ConnectionMenuContainer>
+            <MenuButton onClick={toggleDropdownHidden} />
+            <DropdownMenu hidden={dropdownHidden}>
+              <DropdownMenuOption
+                type="button"
+                onClick={() => console.log('clicked')}
+              >
+                Remove
+              </DropdownMenuOption>
+            </DropdownMenu>
+          </ConnectionMenuContainer>
+        );
+
+      case 'pending':
+        return (
+          <ConnectionMenuContainer>
+            <ButtonPrimary>Accept</ButtonPrimary>
+            <Button>Decline</Button>
+          </ConnectionMenuContainer>
+        );
+    }
   };
 
   return (
@@ -29,17 +62,7 @@ const ConnectionItem: React.FC = () => {
         <UserCompany>Developer at ABC Pty Ltd</UserCompany>
         <UserLocation>Melbourne VIC, Australia</UserLocation>
       </UserContainer>
-      <ConnectionMenuContainer>
-        <MenuButton onClick={toggleDropdownHidden} />
-        <DropdownMenu hidden={dropdownHidden}>
-          <DropdownMenuOption
-            type="button"
-            onClick={() => console.log('clicked')}
-          >
-            Option 3
-          </DropdownMenuOption>
-        </DropdownMenu>
-      </ConnectionMenuContainer>
+      {renderMenu(type)}
     </ConnectionItemContainer>
   );
 };
