@@ -1,4 +1,9 @@
-import React, { FormEventHandler, MouseEventHandler, useState } from 'react';
+import React, {
+  FormEventHandler,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from 'react';
 import { Helmet } from 'react-helmet';
 
 import FormInput from '../form/form-input.component';
@@ -13,37 +18,48 @@ import {
   ButtonsGroup,
   FormError,
 } from './signup.styles';
+import { useActions } from '../../hooks/useActions';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { selectAuthError } from '../../redux/auth/auth.selector';
 
 const SignUp: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
 
-  const handleSubmit: FormEventHandler = e => {
+  const { authenticateAsync, clearAuthError } = useActions();
+  const authError = useAppSelector(selectAuthError);
+
+  useEffect(() => {
+    if (!authError || !authError.message) return;
+    clearAuthError();
+  }, []);
+
+  const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();
 
     const formData = {
       name: name.trim(),
       email: email.trim(),
       password: password.trim(),
-      confirmPassword: confirmPassword.trim(),
+      passwordConfirm: passwordConfirm.trim(),
     };
 
-    if (formData.password !== formData.confirmPassword) {
-      setError('confirm password does not match');
-      return;
-    }
-
-    console.log(email, password);
+    await authenticateAsync({
+      type: 'signup',
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      passwordConfirm: formData.passwordConfirm,
+    });
   };
 
   const handleResetForm: MouseEventHandler<HTMLButtonElement> = () => {
     setName('');
     setEmail('');
     setPassword('');
-    setConfirmPassword('');
+    setPasswordConfirm('');
   };
 
   return (
@@ -92,24 +108,26 @@ const SignUp: React.FC = () => {
           placeholder="Confirm Password"
           type="password"
           required={true}
-          value={confirmPassword}
-          handleChange={e => setConfirmPassword(e.currentTarget.value)}
+          value={passwordConfirm}
+          handleChange={e => setPasswordConfirm(e.currentTarget.value)}
         />
-        <FormCheckbox id="agreetnc">
+        <FormCheckbox id="agreetnc" required={true}>
           I agree with the{' '}
           <LinkText href="#" target="_blank">
             Terms & Conditions
           </LinkText>
         </FormCheckbox>
         <ButtonsGroup>
-          <ButtonPrimary type="submit">Sign Up</ButtonPrimary>
+          <ButtonPrimary type="submit">Submit</ButtonPrimary>
           <Button type="reset" onClick={handleResetForm}>
             Reset
           </Button>
         </ButtonsGroup>
       </SignUpFormContainer>
 
-      {error && <FormError>{error}</FormError>}
+      {authError && authError.message && (
+        <FormError>{authError.message}</FormError>
+      )}
     </SignUpContainer>
   );
 };

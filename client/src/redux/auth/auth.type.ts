@@ -2,29 +2,35 @@ export interface FullfilledPayload {
   access_token: string;
 }
 
-export interface AuthError {
+export interface RejectedPayload {
   statusCode: number;
   message: string;
   error: string;
 }
 
 export enum AuthStatusType {
-  Authenticated = 'authenticated',
-  Unauthenticated = 'unauthenticated',
-  Pending = 'pending',
-  Unknown = 'unknown',
-  Error = 'error',
+  Loading = 'loading',
+  Fulfilled = 'fulfilled',
+  Rejected = 'rejected',
+  Idle = 'idle',
 }
 
 export type AuthStatus =
-  | AuthStatusType.Authenticated
-  | AuthStatusType.Unauthenticated
-  | AuthStatusType.Pending
-  | AuthStatusType.Error
-  | AuthStatusType.Unknown;
+  | AuthStatusType.Loading
+  | AuthStatusType.Fulfilled
+  | AuthStatusType.Rejected
+  | AuthStatusType.Idle;
 
 export interface AuthState {
   token: string | undefined;
   status: AuthStatus;
   error: any;
+}
+
+export interface AuthRequestType {
+  type: 'signin' | 'signup';
+  email: string;
+  password: string;
+  name?: string;
+  passwordConfirm?: string;
 }

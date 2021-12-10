@@ -9,14 +9,19 @@ import {
 
 interface FormCheckboxProps {
   id: string;
+  required?: boolean;
 }
 
-const FormCheckbox: React.FC<FormCheckboxProps> = ({ id, children }) => {
+const FormCheckbox: React.FC<FormCheckboxProps> = ({
+  id,
+  required = false,
+  children,
+}) => {
   return (
     <InputGroup>
       <CheckboxContainer htmlFor={id}>
         {children}
-        <CheckboxInput type="checkbox" id={id} />
+        <CheckboxInput type="checkbox" id={id} required={required} />
         <CheckMark />
       </CheckboxContainer>
     </InputGroup>

@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 
 // DTOS
 import { SigninDto } from './dtos/signin.dto';
-import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { SignupDto } from './dtos/signup.dto';
 
 // GUARDS
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
@@ -41,7 +41,7 @@ export class AuthController {
   }
 
   @Post(AuthPath.SignUp)
-  async signup(@Body() body: CreateUserDto) {
+  async signup(@Body() body: SignupDto) {
     return await this.authService.signup(body);
   }
 }

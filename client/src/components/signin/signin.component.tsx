@@ -5,7 +5,6 @@ import React, {
   useState,
 } from 'react';
 import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
 
 import FormInput from '../form/form-input.component';
 import { ButtonPrimary, Button } from '../UI/button.component';
@@ -23,31 +22,32 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { selectAuthError } from '../../redux/auth/auth.selector';
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState('test@test.com');
-  const [password, setPassword] = useState('asdvasdvasdv');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState('hhnguyen255@gmail.com');
+  const [password, setPassword] = useState('test1234');
 
-  const { signInAsync, clearAuthError } = useActions();
+  const { authenticateAsync, clearAuthError } = useActions();
   const authError = useAppSelector(selectAuthError);
 
   useEffect(() => {
+    if (!authError || !authError.message) return;
+
+    // Clear all previous signin error upon component load
     clearAuthError();
   }, []);
 
-  useEffect(() => {
-    if (!authError) {
-      setError('');
-      return;
-    }
-
-    if (authError && authError.message) {
-      setError(authError.message);
-    }
-  }, [authError]);
-
   const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();
-    await signInAsync({ email, password });
+
+    const formData = {
+      email: email.trim(),
+      password: password.trim(),
+    };
+
+    await authenticateAsync({
+      type: 'signin',
+      email: formData.email,
+      password: formData.password,
+    });
   };
 
   const handleResetForm: MouseEventHandler<HTMLButtonElement> = () => {
@@ -85,14 +85,16 @@ const SignIn: React.FC = () => {
           handleChange={e => setPassword(e.currentTarget.value)}
         />
         <ButtonsGroup>
-          <ButtonPrimary type="submit">Sign In</ButtonPrimary>
+          <ButtonPrimary type="submit">Submit</ButtonPrimary>
           <Button type="reset" onClick={handleResetForm}>
             Reset
           </Button>
         </ButtonsGroup>
       </SignInFormContainer>
 
-      {error && <FormError>{error}</FormError>}
+      {authError && authError.message && (
+        <FormError>{authError.message}</FormError>
+      )}
     </SignInContainer>
   );
 };

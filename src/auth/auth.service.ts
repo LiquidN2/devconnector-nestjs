@@ -8,7 +8,7 @@ import { promisify } from 'util';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from '../users/users.service';
-import { CreateUserDto } from '../users/dtos/create-user.dto';
+import { SignupDto } from './dtos/signup.dto';
 
 import { UserDocument } from '../users/schemas/user.schema';
 
@@ -26,7 +26,12 @@ export class AuthService {
     return { access_token: this.jwtService.sign(payload) };
   }
 
-  async signup({ email, password, name }: CreateUserDto) {
+  async signup({ email, password, passwordConfirm, name }: SignupDto) {
+    // check if password confirm matches
+    if (password !== passwordConfirm) {
+      throw new BadRequestException('confirm password must match password');
+    }
+
     // Check if email is existing
     const user = await this.usersService.findByEmail(email);
     if (user) {
