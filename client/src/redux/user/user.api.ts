@@ -6,7 +6,7 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api/user/' }),
   endpoints: builder => ({
     getWhoAmI: builder.query<User, string | undefined>({
-      query: (token: string = '') => ({
+      query: token => ({
         url: 'whoami',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -17,5 +17,3 @@ export const userApi = createApi({
 });
 
 export const { useGetWhoAmIQuery } = userApi;
-export const userApiReducer = userApi.reducer;
-export const userApiMiddleware = userApi.middleware;

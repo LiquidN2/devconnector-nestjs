@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, useEffect, useRef } from 'react';
 
 import { InputGroup, InputLabel, Input, TextArea } from './form-input.styles';
 
@@ -11,14 +11,29 @@ export interface FormInputProps {
   name?: string;
   required?: boolean;
   placeholder?: string;
+  isFocused?: boolean;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
   label,
   type = 'text',
   handleChange,
+  isFocused = false,
   ...otherProps
 }) => {
+  const inputElem = useRef<HTMLInputElement | null>(null);
+  const textAreaElem = useRef<HTMLTextAreaElement | null>(null);
+
+  useEffect(() => {
+    if (!isFocused) return;
+
+    if (type === 'textarea') {
+      textAreaElem.current?.focus();
+    }
+
+    inputElem.current?.focus();
+  }, []);
+
   return (
     <InputGroup>
       {label ? (
@@ -27,9 +42,19 @@ const FormInput: React.FC<FormInputProps> = ({
         </InputLabel>
       ) : null}
       {type === 'textarea' ? (
-        <TextArea onChange={handleChange} {...otherProps} rows={3} />
+        <TextArea
+          onChange={handleChange}
+          {...otherProps}
+          rows={3}
+          ref={textAreaElem}
+        />
       ) : (
-        <Input onChange={handleChange} type={type} {...otherProps} />
+        <Input
+          onChange={handleChange}
+          type={type}
+          {...otherProps}
+          ref={inputElem}
+        />
       )}
     </InputGroup>
   );

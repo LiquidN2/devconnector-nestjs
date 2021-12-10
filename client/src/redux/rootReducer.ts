@@ -3,11 +3,13 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
 import { authReducer } from './auth';
-import { userApi, userApiReducer } from './user/user.api';
+import { userApi } from './user/user.api';
+import { profileApi } from './profile/profile.api';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
-  [userApi.reducerPath]: userApiReducer,
+  [userApi.reducerPath]: userApi.reducer,
+  [profileApi.reducerPath]: profileApi.reducer,
 });
 
 const persistConfig = {

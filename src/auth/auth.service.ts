@@ -11,6 +11,7 @@ import { UsersService } from '../users/users.service';
 import { SignupDto } from './dtos/signup.dto';
 
 import { UserDocument } from '../users/schemas/user.schema';
+import { JwtPayload } from './strategies/jwt.strategy';
 
 const script = promisify(_script);
 
@@ -22,7 +23,7 @@ export class AuthService {
   ) {}
 
   createJwtToken(user: UserDocument): { access_token: string } {
-    const payload = { username: user.email, sub: user.id };
+    const payload: JwtPayload = { username: user.email, sub: user.id };
     return { access_token: this.jwtService.sign(payload) };
   }
 

@@ -1,17 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 import { User } from '../../users/schemas/user.schema';
+import { Education } from './education.schema';
+import { Experience } from './experience.schema';
 
 export type ProfileDocument = Profile & Document;
-
-@Schema()
-class Education {
-  @Prop({ required: true })
-  school: string;
-
-  @Prop({ required: true })
-  qualification: string;
-}
 
 @Schema({ timestamps: { createdAt: 'created', updatedAt: 'updated' } })
 export class Profile {
@@ -45,11 +38,17 @@ export class Profile {
   @Prop()
   githubUser: string;
 
+  @Prop()
+  linkedIn: string;
+
   @Prop([String])
   skills: string[];
 
-  // @Prop([Education])
-  // education: Education[];
+  @Prop([Education])
+  educations: Education[];
+
+  @Prop([Experience])
+  experiences: Experience[];
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

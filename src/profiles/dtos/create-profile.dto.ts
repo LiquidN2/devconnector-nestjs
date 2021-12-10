@@ -1,6 +1,6 @@
-import { IsString } from 'class-validator';
+import { IsString, IsAlphanumeric, Matches } from 'class-validator';
 
 export class CreateProfileDto {
-  @IsString()
+  @IsAlphanumeric()
   handle: string;
 }

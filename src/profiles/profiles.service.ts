@@ -16,8 +16,12 @@ export class ProfilesService {
     private readonly profileModel: Model<ProfileDocument>,
   ) {}
 
+  // ------------------------
+  // FIND
   async findById(id: string) {
-    return this.profileModel.findById(id);
+    return this.profileModel
+      .findById(id)
+      .populate('user', ['name', 'email', 'avatar']);
   }
 
   async findByUserId(userId: string) {
@@ -26,6 +30,8 @@ export class ProfilesService {
       .populate('user', ['name', 'email', 'avatar']);
   }
 
+  // ------------------------
+  // CREATE
   async create(userId: string, createProfileDto: CreateProfileDto) {
     const profile = await this.findByUserId(userId);
     if (profile) {
@@ -39,8 +45,10 @@ export class ProfilesService {
     return await newProfile.save();
   }
 
+  // ------------------------
+  // UPDATE
   async update(profileId: string, attrs: Partial<ProfileDocument>) {
-    const profile = await this.profileModel.findById(profileId);
+    const profile = await this.findById(profileId);
     if (!profile) {
       throw new NotFoundException('profile not found');
     }

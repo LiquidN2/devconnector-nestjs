@@ -1,12 +1,15 @@
 import styled, { css } from 'styled-components';
 
 export const InputGroup = styled.div`
-  margin-bottom: 2.5rem;
   display: flex;
   flex-direction: column;
 
   & > *:not(:last-child) {
     margin-bottom: 0.8rem;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 2.5rem;
   }
 `;
 
