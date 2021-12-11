@@ -65,7 +65,7 @@ const EditMain: React.FC = () => {
 
     updateProfile({ token: authToken, body });
 
-    refetch();
+    // refetch();
   };
 
   return (

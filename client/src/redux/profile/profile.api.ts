@@ -4,6 +4,7 @@ import { Profile } from './profile.type';
 export const profileApi = createApi({
   reducerPath: 'profileApi',
   baseQuery: fetchBaseQuery({ baseUrl: '/api/profiles' }),
+  tagTypes: ['Profile'],
   endpoints: builder => ({
     getMyProfile: builder.query<Profile, string | undefined>({
       query: token => ({
@@ -24,6 +25,7 @@ export const profileApi = createApi({
           Authorization: `Bearer ${token}`,
         },
       }),
+      providesTags: ['Profile'],
     }),
 
     createMyProfileHandle: builder.mutation<
@@ -52,6 +54,7 @@ export const profileApi = createApi({
         },
         body: body,
       }),
+      invalidatesTags: ['Profile'],
     }),
   }),
 });
