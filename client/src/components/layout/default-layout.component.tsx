@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 import Header from '../header/header.component';
 import NavBar from '../navigation/nav-bar.component';
@@ -14,25 +15,34 @@ import { useMyProfile } from '../../hooks/useMyProfile';
 
 const DefaultLayout: React.FC = () => {
   const { data, error, isLoading } = useMyProfile();
+  const queryError = error as FetchBaseQueryError;
+
+  if (isLoading)
+    return (
+      <ContentContainer>
+        <LoadingSpinner />
+      </ContentContainer>
+    );
+
+  const profileNotFound =
+    !isLoading &&
+    (!data || !data._id || (queryError && queryError.status === 404));
+
+  if (profileNotFound)
+    return (
+      <ContentContainer>
+        <Container>
+          <CreateHandleForm />
+        </Container>
+      </ContentContainer>
+    );
 
   return (
     <>
       <Header />
-      {!isLoading && data && data._id && <NavBar />}
+      <NavBar />
       <MainSection>
-        {isLoading && (
-          <ContentContainer>
-            <LoadingSpinner />
-          </ContentContainer>
-        )}
-
-        {!isLoading && (!data || !data._id) && (
-          <Container style={{ marginTop: '3rem' }}>
-            <CreateHandleForm />
-          </Container>
-        )}
-
-        {!isLoading && data && data._id && <Outlet />}
+        <Outlet />
       </MainSection>
       <Footer />
     </>

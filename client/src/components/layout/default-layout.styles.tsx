@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 
 export const MainSection = styled.main`
-  //background-color: red;
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
   width: 100%;
 `;
 

@@ -15,7 +15,7 @@ export const PostFormContainer = styled.form`
   align-items: center;
 
   & > div {
-    margin-bottom: 0;
+    margin-bottom: 0 !important;
   }
 `;
 
