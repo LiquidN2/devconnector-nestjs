@@ -11,10 +11,10 @@ import Container from '../UI/container.component';
 import CreateHandleForm from '../profile/forms/create-handle-form.component';
 
 import { MainSection, ContentContainer } from './default-layout.styles';
-import { useMyProfile } from '../../hooks/useMyProfile';
+import { useMyProfile, useProfile } from '../../hooks/useProfile';
 
 const DefaultLayout: React.FC = () => {
-  const { data, error, isLoading } = useMyProfile();
+  const { data, error, isLoading } = useProfile('');
   const queryError = error as FetchBaseQueryError;
 
   if (isLoading)

@@ -10,8 +10,9 @@ import { StyledSocialLink } from './social-link.styles';
 
 interface SocialLinkProps {
   type: string;
-  url: string;
-  label: string;
+  url?: string;
+  label?: string;
+  target?: '_blank';
 }
 
 const renderIcon = (type: string) => {
@@ -38,13 +39,18 @@ const renderIcon = (type: string) => {
   }
 };
 
-const SocialLink: React.FC<SocialLinkProps> = ({ type, url, label }) => {
-  return (
-    <StyledSocialLink href={url}>
+const SocialLink: React.FC<SocialLinkProps> = ({
+  type,
+  url,
+  label,
+  target,
+}) => {
+  return label ? (
+    <StyledSocialLink href={url} target={target}>
       {renderIcon(type)}
       <span>{label}</span>
     </StyledSocialLink>
-  );
+  ) : null;
 };
 
 export default SocialLink;

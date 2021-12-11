@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
 import SocialLink from './social-link.component';
 
@@ -21,16 +20,32 @@ import {
 
 import { BtnLinkEditPrimary } from '../UI/button.component';
 
-const ProfileBaseBox: React.FC = () => {
-  const location = useLocation();
-  const { pathname } = location;
+import { useProfile } from '../../hooks/useProfile';
+
+interface ProfileBaseBoxProps {
+  profileId?: string;
+}
+
+const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({ profileId = '' }) => {
+  const { data } = useProfile(profileId);
+
+  if (!data) return <div>No user data</div>;
+
+  const {
+    handle,
+    website,
+    linkedIn,
+    github,
+    location,
+    user: { name, email, avatar },
+  } = data;
 
   return (
     <BoxContainer>
       <PhotoContainer>
-        <Photo src="/img/users/user-4.jpg" />
-        <Name>John Doe</Name>
-        <Location>Sydney, NSW</Location>
+        <Photo src={avatar} alt={name} />
+        <Name>{name}</Name>
+        <Location>{location}</Location>
       </PhotoContainer>
 
       <ConnectionsPostsContainer>
@@ -45,18 +60,24 @@ const ProfileBaseBox: React.FC = () => {
       </ConnectionsPostsContainer>
 
       <SocialMediaContainer>
-        <SocialLink type="handle" url="#" label="jdoe" />
+        <SocialLink type="handle" url="/" label={handle} />
+        <SocialLink type="email" url={`mailto:${email}`} label={email} />
         <SocialLink
-          type="email"
-          url="mailto:jdoe@test.com"
-          label="jdoe@test.com"
+          type="website"
+          url={`http://${website}`}
+          label={website}
+          target="_blank"
         />
-        <SocialLink type="website" url="#" label="johndoe.io" />
-        <SocialLink type="github" url="#" label="johndoedev" />
-        <SocialLink type="linkedin" url="#" label="johndoe" />
+        <SocialLink
+          type="github"
+          url={`https://github.com/${github}`}
+          label={github}
+          target="_blank"
+        />
+        <SocialLink type="linkedin" url="#" label={linkedIn} target="_blank" />
       </SocialMediaContainer>
 
-      {pathname.startsWith('/profile') && (
+      {!profileId && (
         <BtnLinkEditPrimary to="/profile/edit/main">
           Edit Profile
         </BtnLinkEditPrimary>

@@ -15,7 +15,7 @@ interface Education {
 }
 
 export interface Profile {
-  user: Partial<User>;
+  user: User;
   _id: string;
   handle: string;
   created: Date;
@@ -24,8 +24,8 @@ export interface Profile {
   website: string;
   location: string;
   status: string;
-  bio: string;
-  githubUser: string;
+  about: string;
+  github: string;
   linkedIn: string;
   skills: string[];
   educations: Education[];

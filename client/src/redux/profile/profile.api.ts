@@ -14,6 +14,18 @@ export const profileApi = createApi({
       }),
     }),
 
+    getProfile: builder.query<
+      Profile,
+      { token: string | undefined; profileId: string | undefined }
+    >({
+      query: ({ token, profileId }) => ({
+        url: profileId ? `/${profileId}` : '/me',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+
     createMyProfileHandle: builder.mutation<
       Profile,
       { token: string | undefined; handle: string | undefined }
@@ -27,8 +39,26 @@ export const profileApi = createApi({
         body: { handle },
       }),
     }),
+
+    updateMyProfile: builder.mutation<
+      Profile,
+      { token: string | undefined; body: Partial<Profile> }
+    >({
+      query: ({ token, body }) => ({
+        url: '/me',
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const { useGetMyProfileQuery, useCreateMyProfileHandleMutation } =
-  profileApi;
+export const {
+  useGetMyProfileQuery,
+  useGetProfileQuery,
+  useCreateMyProfileHandleMutation,
+  useUpdateMyProfileMutation,
+} = profileApi;

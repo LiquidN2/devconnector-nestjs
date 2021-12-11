@@ -1,4 +1,4 @@
-import React, { FormEventHandler } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 
 import FormInput from '../../form/form-input.component';
 import ContentBox from '../../content-box/content-box.component';
@@ -6,9 +6,66 @@ import { BtnSavePrimary, BtnLinkGoBack } from '../../UI/button.component';
 
 import { FormContainer, ButtonsGroup } from './edit-main.styles';
 
+import { useAppSelector } from '../../../hooks/useAppSelector';
+import { selectAuthToken } from '../../../redux/auth/auth.selector';
+import { useProfile } from '../../../hooks/useProfile';
+import { useUpdateMyProfileMutation } from '../../../redux/profile/profile.api';
+
 const EditMain: React.FC = () => {
+  const [inputHandle, setInputHandle] = useState('');
+  const [inputStatus, setInputStatus] = useState('');
+  const [inputWebsite, setInputWebsite] = useState('');
+  const [inputCompany, setInputCompany] = useState('');
+  const [inputLocation, setInputLocation] = useState('');
+  const [inputAbout, setInputAbout] = useState('');
+  const [inputGithub, setInputGithub] = useState('');
+  const [inputLinkedIn, setInputLinkedIn] = useState('');
+  const [inputSkills, setInputSkills] = useState<string[]>(['']);
+
+  const { data, refetch } = useProfile('');
+
+  useEffect(() => {
+    if (!data) return;
+    const {
+      handle = '',
+      status = '',
+      website = '',
+      company = '',
+      location = '',
+      linkedIn = '',
+      github = '',
+      about = '',
+    } = data;
+
+    setInputHandle(handle);
+    setInputStatus(status);
+    setInputWebsite(website);
+    setInputCompany(company);
+    setInputLocation(location);
+    setInputGithub(github);
+    setInputLinkedIn(linkedIn);
+    setInputAbout(about);
+  }, [data]);
+
+  const authToken = useAppSelector(selectAuthToken);
+  const [updateProfile, { isLoading, isSuccess }] =
+    useUpdateMyProfileMutation();
+
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
+
+    const body = {
+      handle: inputHandle,
+      location: inputLocation,
+      website: inputWebsite,
+      company: inputCompany,
+      status: inputStatus,
+      linkedIn: inputLinkedIn,
+    };
+
+    updateProfile({ token: authToken, body });
+
+    refetch();
   };
 
   return (
@@ -16,27 +73,50 @@ const EditMain: React.FC = () => {
       <FormContainer onSubmit={handleSubmit}>
         <FormInput
           label="Handle"
-          handleChange={e => console.log()}
+          value={inputHandle}
+          handleChange={e => setInputHandle(e.currentTarget.value)}
           required={true}
           placeholder="e.g. devninja"
         />
         <FormInput
           label="Status / Position"
-          handleChange={e => console.log()}
+          value={inputStatus}
+          handleChange={e => setInputStatus(e.currentTarget.value)}
           placeholder="e.g. Fullstack Developer"
         />
-        <FormInput label="Website" handleChange={e => console.log()} />
-        <FormInput label="Company" handleChange={e => console.log()} />
-        <FormInput label="Location" handleChange={e => console.log()} />
+        <FormInput
+          label="Website"
+          value={inputWebsite}
+          handleChange={e => setInputWebsite(e.currentTarget.value)}
+        />
+        <FormInput
+          label="Company"
+          value={inputCompany}
+          handleChange={e => setInputCompany(e.currentTarget.value)}
+        />
+        <FormInput
+          label="Location"
+          value={inputLocation}
+          handleChange={e => setInputLocation(e.currentTarget.value)}
+        />
+        <FormInput
+          label="Github username"
+          value={inputGithub}
+          handleChange={e => setInputGithub(e.currentTarget.value)}
+        />
+        <FormInput
+          label="LinkedIn"
+          value={inputLinkedIn}
+          handleChange={e => setInputLinkedIn(e.currentTarget.value)}
+        />
         <FormInput label="Skills" handleChange={e => console.log()} />
-        <FormInput label="Github" handleChange={e => console.log()} />
-        <FormInput label="LinkedIn" handleChange={e => console.log()} />
 
-        <div style={{ gridColumn: '1 / -1' }}>
+        <div style={{ gridColumn: '1 / -1', marginBottom: '2rem' }}>
           <FormInput
             type="textarea"
             label="About you"
-            handleChange={e => console.log()}
+            value={inputAbout}
+            handleChange={e => setInputAbout(e.currentTarget.value)}
           />
         </div>
 

@@ -33,10 +33,10 @@ export class Profile {
   status: string;
 
   @Prop()
-  bio: string;
+  about: string;
 
   @Prop()
-  githubUser: string;
+  github: string;
 
   @Prop()
   linkedIn: string;
