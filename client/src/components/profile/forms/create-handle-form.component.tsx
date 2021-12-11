@@ -1,14 +1,24 @@
 import React, { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
+import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 import ContentBox from '../../content-box/content-box.component';
 import FormInput from '../../form/form-input.component';
 import { ButtonPrimary } from '../../UI/button.component';
 
 import { FormContainer, FormError } from './create-handle-form.styles';
 
+import { useAppSelector } from '../../../hooks/useAppSelector';
+import { selectAuthToken } from '../../../redux/auth/auth.selector';
+import { useCreateMyProfileHandleMutation } from '../../../redux/profile/profile.api';
+
 const CreateHandleForm: React.FC = () => {
   const [handle, setHandle] = useState('');
   const [error, setError] = useState('');
+
+  const authToken = useAppSelector(selectAuthToken);
+
+  const [updateHandle, { isLoading, isSuccess }] =
+    useCreateMyProfileHandleMutation();
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
     const input = e.currentTarget.value;
@@ -23,7 +33,16 @@ const CreateHandleForm: React.FC = () => {
 
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
+    if (!authToken || !handle) return;
+    updateHandle({ token: authToken, handle });
   };
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (isSuccess) {
+    window.location.reload();
+    return null;
+  }
 
   return (
     <ContentBox
