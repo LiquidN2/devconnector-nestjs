@@ -40,6 +40,7 @@ export const profileApi = createApi({
         },
         body: { handle },
       }),
+      invalidatesTags: ['Profile'],
     }),
 
     updateMyProfile: builder.mutation<

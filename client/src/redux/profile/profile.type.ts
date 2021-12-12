@@ -27,7 +27,7 @@ export interface Profile {
   about: string;
   github: string;
   linkedIn: string;
-  skills: string[];
+  skills: string[]; // input format
   educations: Education[];
   experiences: Experience[];
 }

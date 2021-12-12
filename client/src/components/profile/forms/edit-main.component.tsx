@@ -20,9 +20,9 @@ const EditMain: React.FC = () => {
   const [inputAbout, setInputAbout] = useState('');
   const [inputGithub, setInputGithub] = useState('');
   const [inputLinkedIn, setInputLinkedIn] = useState('');
-  const [inputSkills, setInputSkills] = useState<string[]>(['']);
+  const [inputSkills, setInputSkills] = useState('');
 
-  const { data, refetch } = useProfile('');
+  const { data } = useProfile('');
 
   useEffect(() => {
     if (!data) return;
@@ -35,6 +35,7 @@ const EditMain: React.FC = () => {
       linkedIn = '',
       github = '',
       about = '',
+      skills = [],
     } = data;
 
     setInputHandle(handle);
@@ -45,27 +46,28 @@ const EditMain: React.FC = () => {
     setInputGithub(github);
     setInputLinkedIn(linkedIn);
     setInputAbout(about);
+    setInputSkills(skills.join());
   }, [data]);
 
   const authToken = useAppSelector(selectAuthToken);
-  const [updateProfile, { isLoading, isSuccess }] =
-    useUpdateMyProfileMutation();
+  const [updateProfile] = useUpdateMyProfileMutation();
 
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
 
     const body = {
-      handle: inputHandle,
-      location: inputLocation,
-      website: inputWebsite,
-      company: inputCompany,
-      status: inputStatus,
-      linkedIn: inputLinkedIn,
+      handle: inputHandle.trim(),
+      location: inputLocation.trim(),
+      website: inputWebsite.trim(),
+      company: inputCompany.trim(),
+      status: inputStatus.trim(),
+      linkedIn: inputLinkedIn.trim(),
+      github: inputGithub.trim(),
+      about: inputAbout.trim(),
+      skills: inputSkills.split(',').map((skill: string) => skill.trim()),
     };
 
     updateProfile({ token: authToken, body });
-
-    // refetch();
   };
 
   return (
@@ -109,7 +111,11 @@ const EditMain: React.FC = () => {
           value={inputLinkedIn}
           handleChange={e => setInputLinkedIn(e.currentTarget.value)}
         />
-        <FormInput label="Skills" handleChange={e => console.log()} />
+        <FormInput
+          label="Skills (separated by commas)"
+          value={inputSkills}
+          handleChange={e => setInputSkills(e.currentTarget.value)}
+        />
 
         <div style={{ gridColumn: '1 / -1', marginBottom: '2rem' }}>
           <FormInput

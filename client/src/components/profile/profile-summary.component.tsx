@@ -2,21 +2,21 @@ import React from 'react';
 
 import ContentBox from '../content-box/content-box.component';
 import { Paragraph } from '../UI/paragraph.component';
-import { ButtonPrimary } from '../UI/button.component';
 
-const ProfileSummary: React.FC = () => {
-  const summary =
-    'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit inventore dolor voluptates in delenit.';
+import { useProfile } from '../../hooks/useProfile';
 
-  // const summary = '';
+interface ProfileSummaryProps {
+  profileId?: string;
+}
 
-  return summary ? (
+const ProfileSummary: React.FC<ProfileSummaryProps> = ({ profileId = '' }) => {
+  const { data } = useProfile(profileId);
+
+  return data ? (
     <ContentBox heading="About Me">
-      <Paragraph>{summary}</Paragraph>
+      <Paragraph>{data.about}</Paragraph>
     </ContentBox>
-  ) : (
-    <ButtonPrimary>Add Your Introduction</ButtonPrimary>
-  );
+  ) : null;
 };
 
 export default ProfileSummary;

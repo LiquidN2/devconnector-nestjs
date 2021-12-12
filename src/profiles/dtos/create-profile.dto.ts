@@ -3,7 +3,9 @@ import {
   IsAlphanumeric,
   IsOptional,
   MaxLength,
+  IsArray,
 } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
 
 import { Education } from '../schemas/education.schema';
 
@@ -37,7 +39,9 @@ export class CreateProfileDto {
   status: string;
 
   @IsOptional()
+  @IsArray()
   @MaxLength(20, { each: true })
+  // @Transform(({ obj }) => obj.skills.split(',')) // transform string to array
   skills: string[];
 
   @IsOptional()

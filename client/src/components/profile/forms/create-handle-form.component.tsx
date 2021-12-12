@@ -17,8 +17,7 @@ const CreateHandleForm: React.FC = () => {
 
   const authToken = useAppSelector(selectAuthToken);
 
-  const [updateHandle, { isLoading, isSuccess }] =
-    useCreateMyProfileHandleMutation();
+  const [updateHandle, { isLoading }] = useCreateMyProfileHandleMutation();
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = e => {
     const input = e.currentTarget.value;
@@ -35,14 +34,10 @@ const CreateHandleForm: React.FC = () => {
     e.preventDefault();
     if (!authToken || !handle) return;
     updateHandle({ token: authToken, handle });
+    // invalidateTags in useCreateMyProfile will trigger refetching profile
   };
 
   if (isLoading) return <LoadingSpinner />;
-
-  if (isSuccess) {
-    window.location.reload();
-    return null;
-  }
 
   return (
     <ContentBox

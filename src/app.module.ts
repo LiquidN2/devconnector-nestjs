@@ -56,7 +56,10 @@ import { AuthModule } from './auth/auth.module';
     AppService,
 
     // Global Validation
-    { provide: APP_PIPE, useValue: new ValidationPipe({ whitelist: true }) },
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({ whitelist: true, transform: true }),
+    },
 
     // Global Guard
     // { provide: APP_GUARD, useClass: JwtAuthGuard },
