@@ -8,6 +8,7 @@ import {
   Param,
   UseGuards,
   NotFoundException,
+  Delete,
 } from '@nestjs/common';
 
 // Types
@@ -26,6 +27,7 @@ import { ProfilesService } from './profiles.service';
 
 // DTOs
 import { CreateProfileDto } from './dtos/create-profile.dto';
+import { CreateExperienceDto } from './dtos/create-experience.dto';
 
 // Schema
 
@@ -65,5 +67,38 @@ export class ProfilesController {
     @Param('profileId') profileId: string,
   ) {
     return await this.profilesService.update(profileId, body);
+  }
+
+  @Post('/me/experiences')
+  async addMyExperience(
+    @Body() body: CreateExperienceDto,
+    @CurrentUser() user: JwtPayloadDecoded,
+  ) {
+    // console.log(typeof body.from);
+    return await this.profilesService.addExperience(user.userId, body);
+  }
+
+  @Patch('/me/experiences/:experienceId')
+  async updateMyExperience(
+    @Body() body: CreateExperienceDto,
+    @CurrentUser() user: JwtPayloadDecoded,
+    @Param('experienceId') experienceId: string,
+  ) {
+    return await this.profilesService.updateExperience(
+      user.userId,
+      experienceId,
+      body,
+    );
+  }
+
+  @Delete('/me/experiences/:experienceId')
+  async deleteMyExperience(
+    @CurrentUser() user: JwtPayloadDecoded,
+    @Param('experienceId') experienceId: string,
+  ) {
+    return await this.profilesService.deleteExperience(
+      user.userId,
+      experienceId,
+    );
   }
 }

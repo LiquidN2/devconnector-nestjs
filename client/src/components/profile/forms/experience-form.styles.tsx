@@ -8,4 +8,11 @@ export const FormContainer = styled.form`
 
 export const FullWidth = styled.div`
   grid-column: 1 / -1;
+  margin-bottom: 3rem;
+`;
+
+export const FormError = styled.p`
+  color: orangered;
+  text-align: center;
+  font-size: 1.2rem;
 `;

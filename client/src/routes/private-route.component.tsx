@@ -8,6 +8,7 @@ import { useGetWhoAmIQuery } from '../redux/user/user.api';
 import LoadingSpinner from '../components/loading-spinner/loading-spinner.component';
 
 import { SpinnerContainer } from './route.styles';
+import { signout } from '../redux/auth';
 
 interface PublicRouteProps {
   children: JSX.Element;
@@ -25,7 +26,10 @@ const PrivateRoute = ({ children }: PublicRouteProps): JSX.Element => {
       </SpinnerContainer>
     );
 
-  if (error) return <Navigate to="/auth" />;
+  if (error) {
+    signout();
+    return <Navigate to="/auth" />;
+  }
 
   return !isLoading && !error && (!data || !data.email) ? (
     <Navigate to="/auth" />

@@ -28,12 +28,12 @@ const SignIn: React.FC = () => {
   const { authenticateAsync, clearAuthError } = useActions();
   const authError = useAppSelector(selectAuthError);
 
-  useEffect(() => {
-    if (!authError || !authError.message) return;
-
-    // Clear all previous signin error upon component load
-    clearAuthError();
-  }, []);
+  // useEffect(() => {
+  //   if (!authError || !authError.message) return;
+  //
+  //   // Clear all previous signin error upon component load
+  //   clearAuthError();
+  // }, []);
 
   const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();

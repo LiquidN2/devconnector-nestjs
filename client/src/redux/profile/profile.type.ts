@@ -1,17 +1,21 @@
 import { User } from '../user/user.type';
 
-interface Experience {
+export interface Experience {
   company: string;
   position: string;
   from: Date;
   to: Date | null;
+  location: string;
+  description: string;
 }
 
-interface Education {
+export interface Education {
   school: string;
   qualification: string;
   from: Date;
   to: Date | null;
+  location: string;
+  description: string;
 }
 
 export interface Profile {

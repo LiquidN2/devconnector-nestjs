@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Profile } from './profile.type';
+import { Profile, Experience, Education } from './profile.type';
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
@@ -53,7 +53,25 @@ export const profileApi = createApi({
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: body,
+        body,
+      }),
+      invalidatesTags: ['Profile'],
+    }),
+
+    addMyExperience: builder.mutation<
+      Profile,
+      {
+        token: string | undefined;
+        body: Partial<Experience>;
+      }
+    >({
+      query: ({ token, body }) => ({
+        url: '/me/experiences',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body,
       }),
       invalidatesTags: ['Profile'],
     }),
@@ -65,4 +83,5 @@ export const {
   useGetProfileQuery,
   useCreateMyProfileHandleMutation,
   useUpdateMyProfileMutation,
+  useAddMyExperienceMutation,
 } = profileApi;
