@@ -28,6 +28,7 @@ import { ProfilesService } from './profiles.service';
 // DTOs
 import { CreateProfileDto } from './dtos/create-profile.dto';
 import { CreateExperienceDto } from './dtos/create-experience.dto';
+import { CreateEducationDto } from './dtos/create-education.dto';
 
 // Schema
 
@@ -75,7 +76,10 @@ export class ProfilesController {
     @CurrentUser() user: JwtPayloadDecoded,
   ) {
     // console.log(typeof body.from);
-    return await this.profilesService.addExperience(user.userId, body);
+    return await this.profilesService.addExperienceOrEducation(user.userId, {
+      type: 'experience',
+      body,
+    });
   }
 
   @Patch('/me/experiences/:experienceId')
@@ -84,11 +88,11 @@ export class ProfilesController {
     @CurrentUser() user: JwtPayloadDecoded,
     @Param('experienceId') experienceId: string,
   ) {
-    return await this.profilesService.updateExperience(
-      user.userId,
-      experienceId,
+    return await this.profilesService.updateExperienceOrEducation(user.userId, {
+      type: 'experience',
+      id: experienceId,
       body,
-    );
+    });
   }
 
   @Delete('/me/experiences/:experienceId')
@@ -96,9 +100,45 @@ export class ProfilesController {
     @CurrentUser() user: JwtPayloadDecoded,
     @Param('experienceId') experienceId: string,
   ) {
-    return await this.profilesService.deleteExperience(
-      user.userId,
-      experienceId,
-    );
+    return await this.profilesService.deleteExperienceOrEducation(user.userId, {
+      type: 'experience',
+      id: experienceId,
+    });
+  }
+
+  @Post('/me/educations')
+  async addMyEducation(
+    @Body() body: CreateEducationDto,
+    @CurrentUser() user: JwtPayloadDecoded,
+  ) {
+    // console.log(typeof body.from);
+    return await this.profilesService.addExperienceOrEducation(user.userId, {
+      type: 'education',
+      body,
+    });
+  }
+
+  @Patch('/me/educations/:educationId')
+  async updateMyEducation(
+    @Body() body: CreateEducationDto,
+    @CurrentUser() user: JwtPayloadDecoded,
+    @Param('educationId') educationId: string,
+  ) {
+    return await this.profilesService.updateExperienceOrEducation(user.userId, {
+      type: 'education',
+      id: educationId,
+      body,
+    });
+  }
+
+  @Delete('/me/educations/:educationId')
+  async deleteMyEducation(
+    @CurrentUser() user: JwtPayloadDecoded,
+    @Param('educationId') educationId: string,
+  ) {
+    return await this.profilesService.deleteExperienceOrEducation(user.userId, {
+      type: 'education',
+      id: educationId,
+    });
   }
 }

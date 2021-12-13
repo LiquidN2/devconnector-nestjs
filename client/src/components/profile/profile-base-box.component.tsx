@@ -7,6 +7,7 @@ import {
   PhotoContainer,
   Photo,
   Name,
+  Status,
   Location,
   ConnectionsPostsContainer,
   ConnectionsBox,
@@ -37,6 +38,7 @@ const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({ profileId = '' }) => {
     linkedIn,
     github,
     location,
+    status,
     user: { name, email, avatar },
   } = data;
 
@@ -45,6 +47,7 @@ const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({ profileId = '' }) => {
       <PhotoContainer>
         <Photo src={avatar} alt={name} />
         <Name>{name}</Name>
+        <Status>{status}</Status>
         <Location>{location}</Location>
       </PhotoContainer>
 

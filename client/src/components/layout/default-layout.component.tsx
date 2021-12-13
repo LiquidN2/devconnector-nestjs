@@ -8,10 +8,10 @@ import Footer from '../footer/footer.component';
 
 import LoadingSpinner from '../loading-spinner/loading-spinner.component';
 import Container from '../UI/container.component';
-import CreateHandleForm from '../profile/forms/create-handle-form.component';
+import ProfileInitForm from '../profile/forms/profile-init-form.component';
 
 import { MainSection, ContentContainer } from './default-layout.styles';
-import { useMyProfile, useProfile } from '../../hooks/useProfile';
+import { useProfile } from '../../hooks/useProfile';
 
 const DefaultLayout: React.FC = () => {
   const { data, error, isLoading } = useProfile('');
@@ -32,7 +32,7 @@ const DefaultLayout: React.FC = () => {
     return (
       <ContentContainer>
         <Container>
-          <CreateHandleForm />
+          <ProfileInitForm />
         </Container>
       </ContentContainer>
     );

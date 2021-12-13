@@ -1,12 +1,12 @@
 import { IsString, IsDate, IsOptional } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class CreateExperienceDto {
+export class CreateEducationDto {
   @IsString()
-  company: string;
+  school: string;
 
   @IsString()
-  position: string;
+  qualification: string;
 
   @IsDate()
   @Transform(({ obj }) => new Date(obj.from)) // transform to Date

@@ -34,6 +34,14 @@ export const Name = styled.p`
   text-align: center;
 `;
 
+export const Status = styled.p`
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--color-primary);
+  text-align: center;
+`;
+
 export const Location = styled.p`
   font-size: 1.3rem;
   font-weight: 300;

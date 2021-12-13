@@ -28,17 +28,17 @@ export const profileApi = createApi({
       providesTags: ['Profile'],
     }),
 
-    createMyProfileHandle: builder.mutation<
+    createProfile: builder.mutation<
       Profile,
-      { token: string | undefined; handle: string | undefined }
+      { token: string | undefined; body: Partial<Profile> }
     >({
-      query: ({ token, handle }) => ({
+      query: ({ token, body }) => ({
         url: '/',
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: { handle },
+        body,
       }),
       invalidatesTags: ['Profile'],
     }),
@@ -114,7 +114,7 @@ export const profileApi = createApi({
 export const {
   useGetMyProfileQuery,
   useGetProfileQuery,
-  useCreateMyProfileHandleMutation,
+  useCreateProfileMutation,
   useUpdateMyProfileMutation,
   useAddMyExperienceMutation,
   useDeleteMyExperienceMutation,
