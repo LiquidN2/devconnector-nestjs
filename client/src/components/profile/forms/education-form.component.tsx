@@ -8,11 +8,12 @@ import { BtnSavePrimary } from '../../UI/button.component';
 import { FormContainer, FullWidth } from './education-form.styles';
 
 const EducationForm: React.FC = () => {
-  const [qualification, setQualification] = useState('');
-  const [school, setSchool] = useState('');
-  const [from, setFrom] = useState<Date>(new Date());
-  const [to, setTo] = useState<Date | null>(null);
-  const [location, setLocation] = useState('');
+  const [inputQualification, setInputQualification] = useState('');
+  const [inputSchool, setInputSchool] = useState('');
+  const [inputFrom, setInputFrom] = useState<Date>(new Date());
+  const [inputTo, setInputTo] = useState<Date | null>(null);
+  const [inputLocation, setInputLocation] = useState('');
+  const [inputDescription, setInputDescription] = useState('');
 
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
@@ -25,32 +26,40 @@ const EducationForm: React.FC = () => {
         <FormInput
           label="Qualification / Degree"
           id="qualification"
-          value={qualification}
-          handleChange={e => setQualification(e.currentTarget.value)}
+          value={inputQualification}
+          handleChange={e => setInputQualification(e.currentTarget.value)}
         />
         <FormInput
           label="School"
           id="school"
-          value={school}
-          handleChange={e => setSchool(e.currentTarget.value)}
+          value={inputSchool}
+          handleChange={e => setInputSchool(e.currentTarget.value)}
         />
         <FormDatePicker
           label="From"
-          value={from}
-          onChange={setFrom}
+          value={inputFrom}
+          onChange={setInputFrom}
           format="dd/MM/y"
         />
         <FormDatePicker
           label="To (leave blank if current)"
-          value={to}
-          onChange={setTo}
+          value={inputTo}
+          onChange={setInputTo}
           format="dd/MM/y"
         />
         <FullWidth>
           <FormInput
             label="Location"
-            value={location}
-            handleChange={e => setLocation(e.currentTarget.value)}
+            value={inputLocation}
+            handleChange={e => setInputLocation(e.currentTarget.value)}
+          />
+        </FullWidth>
+        <FullWidth>
+          <FormInput
+            type="textarea"
+            label="Description"
+            value={inputDescription}
+            handleChange={e => setInputDescription(e.currentTarget.value)}
           />
         </FullWidth>
         <BtnSavePrimary>Save</BtnSavePrimary>

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Profile, Experience, Education } from './profile.type';
+import { Profile, ExperienceData, EducationData } from './profile.type';
 
 export const profileApi = createApi({
   reducerPath: 'profileApi',
@@ -58,15 +58,15 @@ export const profileApi = createApi({
       invalidatesTags: ['Profile'],
     }),
 
-    addMyExperience: builder.mutation<
+    addExperienceOrEducation: builder.mutation<
       Profile,
       {
         token: string | undefined;
-        body: Partial<Experience>;
+        data: ExperienceData | EducationData;
       }
     >({
-      query: ({ token, body }) => ({
-        url: '/me/experiences',
+      query: ({ token, data: { type, body } }) => ({
+        url: `/me/${type}s`,
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -76,30 +76,16 @@ export const profileApi = createApi({
       invalidatesTags: ['Profile'],
     }),
 
-    deleteMyExperience: builder.mutation<
-      Profile,
-      { token: string | undefined; experienceId: string | undefined }
-    >({
-      query: ({ token, experienceId }) => ({
-        url: `/me/experiences/${experienceId}`,
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
-      invalidatesTags: ['Profile'],
-    }),
-
-    updateMyExperience: builder.mutation<
+    updateExperienceOrEducation: builder.mutation<
       Profile,
       {
         token: string | undefined;
-        experienceId: string | undefined;
-        body: Partial<Experience>;
+        id: string | undefined;
+        data: ExperienceData | EducationData;
       }
     >({
-      query: ({ token, experienceId, body }) => ({
-        url: `/me/experiences/${experienceId}`,
+      query: ({ token, id, data: { type, body } }) => ({
+        url: `/me/${type}s/${id}`,
         method: 'PATCH',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -108,15 +94,33 @@ export const profileApi = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
+
+    deleteExperienceOrEducation: builder.mutation<
+      Profile,
+      {
+        token: string | undefined;
+        type: 'experience' | 'education';
+        id: string | undefined;
+      }
+    >({
+      query: ({ token, type, id }) => ({
+        url: `/me/${type}s/${id}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ['Profile'],
+    }),
   }),
 });
 
 export const {
-  useGetMyProfileQuery,
+  // useGetMyProfileQuery,
   useGetProfileQuery,
   useCreateProfileMutation,
   useUpdateMyProfileMutation,
-  useAddMyExperienceMutation,
-  useDeleteMyExperienceMutation,
-  useUpdateMyExperienceMutation,
+  useAddExperienceOrEducationMutation,
+  useUpdateExperienceOrEducationMutation,
+  useDeleteExperienceOrEducationMutation,
 } = profileApi;

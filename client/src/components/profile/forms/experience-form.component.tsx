@@ -17,8 +17,8 @@ import { useAppSelector } from '../../../hooks/useAppSelector';
 import { selectAuthToken } from '../../../redux/auth/auth.selector';
 import { useProfile } from '../../../hooks/useProfile';
 import {
-  useAddMyExperienceMutation,
-  useUpdateMyExperienceMutation,
+  useAddExperienceOrEducationMutation,
+  useUpdateExperienceOrEducationMutation,
 } from '../../../redux/profile/profile.api';
 
 interface ExperienceFormProps {
@@ -49,10 +49,15 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
   const [inputDescription, setInputDescription] = useState('');
 
   const authToken = useAppSelector(selectAuthToken);
+
   const { data } = useProfile(profileId);
-  const [addExperience, resultAddExperience] = useAddMyExperienceMutation();
+
+  const [addExperience, resultAddExperience] =
+    useAddExperienceOrEducationMutation();
+
   const [updateExperience, resultUpdateExperience] =
-    useUpdateMyExperienceMutation();
+    useUpdateExperienceOrEducationMutation();
+
   const queryError =
     (resultAddExperience.error as AddExpQueryError) ||
     (resultUpdateExperience.error as AddExpQueryError);
@@ -105,9 +110,16 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
     };
 
     if (!experienceId) {
-      addExperience({ token: authToken, body });
+      addExperience({
+        token: authToken,
+        data: { type: 'experience', body },
+      });
     } else {
-      updateExperience({ token: authToken, experienceId, body });
+      updateExperience({
+        token: authToken,
+        id: experienceId,
+        data: { type: 'experience', body },
+      });
     }
 
     setModalHidden && setModalHidden(true);
@@ -159,7 +171,6 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
             required={true}
           />
         </FullWidth>
-
         <FullWidth>
           <FormInput
             type="textarea"

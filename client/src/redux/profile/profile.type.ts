@@ -37,3 +37,13 @@ export interface Profile {
   educations: Education[];
   experiences: Experience[];
 }
+
+export interface ExperienceData {
+  type: 'experience';
+  body: Partial<Experience>;
+}
+
+export interface EducationData {
+  type: 'education';
+  body: Partial<Education>;
+}

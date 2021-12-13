@@ -8,55 +8,54 @@ import EducationExperienceItem from './education-experience-item.component';
 import Modal from '../modal/modal.component';
 import EducationForm from './forms/education-form.component';
 
-const EditEducation: React.FC = () => {
-  const [modalHidden, setModalHidden] = useState(true);
+import { useProfile } from '../../hooks/useProfile';
 
-  const educations = [
-    {
-      _id: '',
-      degree: 'Degree / qualification',
-      school: 'School',
-      location: 'Sydney NSW, Australia',
-      time: 'Mar 1990 - June 2000',
-      description:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit inventore dolor voluptates in deleniti, dicta ullam sapiente tempore reprehenderit reiciendis hic exceptu',
-    },
-    {
-      _id: '',
-      degree: 'Degree / qualification',
-      school: 'School',
-      location: 'Sydney NSW, Australia',
-      time: 'Mar 1990 - June 2000',
-      description:
-        'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit inventore dolor voluptates in deleniti, dicta ullam sapiente tempore reprehenderit reiciendis hic exceptu',
-    },
-  ];
+interface EditEducationProps {
+  profileId?: string;
+}
+
+const EditEducation: React.FC<EditEducationProps> = ({ profileId = '' }) => {
+  const [modalHidden, setModalHidden] = useState(true);
+  const [educationId, setEducationId] = useState('');
+
+  const { data } = useProfile(profileId);
 
   const toggleModalHidden: MouseEventHandler<HTMLButtonElement> = () => {
     setModalHidden(!modalHidden);
   };
 
+  const handleAddNewEducation: MouseEventHandler<HTMLButtonElement> = () => {
+    setModalHidden(false);
+    setEducationId('');
+  };
+
   return (
     <>
       <ContentBox heading="Update Your Education">
-        {educations.map(
-          ({ _id, degree, school, location, time, description }, index) => (
-            <EducationExperienceItem
-              id={_id}
-              key={index}
-              type="education"
-              title={degree}
-              subtitle={school}
-              location={location}
-              description={description}
-              from={null}
-              to={null}
-              editable={true}
-            />
-          ),
-        )}
+        {data &&
+          data.educations &&
+          data.educations.length !== 0 &&
+          data.educations.map(
+            (
+              { _id, qualification, school, location, from, to, description },
+              index,
+            ) => (
+              <EducationExperienceItem
+                id={_id}
+                key={index}
+                type="education"
+                title={qualification}
+                subtitle={school}
+                location={location}
+                description={description}
+                from={from}
+                to={to}
+                editable={true}
+              />
+            ),
+          )}
         <ButtonsGroup>
-          <BtnAddPrimary onClick={toggleModalHidden}>
+          <BtnAddPrimary onClick={handleAddNewEducation}>
             Add Education
           </BtnAddPrimary>
           <BtnLinkGoBack to="/profile">Back to Profile View</BtnLinkGoBack>

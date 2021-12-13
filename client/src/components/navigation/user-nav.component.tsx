@@ -15,7 +15,7 @@ const UserNav: React.FC = () => {
 
   const { signout } = useActions();
   const authToken = useAppSelector(selectAuthToken);
-  const { data, error, isLoading } = useGetWhoAmIQuery(authToken);
+  const { data } = useGetWhoAmIQuery(authToken);
 
   const handleToggleDropdown: MouseEventHandler<HTMLImageElement> = () => {
     setDropdownHidden(!dropdownHidden);

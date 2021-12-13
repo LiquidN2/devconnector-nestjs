@@ -2,7 +2,7 @@ import React, { MouseEventHandler } from 'react';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useDeleteMyExperienceMutation } from '../../redux/profile/profile.api';
+import { useDeleteExperienceOrEducationMutation } from '../../redux/profile/profile.api';
 import { formatDate } from '../../utils/datetime-format.utils';
 
 import LoadingSpinner from '../loading-spinner/loading-spinner.component';
@@ -53,7 +53,7 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
   handleEditItem,
 }) => {
   const authToken = useAppSelector(selectAuthToken);
-  const [deleteExperience, { isLoading }] = useDeleteMyExperienceMutation();
+  const [deleteItem, { isLoading }] = useDeleteExperienceOrEducationMutation();
 
   const renderHeadingIcon = () => {
     switch (type) {
@@ -78,7 +78,7 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
   };
 
   const handleDeleteExperience: MouseEventHandler<HTMLElement> = () =>
-    deleteExperience({ token: authToken, experienceId: id });
+    deleteItem({ token: authToken, type: 'experience', id });
 
   const handleEditExperience: MouseEventHandler<HTMLElement> = () => {
     if (!handleEditItem) return;
