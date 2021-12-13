@@ -75,6 +75,39 @@ export const profileApi = createApi({
       }),
       invalidatesTags: ['Profile'],
     }),
+
+    deleteMyExperience: builder.mutation<
+      Profile,
+      { token: string | undefined; experienceId: string | undefined }
+    >({
+      query: ({ token, experienceId }) => ({
+        url: `/me/experiences/${experienceId}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ['Profile'],
+    }),
+
+    updateMyExperience: builder.mutation<
+      Profile,
+      {
+        token: string | undefined;
+        experienceId: string | undefined;
+        body: Partial<Experience>;
+      }
+    >({
+      query: ({ token, experienceId, body }) => ({
+        url: `/me/experiences/${experienceId}`,
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body,
+      }),
+      invalidatesTags: ['Profile'],
+    }),
   }),
 });
 
@@ -84,4 +117,6 @@ export const {
   useCreateMyProfileHandleMutation,
   useUpdateMyProfileMutation,
   useAddMyExperienceMutation,
+  useDeleteMyExperienceMutation,
+  useUpdateMyExperienceMutation,
 } = profileApi;

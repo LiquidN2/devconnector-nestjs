@@ -11,6 +11,7 @@ interface FormDatePickerProps {
   onChange: (date: Date) => void;
   format?: string;
   label?: string;
+  required?: boolean;
 }
 
 const FormDatePicker: React.FC<FormDatePickerProps> = ({
@@ -18,6 +19,7 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({
   value,
   onChange,
   format = 'dd/MM/y',
+  required = false,
   children,
   ...props
 }) => {
@@ -28,6 +30,7 @@ const FormDatePicker: React.FC<FormDatePickerProps> = ({
         value={value}
         onChange={onChange}
         format={format}
+        required={required}
         {...props}
       />
     </InputGroup>

@@ -13,6 +13,7 @@ const EditEducation: React.FC = () => {
 
   const educations = [
     {
+      _id: '',
       degree: 'Degree / qualification',
       school: 'School',
       location: 'Sydney NSW, Australia',
@@ -21,6 +22,7 @@ const EditEducation: React.FC = () => {
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit inventore dolor voluptates in deleniti, dicta ullam sapiente tempore reprehenderit reiciendis hic exceptu',
     },
     {
+      _id: '',
       degree: 'Degree / qualification',
       school: 'School',
       location: 'Sydney NSW, Australia',
@@ -38,15 +40,17 @@ const EditEducation: React.FC = () => {
     <>
       <ContentBox heading="Update Your Education">
         {educations.map(
-          ({ degree, school, location, time, description }, index) => (
+          ({ _id, degree, school, location, time, description }, index) => (
             <EducationExperienceItem
+              id={_id}
               key={index}
               type="education"
               title={degree}
               subtitle={school}
               location={location}
-              time={time}
               description={description}
+              from={null}
+              to={null}
               editable={true}
             />
           ),

@@ -16,3 +16,11 @@ export const FormError = styled.p`
   text-align: center;
   font-size: 1.2rem;
 `;
+
+export const SpinnerContainer = styled.div`
+  height: 5rem;
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { selectAuthToken } from '../../redux/auth/auth.selector';
+import { useDeleteMyExperienceMutation } from '../../redux/profile/profile.api';
+import { formatDate } from '../../utils/datetime-format.utils';
+
+import LoadingSpinner from '../loading-spinner/loading-spinner.component';
 import IconBriefCase from '../icons/icon-briefcase.component';
 import IconBuilding from '../icons/icon-building.component';
 import IconMapMarker from '../icons/icon-mapmarker.component';
@@ -18,27 +24,37 @@ import {
   Description,
   ButtonEdit,
   ButtonDelete,
+  SpinnerContainer,
 } from './education-experience-item.styles';
 
 interface EducationExperienceItemProps {
   type: 'experience' | 'education';
+  id: string;
   title: string;
   subtitle: string;
   location: string;
-  time: string;
+  from: Date | null;
+  to: Date | null;
   description: string;
   editable?: boolean;
+  handleEditItem?: (itemId: string) => void;
 }
 
 const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
   type,
+  id,
   title,
   subtitle,
   location,
-  time,
+  from = null,
+  to = null,
   description,
   editable = false,
+  handleEditItem,
 }) => {
+  const authToken = useAppSelector(selectAuthToken);
+  const [deleteExperience, { isLoading }] = useDeleteMyExperienceMutation();
+
   const renderHeadingIcon = () => {
     switch (type) {
       case 'education':
@@ -61,6 +77,21 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
     }
   };
 
+  const handleDeleteExperience: MouseEventHandler<HTMLElement> = () =>
+    deleteExperience({ token: authToken, experienceId: id });
+
+  const handleEditExperience: MouseEventHandler<HTMLElement> = () => {
+    if (!handleEditItem) return;
+    handleEditItem(id);
+  };
+
+  if (isLoading)
+    return (
+      <SpinnerContainer>
+        <LoadingSpinner />
+      </SpinnerContainer>
+    );
+
   return (
     <Container>
       {renderHeadingIcon()}
@@ -73,16 +104,18 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
       <Location>{location}</Location>
 
       <IconCalendar className="col-1" />
-      <Time>{time}</Time>
+      <Time>
+        {formatDate(from)} - {to ? formatDate(to) : 'present'}
+      </Time>
 
       {editable && (
-        <ButtonEdit>
+        <ButtonEdit onClick={handleEditExperience}>
           <IconEdit />
         </ButtonEdit>
       )}
 
       {editable && (
-        <ButtonDelete>
+        <ButtonDelete onClick={handleDeleteExperience}>
           <IconTrash />
         </ButtonDelete>
       )}

@@ -11,3 +11,11 @@ export const ButtonsGroup = styled.div`
     margin-right: 3rem;
   }
 `;
+
+export const SpinnerContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

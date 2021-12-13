@@ -86,3 +86,11 @@ export const ButtonDelete = styled.button`
   grid-column: 4 / 5;
   grid-row: 1 / 2;
 `;
+
+export const SpinnerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

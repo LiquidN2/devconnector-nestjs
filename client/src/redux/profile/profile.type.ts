@@ -1,6 +1,7 @@
 import { User } from '../user/user.type';
 
 export interface Experience {
+  _id: string;
   company: string;
   position: string;
   from: Date;
@@ -10,6 +11,7 @@ export interface Experience {
 }
 
 export interface Education {
+  _id: string;
   school: string;
   qualification: string;
   from: Date;

@@ -7,11 +7,13 @@ import { Overlay, Content, ButtonClose } from './modal.styles';
 interface ModalProps {
   modalHidden: boolean;
   setModalHidden: (modalHidden: boolean) => void;
+  btnCloseModalHidden?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
   modalHidden,
   setModalHidden,
+  btnCloseModalHidden = false,
   children,
 }) => {
   const [overlayOpacity, setOverlayOpacity] = useState(0);
@@ -38,9 +40,11 @@ const Modal: React.FC<ModalProps> = ({
       <Overlay style={{ opacity: `${overlayOpacity}` }} />
 
       <Content style={{ opacity: `${contentOpacity}` }}>
-        <ButtonClose onClick={handleCloseModal}>
-          <IconTimes />
-        </ButtonClose>
+        {!btnCloseModalHidden && (
+          <ButtonClose onClick={handleCloseModal}>
+            <IconTimes />
+          </ButtonClose>
+        )}
         {children}
       </Content>
     </>

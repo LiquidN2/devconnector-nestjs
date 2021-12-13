@@ -1,21 +1,30 @@
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
+import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 import ContentBox from '../../content-box/content-box.component';
 import FormInput from '../../form/form-input.component';
 import FormDatePicker from '../../form/form-datepicker.component';
-import { BtnSavePrimary } from '../../UI/button.component';
+import { BtnSavePrimary, Button } from '../../UI/button.component';
 
-import { FormContainer, FullWidth, FormError } from './experience-form.styles';
+import {
+  FormContainer,
+  FullWidth,
+  FormError,
+  SpinnerContainer,
+} from './experience-form.styles';
 
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import { selectAuthToken } from '../../../redux/auth/auth.selector';
 import { useProfile } from '../../../hooks/useProfile';
-import { useAddMyExperienceMutation } from '../../../redux/profile/profile.api';
+import {
+  useAddMyExperienceMutation,
+  useUpdateMyExperienceMutation,
+} from '../../../redux/profile/profile.api';
 
 interface ExperienceFormProps {
   profileId?: string;
   experienceId?: string;
+  setModalHidden?: (modalHidden: boolean) => void;
 }
 
 interface AddExpQueryError {
@@ -28,8 +37,9 @@ interface AddExpQueryError {
 }
 
 const ExperienceForm: React.FC<ExperienceFormProps> = ({
-  profileId,
-  experienceId,
+  profileId = '',
+  experienceId = '',
+  setModalHidden,
 }) => {
   const [inputPosition, setInputPosition] = useState('');
   const [inputCompany, setInputCompany] = useState('');
@@ -40,8 +50,34 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
 
   const authToken = useAppSelector(selectAuthToken);
   const { data } = useProfile(profileId);
-  const [updateExperience, { error }] = useAddMyExperienceMutation();
-  const queryError = error as AddExpQueryError;
+  const [addExperience, resultAddExperience] = useAddMyExperienceMutation();
+  const [updateExperience, resultUpdateExperience] =
+    useUpdateMyExperienceMutation();
+  const queryError =
+    (resultAddExperience.error as AddExpQueryError) ||
+    (resultUpdateExperience.error as AddExpQueryError);
+
+  useEffect(() => {
+    if (
+      !experienceId ||
+      !data ||
+      !data.experiences ||
+      data.experiences.length === 0
+    )
+      return;
+
+    const experience = data.experiences.find(
+      experience => experience._id === experienceId,
+    );
+    if (!experience) return;
+
+    setInputPosition(experience.position);
+    setInputCompany(experience.company);
+    setInputFrom(experience.from);
+    setInputTo(experience.to);
+    setInputLocation(experience.location);
+    setInputDescription(experience.description);
+  }, []);
 
   const renderErrorMessages = (error: AddExpQueryError) => {
     if (!error || !error.data || error.data.message.length === 0) return null;
@@ -57,9 +93,9 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
 
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
-    // if (!data) return;
 
-    const formData = {
+    // Request body
+    const body = {
       position: inputPosition.trim(),
       company: inputCompany.trim(),
       location: inputLocation.trim(),
@@ -68,13 +104,21 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
       to: inputTo,
     };
 
-    // console.log(inputFrom instanceof Date);
-
     if (!experienceId) {
-      console.log('adding experience');
-      updateExperience({ token: authToken, body: formData });
+      addExperience({ token: authToken, body });
+    } else {
+      updateExperience({ token: authToken, experienceId, body });
     }
+
+    setModalHidden && setModalHidden(true);
   };
+
+  if (resultAddExperience.isLoading || resultUpdateExperience.isLoading)
+    return (
+      <SpinnerContainer>
+        <LoadingSpinner />
+      </SpinnerContainer>
+    );
 
   return (
     <ContentBox heading="Work Experience Details">
@@ -85,18 +129,21 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
           value={inputPosition}
           handleChange={e => setInputPosition(e.currentTarget.value)}
           isFocused={true}
+          required={true}
         />
         <FormInput
           label="Company"
           id="company"
           value={inputCompany}
           handleChange={e => setInputCompany(e.currentTarget.value)}
+          required={true}
         />
         <FormDatePicker
           label="From"
           value={inputFrom}
           onChange={setInputFrom}
           format="dd/MM/y"
+          required={true}
         />
         <FormDatePicker
           label="To (leave blank if current)"
@@ -109,6 +156,7 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
             label="Location"
             value={inputLocation}
             handleChange={e => setInputLocation(e.currentTarget.value)}
+            required={true}
           />
         </FullWidth>
 
@@ -121,6 +169,12 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
           />
         </FullWidth>
         <BtnSavePrimary>Save</BtnSavePrimary>
+        <Button
+          type="button"
+          onClick={() => setModalHidden && setModalHidden(true)}
+        >
+          Close
+        </Button>
       </FormContainer>
       {renderErrorMessages(queryError)}
     </ContentBox>

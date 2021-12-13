@@ -83,6 +83,8 @@ export class ProfilesService {
       { $pull: { experiences: { _id: experienceId } } },
       { new: true },
     );
+
+    return await query.exec();
   }
 
   async updateExperience(
