@@ -78,7 +78,7 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
   };
 
   const handleDeleteExperience: MouseEventHandler<HTMLElement> = () =>
-    deleteItem({ token: authToken, type: 'experience', id });
+    deleteItem({ token: authToken, type, id });
 
   const handleEditExperience: MouseEventHandler<HTMLElement> = () => {
     if (!handleEditItem) return;

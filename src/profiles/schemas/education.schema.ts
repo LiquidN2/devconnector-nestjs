@@ -13,4 +13,10 @@ export class Education {
 
   @Prop()
   to: Date | null;
+
+  @Prop()
+  location: string;
+
+  @Prop()
+  description: string;
 }

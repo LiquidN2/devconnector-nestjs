@@ -2,8 +2,8 @@ import React from 'react';
 
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
 import EditMain from '../../components/profile/forms/edit-main.component';
-import EditExperience from '../../components/profile/edit-experience.component';
-import EditEducation from '../../components/profile/edit-education.component';
+import EduExpListEdit from '../../components/profile/edu-exp-list-edit.component';
+
 import {
   ContentContainer,
   ColLeft,
@@ -22,8 +22,8 @@ const ProfileEdit: React.FC<PropFileEditProps> = ({ section }) => {
       </ColLeft>
       <ColRightSpan>
         {section === 'main' && <EditMain />}
-        {section === 'experience' && <EditExperience />}
-        {section === 'education' && <EditEducation />}
+        {section === 'experience' && <EduExpListEdit type="experience" />}
+        {section === 'education' && <EduExpListEdit type="education" />}
       </ColRightSpan>
     </ContentContainer>
   );
