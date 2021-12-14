@@ -12,6 +12,9 @@ import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { AuthModule } from './auth/auth.module';
 // import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { PostsModule } from './posts/posts.module';
+import { CommentsModule } from './comments/comments.module';
+import { LikesModule } from './likes/likes.module';
 
 @Module({
   imports: [
@@ -46,6 +49,12 @@ import { AuthModule } from './auth/auth.module';
         return [{ rootPath, exclude: ['/api*'] }];
       },
     }),
+
+    PostsModule,
+
+    CommentsModule,
+
+    LikesModule,
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '..', 'client', 'build'),
     //   exclude: ['/api*'],

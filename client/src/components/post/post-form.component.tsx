@@ -5,8 +5,12 @@ import FormInput from '../form/form-input.component';
 import IconCamera from '../icons/icon-camera.component';
 import { PostFormContainer, BtnPhotoUpload } from './post-form.styles';
 
+import { useProfile } from '../../hooks/useProfile';
+
 const PostForm: React.FC = () => {
   const [post, setPost] = useState('');
+
+  const { data } = useProfile('');
 
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
@@ -14,7 +18,9 @@ const PostForm: React.FC = () => {
 
   return (
     <PostFormContainer onSubmit={handleSubmit}>
-      <Avatar src="/img/users/user-4.jpg" />
+      {data && data.user && (
+        <Avatar src={data.user.avatar} alt={data.user.name} />
+      )}
       <FormInput
         label=""
         value={post}
