@@ -52,6 +52,18 @@ const App: React.FC = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
 
+        <Route
+          path="users/:userId"
+          element={
+            <PrivateRoute>
+              <DefaultLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<Navigate to="profile" />} />
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
+
         {/* PUBLIC Access Only  */}
         <Route
           path="auth"

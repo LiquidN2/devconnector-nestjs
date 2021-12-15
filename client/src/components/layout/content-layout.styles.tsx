@@ -39,3 +39,10 @@ export const ColMiddle = styled.div`
 `;
 
 export const ColRightSpan = ColMiddle;
+
+export const SpinnerContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

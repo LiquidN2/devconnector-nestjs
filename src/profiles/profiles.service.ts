@@ -44,6 +44,12 @@ export class ProfilesService {
       .populate('user', ['name', 'email', 'avatar']);
   }
 
+  async findByHandle(handle: string) {
+    return this.profileModel
+      .findOne({ handle })
+      .populate('user', ['name', 'email', 'avatar']);
+  }
+
   // ------------------------
   // CREATE
   async create(userId: string, createProfileDto: CreateProfileDto) {

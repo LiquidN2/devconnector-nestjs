@@ -1,9 +1,10 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { MouseEventHandler, useState, useRef } from 'react';
 
 import { formatPostDate } from '../../utils/datetime-format.utils';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { selectAuthToken } from '../../redux/auth/auth.selector';
 import { useDeletePostMutation } from '../../redux/post/post.api';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 import Avatar from '../avatar/avatar.component';
 import MenuButton from '../dropdown-menu/button-menu.component';
@@ -35,7 +36,9 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   avatar,
   created,
 }) => {
+  const ref = useRef(null);
   const [dropDownHidden, setDropDownHidden] = useState(true);
+  useClickOutside(ref, () => setDropDownHidden(true));
 
   const authToken = useAppSelector(selectAuthToken);
   const [deletePost] = useDeletePostMutation();
@@ -60,13 +63,15 @@ const PostHeader: React.FC<PostHeaderProps> = ({
 
       <MenuAndTimeContainer>
         <PostTime>{formatPostDate(created)}</PostTime>
-        <MenuButton onClick={toggleDropDownHidden} />
-        <DropdownMenu hidden={dropDownHidden}>
-          <DropdownMenuOption type="button">Edit Post</DropdownMenuOption>
-          <DropdownMenuOption type="button" onClick={handleDeletePost}>
-            Delete Post
-          </DropdownMenuOption>
-        </DropdownMenu>
+        <div ref={ref}>
+          <MenuButton onClick={toggleDropDownHidden} />
+          <DropdownMenu hidden={dropDownHidden}>
+            <DropdownMenuOption type="button">Edit Post</DropdownMenuOption>
+            <DropdownMenuOption type="button" onClick={handleDeletePost}>
+              Delete Post
+            </DropdownMenuOption>
+          </DropdownMenu>
+        </div>
       </MenuAndTimeContainer>
     </HeaderContainer>
   );

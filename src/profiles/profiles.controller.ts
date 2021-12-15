@@ -9,6 +9,8 @@ import {
   UseGuards,
   NotFoundException,
   Delete,
+  Query,
+  BadRequestException,
 } from '@nestjs/common';
 
 // Types
@@ -45,12 +47,43 @@ export class ProfilesController {
     return await this.profilesService.create(user.userId, body);
   }
 
+  @Get('?')
+  async findProfileByUserId(@Query() query: any) {
+    if ('userId' in query) {
+      const profile = await this.profilesService.findByUserId(query.userId);
+      if (!profile) {
+        throw new NotFoundException('profile not found');
+      }
+      return profile;
+    }
+
+    if ('handle' in query) {
+      const profile = await this.profilesService.findByHandle(query.handle);
+      if (!profile) {
+        throw new NotFoundException('profile not found');
+      }
+      return profile;
+    }
+
+    throw new BadRequestException('Requires query param "userId" or "handle"');
+  }
+
   @Get('/me')
   async findMyProfile(@CurrentUser() user: JwtPayloadDecoded) {
     const profile = await this.profilesService.findByUserId(user.userId);
     if (!profile) {
       throw new NotFoundException('profile not found');
     }
+    return profile;
+  }
+
+  @Get('/:profileId')
+  async findProfileById(@Param('profileId') profileId: string) {
+    const profile = await this.profilesService.findById(profileId);
+    if (!profile) {
+      throw new NotFoundException('profile not found');
+    }
+
     return profile;
   }
 

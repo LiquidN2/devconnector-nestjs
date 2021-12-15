@@ -28,6 +28,32 @@ export const profileApi = createApi({
       providesTags: ['Profile'],
     }),
 
+    getProfileWithUserId: builder.query<
+      Profile,
+      { token: string | undefined; userId: string | undefined }
+    >({
+      query: ({ token, userId }) => ({
+        url: userId ? `?userId=${userId}` : '/me',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ['Profile'],
+    }),
+
+    getProfileWithHandle: builder.query<
+      Profile,
+      { token: string | undefined; handle: string | undefined }
+    >({
+      query: ({ token, handle }) => ({
+        url: handle ? `?handle=${handle}` : '/me',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ['Profile'],
+    }),
+
     createProfile: builder.mutation<
       Profile,
       { token: string | undefined; body: Partial<Profile> }
@@ -118,6 +144,8 @@ export const profileApi = createApi({
 export const {
   // useGetMyProfileQuery,
   useGetProfileQuery,
+  useGetProfileWithUserIdQuery,
+  useGetProfileWithHandleQuery,
   useCreateProfileMutation,
   useUpdateMyProfileMutation,
   useAddExperienceOrEducationMutation,

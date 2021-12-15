@@ -21,14 +21,19 @@ import {
 
 import { BtnLinkEditPrimary } from '../UI/button.component';
 
-import { useProfile } from '../../hooks/useProfile';
+import { useProfileWithUserId } from '../../hooks/useProfile';
 
 interface ProfileBaseBoxProps {
+  userId?: string;
   profileId?: string;
 }
 
-const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({ profileId = '' }) => {
-  const { data } = useProfile(profileId);
+const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({
+  profileId = '',
+  userId = '',
+}) => {
+  // const { data } = useProfile(profileId);
+  const { data } = useProfileWithUserId(userId);
 
   if (!data) return <div>No user data</div>;
 

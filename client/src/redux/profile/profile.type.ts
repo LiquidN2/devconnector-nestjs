@@ -21,7 +21,12 @@ export interface Education {
 }
 
 export interface Profile {
-  user: User;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    avatar: string;
+  };
   _id: string;
   handle: string;
   created: Date;

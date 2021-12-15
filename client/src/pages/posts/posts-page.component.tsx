@@ -4,11 +4,13 @@ import { Helmet } from 'react-helmet';
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
 import PostForm from '../../components/post/post-form.component';
 import Post from '../../components/post/post.component';
+import LoadingSpinner from '../../components/loading-spinner/loading-spinner.component';
 
 import {
   ColLeft,
   ContentContainer,
   ColRightSpan,
+  SpinnerContainer,
 } from '../../components/layout/content-layout.styles';
 
 import { usePosts } from '../../hooks/usePosts';
@@ -18,7 +20,7 @@ interface PostPageProps {
 }
 
 const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
-  const { data } = usePosts(target);
+  const { data, isLoading, isFetching } = usePosts(target);
 
   return (
     <ContentContainer>
@@ -30,9 +32,15 @@ const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
       </ColLeft>
       <ColRightSpan>
         <PostForm />
+        {(isLoading || isFetching) && (
+          <SpinnerContainer>
+            <LoadingSpinner />
+          </SpinnerContainer>
+        )}
         {data &&
           data.map(({ _id, name, status, avatar, text, created }, index) => (
             <Post
+              key={index}
               id={_id}
               name={name}
               status={status}

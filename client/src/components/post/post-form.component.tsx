@@ -25,6 +25,7 @@ const PostForm: React.FC<PostFormProps> = ({ target = '' }) => {
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
     createPost({ token: authToken, body: { text, target } });
+    setText('');
   };
 
   return (
