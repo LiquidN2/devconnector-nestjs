@@ -90,7 +90,14 @@ export class ProfilesService {
 
     const query = this.profileModel.findOneAndUpdate(
       { user: userId },
-      { $push: { [`${type}s`]: body } }, // e.g $push : { experiences: { _id: id } }
+      {
+        $push: {
+          [`${type}s`]: {
+            $each: [body],
+            $sort: { from: -1 },
+          },
+        },
+      },
       { new: true },
     );
 

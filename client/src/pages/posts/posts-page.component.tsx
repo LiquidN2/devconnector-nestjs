@@ -11,7 +11,15 @@ import {
   ColRightSpan,
 } from '../../components/layout/content-layout.styles';
 
-const ProfilePage: React.FC = () => {
+import { usePosts } from '../../hooks/usePosts';
+
+interface PostPageProps {
+  userId?: string;
+}
+
+const PostPage: React.FC<PostPageProps> = ({ userId = '' }) => {
+  const { data } = usePosts(userId);
+
   return (
     <ContentContainer>
       <Helmet>
@@ -22,10 +30,19 @@ const ProfilePage: React.FC = () => {
       </ColLeft>
       <ColRightSpan>
         <PostForm />
-        <Post />
+        {data &&
+          data.map(({ _id, name, status, avatar, text, created }, index) => (
+            <Post
+              name={name}
+              status={status}
+              avatar={avatar}
+              created={created}
+              text={text}
+            />
+          ))}
       </ColRightSpan>
     </ContentContainer>
   );
 };
 
-export default ProfilePage;
+export default PostPage;

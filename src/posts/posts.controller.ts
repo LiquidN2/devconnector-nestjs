@@ -5,6 +5,7 @@ import {
   Post,
   Patch,
   Param,
+  Query,
   Delete,
   Body,
 } from '@nestjs/common';
@@ -29,9 +30,14 @@ import { CreatePostDto } from './dtos/create-post.dto';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Get('/me')
-  async getMyPosts(@CurrentUser() user: JwtPayloadDecoded) {
-    return await this.postsService.findByUserId(user.userId);
+  @Get('?')
+  async getPosts(@Query('target') target: string) {
+    return await this.postsService.findByTarget(target);
+  }
+
+  @Get('/target-me')
+  async getPostsAboutMe(@CurrentUser() user: JwtPayloadDecoded) {
+    return await this.postsService.findByTarget(user.userId);
   }
 
   @Post('/')

@@ -31,7 +31,7 @@ interface EducationExperienceItemProps {
   type: 'experience' | 'education';
   id: string;
   title: string;
-  subtitle: string;
+  organization: string;
   location: string;
   from: Date | null;
   to: Date | null;
@@ -44,7 +44,7 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
   type,
   id,
   title,
-  subtitle,
+  organization,
   location,
   from = null,
   to = null,
@@ -98,7 +98,7 @@ const EducationExperienceItem: React.FC<EducationExperienceItemProps> = ({
       <Heading>{title}</Heading>
 
       {renderSubHeadingIcon()}
-      <SubHeading>{subtitle}</SubHeading>
+      <SubHeading>{organization}</SubHeading>
 
       <IconMapMarker className="col-1" />
       <Location>{location}</Location>

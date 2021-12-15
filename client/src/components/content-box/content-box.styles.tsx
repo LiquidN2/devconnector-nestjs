@@ -21,4 +21,5 @@ export const BoxHeading = styled.h3`
   color: var(--color-grey-darkest);
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--color-grey-lighter);
+  text-transform: capitalize;
 `;

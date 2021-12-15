@@ -7,7 +7,15 @@ import Comments from '../comment/comments.component';
 
 import { PostContainer } from './post.styles';
 
-const Post: React.FC = () => {
+interface PostProps {
+  name: string;
+  status: string;
+  avatar: string;
+  created: Date;
+  text: string;
+}
+
+const Post: React.FC<PostProps> = ({ name, status, avatar, created, text }) => {
   const [commentsHidden, setCommentsHidden] = useState(false);
 
   const toggleCommentsHidden: MouseEventHandler<HTMLElement> = () => {
@@ -16,8 +24,13 @@ const Post: React.FC = () => {
 
   return (
     <PostContainer>
-      <PostHeader />
-      <PostContent />
+      <PostHeader
+        name={name}
+        status={status}
+        avatar={avatar}
+        created={created}
+      />
+      <PostContent text={text} />
       <PostInteraction toggleCommentsHidden={toggleCommentsHidden} />
       {!commentsHidden && <Comments />}
     </PostContainer>

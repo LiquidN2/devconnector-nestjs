@@ -28,6 +28,7 @@ export const Heading = styled.h5`
   font-size: 1.6rem;
   font-weight: 500;
   color: var(--color-grey-darkest);
+  text-transform: capitalize;
 `;
 
 export const SubHeading = styled.h5`

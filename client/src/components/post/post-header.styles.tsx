@@ -24,11 +24,13 @@ export const UserName = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   color: var(--color-grey-darkest);
+  margin-bottom: 0.3rem;
 `;
 
 export const UserTitle = styled.p`
-  font-size: 1.3rem;
-  color: var(--color-grey-light);
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  font-weight: 300;
 `;
 
 export const MenuAndTimeContainer = styled.div`

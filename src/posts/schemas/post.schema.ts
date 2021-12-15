@@ -15,12 +15,8 @@ export class Post {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name })
   user!: Types.ObjectId;
 
-  @Prop({
-    type: MongooseSchema.Types.ObjectId,
-    ref: User.name,
-    default: null,
-  })
-  target!: Types.ObjectId | null;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: User.name })
+  target!: Types.ObjectId;
 
   @Prop()
   text: string;

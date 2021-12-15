@@ -11,9 +11,8 @@ import {
 
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
 import ProfileSummary from '../../components/profile/profile-summary.component';
-import ProfileExperience from '../../components/profile/profile-experience.component';
-import ProfileEducation from '../../components/profile/profile-education.component';
 import ProfileSkills from '../../components/profile/profile-skills.component';
+import ProfileEduExp from '../../components/profile/profile-edu-exp.component';
 
 const ProfilePage: React.FC = () => {
   return (
@@ -26,8 +25,8 @@ const ProfilePage: React.FC = () => {
       </ColLeft>
       <ColMiddle>
         <ProfileSummary />
-        <ProfileExperience />
-        <ProfileEducation />
+        <ProfileEduExp type="experience" />
+        <ProfileEduExp type="education" />
       </ColMiddle>
       <ColRight>
         <ProfileSkills />

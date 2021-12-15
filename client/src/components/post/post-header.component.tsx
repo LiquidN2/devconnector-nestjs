@@ -1,5 +1,7 @@
 import React, { MouseEventHandler, useState } from 'react';
 
+import { formatPostDate } from '../../utils/datetime-format.utils';
+
 import Avatar from '../avatar/avatar.component';
 import MenuButton from '../dropdown-menu/button-menu.component';
 import DropdownMenu from '../dropdown-menu/dropdown-menu.component';
@@ -15,7 +17,19 @@ import {
   PostTime,
 } from './post-header.styles';
 
-const PostHeader: React.FC = () => {
+interface PostHeaderProps {
+  name: string;
+  status: string;
+  avatar: string;
+  created: Date;
+}
+
+const PostHeader: React.FC<PostHeaderProps> = ({
+  name,
+  status,
+  avatar,
+  created,
+}) => {
   const [dropDownHidden, setDropDownHidden] = useState(true);
 
   const toggleDropDownHidden: MouseEventHandler<HTMLElement> = () => {
@@ -25,15 +39,15 @@ const PostHeader: React.FC = () => {
   return (
     <HeaderContainer>
       <UserContainer>
-        <Avatar src="/img/users/user-4.jpg" />
+        <Avatar src={`${avatar}`} />
         <UserDescription>
-          <UserName>John Doe</UserName>
-          <UserTitle>Developer</UserTitle>
+          <UserName>{name}</UserName>
+          <UserTitle>{status}</UserTitle>
         </UserDescription>
       </UserContainer>
 
       <MenuAndTimeContainer>
-        <PostTime>2 hours ago</PostTime>
+        <PostTime>{formatPostDate(created)}</PostTime>
         <MenuButton onClick={toggleDropDownHidden} />
         <DropdownMenu hidden={dropDownHidden}>
           <DropdownMenuOption type="button">Edit Post</DropdownMenuOption>

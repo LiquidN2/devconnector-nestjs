@@ -3,14 +3,14 @@ import React from 'react';
 import { Paragraph } from '../UI/paragraph.component';
 import { ContentContainer } from './post-content.styles';
 
-const PostContent: React.FC = () => {
+interface PostContentProps {
+  text: string;
+}
+
+const PostContent: React.FC<PostContentProps> = ({ text }) => {
   return (
     <ContentContainer>
-      <Paragraph>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima eos
-        nisi autem nihil expedita magni sequi doloribus excepturi illum! Soluta
-        et quasi provident recusandae nostrum eius deserunt ipsa fugiat sit.
-      </Paragraph>
+      <Paragraph>{text}</Paragraph>
     </ContentContainer>
   );
 };
