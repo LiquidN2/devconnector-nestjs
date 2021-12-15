@@ -1,6 +1,9 @@
 import React, { MouseEventHandler, useState } from 'react';
 
 import { formatPostDate } from '../../utils/datetime-format.utils';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { selectAuthToken } from '../../redux/auth/auth.selector';
+import { useDeletePostMutation } from '../../redux/post/post.api';
 
 import Avatar from '../avatar/avatar.component';
 import MenuButton from '../dropdown-menu/button-menu.component';
@@ -18,6 +21,7 @@ import {
 } from './post-header.styles';
 
 interface PostHeaderProps {
+  postId: string;
   name: string;
   status: string;
   avatar: string;
@@ -25,6 +29,7 @@ interface PostHeaderProps {
 }
 
 const PostHeader: React.FC<PostHeaderProps> = ({
+  postId,
   name,
   status,
   avatar,
@@ -32,8 +37,15 @@ const PostHeader: React.FC<PostHeaderProps> = ({
 }) => {
   const [dropDownHidden, setDropDownHidden] = useState(true);
 
+  const authToken = useAppSelector(selectAuthToken);
+  const [deletePost] = useDeletePostMutation();
+
   const toggleDropDownHidden: MouseEventHandler<HTMLElement> = () => {
     setDropDownHidden(!dropDownHidden);
+  };
+
+  const handleDeletePost: MouseEventHandler<HTMLElement> = () => {
+    deletePost({ token: authToken, postId });
   };
 
   return (
@@ -51,7 +63,9 @@ const PostHeader: React.FC<PostHeaderProps> = ({
         <MenuButton onClick={toggleDropDownHidden} />
         <DropdownMenu hidden={dropDownHidden}>
           <DropdownMenuOption type="button">Edit Post</DropdownMenuOption>
-          <DropdownMenuOption type="button">Delete Post</DropdownMenuOption>
+          <DropdownMenuOption type="button" onClick={handleDeletePost}>
+            Delete Post
+          </DropdownMenuOption>
         </DropdownMenu>
       </MenuAndTimeContainer>
     </HeaderContainer>

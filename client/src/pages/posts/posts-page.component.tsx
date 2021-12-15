@@ -33,6 +33,7 @@ const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
         {data &&
           data.map(({ _id, name, status, avatar, text, created }, index) => (
             <Post
+              id={_id}
               name={name}
               status={status}
               avatar={avatar}

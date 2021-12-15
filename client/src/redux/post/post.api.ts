@@ -33,7 +33,25 @@ export const postApi = createApi({
       }),
       invalidatesTags: ['Posts'],
     }),
+
+    deletePost: builder.mutation<
+      Post,
+      { token: string | undefined; postId: string | undefined }
+    >({
+      query: ({ token, postId }) => ({
+        url: `/${postId}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ['Posts'],
+    }),
   }),
 });
 
-export const { useGetPostsQuery, useCreatePostMutation } = postApi;
+export const {
+  useGetPostsQuery,
+  useCreatePostMutation,
+  useDeletePostMutation,
+} = postApi;
