@@ -18,7 +18,7 @@ const InputTextStyles = css`
   font-size: 1.6rem;
   color: var(--color-grey-dark);
 
-  padding: 1.2rem 1.5rem;
+  padding: 1rem 1.2rem;
   width: 100%;
 
   background-color: var(--color-grey-lightest);

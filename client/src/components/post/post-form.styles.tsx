@@ -2,14 +2,13 @@ import styled from 'styled-components';
 
 export const PostFormContainer = styled.form`
   background-color: white;
-  padding: 2.5rem;
+  padding: 1.8rem;
   border: 1px solid var(--color-grey-lighter);
 
   display: grid;
-  grid-template-columns: minmax(min-content, max-content) 1fr minmax(
-      min-content,
-      max-content
-    );
+  grid-template-columns:
+    minmax(min-content, max-content) 1fr minmax(min-content, max-content)
+    minmax(min-content, max-content);
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   align-items: center;
@@ -33,8 +32,8 @@ export const BtnPhotoUpload = styled.label`
 
   svg {
     fill: white;
-    height: 2rem;
-    width: 2rem;
+    height: 1.6rem;
+    width: 1.6rem;
   }
 
   &:hover {

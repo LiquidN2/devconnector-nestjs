@@ -11,3 +11,8 @@ export interface Post {
   imageName: string;
   imageUrl: string;
 }
+
+export interface PostData {
+  text: string;
+  target: string | null;
+}

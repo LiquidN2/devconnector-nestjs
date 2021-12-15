@@ -14,11 +14,11 @@ import {
 import { usePosts } from '../../hooks/usePosts';
 
 interface PostPageProps {
-  userId?: string;
+  target?: string;
 }
 
-const PostPage: React.FC<PostPageProps> = ({ userId = '' }) => {
-  const { data } = usePosts(userId);
+const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
+  const { data } = usePosts(target);
 
   return (
     <ContentContainer>
