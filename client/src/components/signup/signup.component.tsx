@@ -1,9 +1,4 @@
-import React, {
-  FormEventHandler,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import FormInput from '../form/form-input.component';
@@ -28,13 +23,8 @@ const SignUp: React.FC = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [name, setName] = useState('');
 
-  const { authenticateAsync, clearAuthError } = useActions();
+  const { authenticateAsync } = useActions();
   const authError = useAppSelector(selectAuthError);
-
-  useEffect(() => {
-    if (!authError || !authError.message) return;
-    clearAuthError();
-  }, []);
 
   const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();

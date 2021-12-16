@@ -1,9 +1,4 @@
-import React, {
-  FormEventHandler,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
 import FormInput from '../form/form-input.component';
@@ -25,15 +20,8 @@ const SignIn: React.FC = () => {
   const [email, setEmail] = useState('hhnguyen255@gmail.com');
   const [password, setPassword] = useState('test1234');
 
-  const { authenticateAsync, clearAuthError } = useActions();
+  const { authenticateAsync } = useActions();
   const authError = useAppSelector(selectAuthError);
-
-  // useEffect(() => {
-  //   if (!authError || !authError.message) return;
-  //
-  //   // Clear all previous signin error upon component load
-  //   clearAuthError();
-  // }, []);
 
   const handleSubmit: FormEventHandler = async e => {
     e.preventDefault();

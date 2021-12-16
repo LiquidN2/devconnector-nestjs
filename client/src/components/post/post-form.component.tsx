@@ -38,6 +38,7 @@ const PostForm: React.FC<PostFormProps> = ({ target = '' }) => {
         value={text}
         handleChange={e => setText(e.currentTarget.value)}
         placeholder="What's on your mind?"
+        isFocused={true}
       />
       <BtnPhotoUpload htmlFor="photo">
         <IconCamera />

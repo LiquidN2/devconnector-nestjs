@@ -8,7 +8,7 @@ import { BtnSavePrimary, Button } from '../../UI/button.component';
 import {
   FormContainer,
   FullWidth,
-  FormError,
+  // FormError,
   SpinnerContainer,
 } from './education-experience-form.styles';
 
@@ -20,7 +20,6 @@ import {
   useUpdateExperienceOrEducationMutation,
 } from '../../../redux/profile/profile.api';
 
-import { Education, Experience } from '../../../redux/profile/profile.type';
 import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 
 interface EducationExperienceProps {

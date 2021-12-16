@@ -31,8 +31,11 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get('?')
-  async getPosts(@Query('target') target: string) {
-    return await this.postsService.findByTarget(target);
+  async getPosts(
+    @Query('target') target: string,
+    @CurrentUser() user: JwtPayloadDecoded,
+  ) {
+    return await this.postsService.findByTarget(target, user.userId);
   }
 
   @Get('/target-me')

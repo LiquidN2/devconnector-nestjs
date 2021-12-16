@@ -1,4 +1,4 @@
-import { User } from '../user/user.type';
+// import { User } from '../user/user.type';
 
 export interface Experience {
   _id: string;

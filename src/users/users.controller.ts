@@ -17,7 +17,6 @@ import { CurrentUser } from './decorators/current-user.decorator';
 import { Serialize } from '../interceptors/serialize.interceptor';
 
 // Services
-// import { AuthService } from './auth.service.ts.bak';
 import { UsersService } from './users.service';
 
 // DTOs

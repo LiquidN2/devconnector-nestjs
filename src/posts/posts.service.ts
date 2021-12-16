@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 
 import { Post, PostDocument } from './schemas/post.schema';
+import { Like, LikeDocument } from '../likes/schemas/like.schema';
 
 import { CreatePostDto } from './dtos/create-post.dto';
 
@@ -10,14 +11,11 @@ import { CreatePostDto } from './dtos/create-post.dto';
 export class PostsService {
   constructor(
     @InjectModel(Post.name) private readonly postModel: Model<PostDocument>,
+    @InjectModel(Like.name) private readonly likeModel: Model<LikeDocument>,
   ) {}
 
-  async findByTarget(target: string) {
-    // return this.postModel
-    //   .find({ user: userId })
-    //   .populate('user', ['email', 'name', 'avatar']);
-
-    return this.postModel.aggregate([
+  async findByTarget(target: string, currentUserId?: string) {
+    const postsAgg = this.postModel.aggregate([
       {
         $match: { target: new Types.ObjectId(target) }, // get target a user
       },
@@ -35,6 +33,14 @@ export class PostsService {
           localField: 'user',
           foreignField: '_id',
           as: 'userInfo',
+        },
+      },
+      {
+        $lookup: {
+          from: 'likes',
+          localField: '_id',
+          foreignField: 'post',
+          as: 'likes',
         },
       },
       {
@@ -57,12 +63,32 @@ export class PostsService {
           status: 1,
           created: 1,
           updated: 1,
+          'likes.user': 1,
         },
       },
+      // {
+      //   $unwind: { path: '$likesBy', preserveNullAndEmptyArrays: true },
+      // },
       {
         $sort: { created: -1 },
       },
     ]);
+
+    console.log(currentUserId);
+
+    const rawPosts = await postsAgg.exec();
+    return rawPosts.map(post => {
+      return post.likes.length === 0
+        ? post
+        : {
+            ...post,
+            // likes: post.likes.map(like => like.user),
+            likesCount: post.likes.length,
+            likedByCurrentUser: post.likes.some(
+              like => currentUserId === like.user.toString(),
+            ),
+          };
+    });
   }
 
   async create(userId: string, body: CreatePostDto) {

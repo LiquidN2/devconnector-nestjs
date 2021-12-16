@@ -14,7 +14,7 @@ import ProfileEdit from './pages/profile/profile-edit.component';
 import PrivateRoute from './routes/private-route.component';
 import PublicRoute from './routes/public-route.component';
 
-import './App.scss';
+// import './App.scss';
 
 const App: React.FC = () => {
   return (
