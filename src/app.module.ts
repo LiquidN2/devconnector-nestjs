@@ -2,7 +2,11 @@ import { resolve, join } from 'path';
 import { Module, ValidationPipe, MiddlewareConsumer } from '@nestjs/common';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import {
+  ConfigModule,
+  ConfigService,
+  ConfigModuleOptions,
+} from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 const cookieSession = require('cookie-session');
 
@@ -19,15 +23,17 @@ import { LikesModule } from './likes/likes.module';
 
 const env = process.env.NODE_ENV;
 
-const configOptions = {
+const configOptions: ConfigModuleOptions = {
   isGlobal: true,
-  ignoreEnvFile: env === 'production',
-} as any;
+  ignoreEnvFile: env === 'production', // ignore env file in production
+};
 
+// Load .env file if not in production
 if (env !== 'production') {
   configOptions.envFilePath = `.env.${env}`;
 }
 
+// Load the environment vars if in production
 if (env === 'production') {
   configOptions.load = [config];
 }
@@ -67,7 +73,7 @@ if (env === 'production') {
     // }),
 
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client', 'build'),
+      rootPath: resolve(__dirname, '..', 'client', 'build'),
       exclude: ['/api*'],
     }),
   ],
