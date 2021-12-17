@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 const cookieSession = require('cookie-session');
 
+import config from './config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
@@ -16,13 +17,25 @@ import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
 
+const env = process.env.NODE_ENV;
+
+const configOptions = {
+  isGlobal: true,
+  ignoreEnvFile: env === 'production',
+} as any;
+
+if (env !== 'production') {
+  configOptions.envFilePath = `.env.${env}`;
+}
+
+if (env === 'production') {
+  configOptions.load = [config];
+}
+
 @Module({
   imports: [
     // Setup global env variables
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`,
-    }),
+    ConfigModule.forRoot(configOptions),
 
     // Connect to DB
     MongooseModule.forRootAsync({
@@ -36,29 +49,27 @@ import { LikesModule } from './likes/likes.module';
     AuthModule,
     UsersModule,
     ProfilesModule,
+    PostsModule,
+    CommentsModule,
+    LikesModule,
 
     // Static Files Module
-    ServeStaticModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        const rootPath =
-          configService.get<string>('NODE_ENV') === 'production'
-            ? resolve(__dirname, '..', 'client', 'build')
-            : './';
-
-        return [{ rootPath, exclude: ['/api*'] }];
-      },
-    }),
-
-    PostsModule,
-
-    CommentsModule,
-
-    LikesModule,
-    // ServeStaticModule.forRoot({
-    //   rootPath: join(__dirname, '..', 'client', 'build'),
-    //   exclude: ['/api*'],
+    // ServeStaticModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) => {
+    //     const rootPath =
+    //       configService.get<string>('NODE_ENV') === 'production'
+    //         ? resolve(__dirname, '..', 'client', 'build')
+    //         : './';
+    //
+    //     return [{ rootPath, exclude: ['/api*'] }];
+    //   },
     // }),
+
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client', 'build'),
+      exclude: ['/api*'],
+    }),
   ],
 
   providers: [
