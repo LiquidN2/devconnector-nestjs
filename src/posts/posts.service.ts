@@ -63,7 +63,8 @@ export class PostsService {
           status: 1,
           created: 1,
           updated: 1,
-          'likes.user': 1,
+          target: 1,
+          likes: { _id: 1, user: 1 },
         },
       },
       // {
@@ -74,20 +75,23 @@ export class PostsService {
       },
     ]);
 
-    console.log(currentUserId);
-
     const rawPosts = await postsAgg.exec();
+
     return rawPosts.map(post => {
-      return post.likes.length === 0
-        ? post
-        : {
-            ...post,
-            // likes: post.likes.map(like => like.user),
-            likesCount: post.likes.length,
-            likedByCurrentUser: post.likes.some(
-              like => currentUserId === like.user.toString(),
-            ),
-          };
+      if (!post.likes || post.likes.length === 0) return post;
+
+      const like = post.likes.find(like =>
+        currentUserId
+          ? currentUserId === like.user.toString()
+          : target === like.user.toString(),
+      );
+
+      return {
+        ...post,
+        likesCount: post.likes.length,
+        likedByCurrentUser: !!like,
+        likeIdByCurrentUser: !!like ? Object.values(like)[0] : null,
+      };
     });
   }
 

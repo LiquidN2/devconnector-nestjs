@@ -14,13 +14,13 @@ export const Button = styled.button`
   &:hover {
     cursor: pointer;
 
-    svg {
-      fill: var(--color-primary);
-    }
-
-    ${Count} {
-      color: var(--color-primary);
-    }
+    // svg {
+    //   fill: var(--color-primary);
+    // }
+    //
+    // ${Count} {
+    //   color: var(--color-primary);
+    // }
   }
 
   svg {

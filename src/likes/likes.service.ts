@@ -45,6 +45,15 @@ export class LikesService {
     return await query.exec();
   }
 
+  async deleteByPostId(userId: string, postId: string) {
+    const query = this.likeModel.findOneAndDelete({
+      user: userId,
+      post: postId,
+    });
+
+    return await query.exec();
+  }
+
   async summarizeLikesByPostId(postId: string, userId: string) {
     const count = await this.likeModel.count({ post: postId });
     const like = await this.likeModel.find({ post: postId, user: userId });

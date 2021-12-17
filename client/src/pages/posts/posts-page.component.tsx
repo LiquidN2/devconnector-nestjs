@@ -38,17 +38,35 @@ const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
           </SpinnerContainer>
         )}
         {data &&
-          data.map(({ _id, name, status, avatar, text, created }, index) => (
-            <Post
-              key={index}
-              id={_id}
-              name={name}
-              status={status}
-              avatar={avatar}
-              created={created}
-              text={text}
-            />
-          ))}
+          data.map(
+            (
+              {
+                _id,
+                name,
+                status,
+                avatar,
+                text,
+                created,
+                likesCount,
+                likedByCurrentUser,
+                likeIdByCurrentUser,
+              },
+              index,
+            ) => (
+              <Post
+                key={index}
+                id={_id}
+                name={name}
+                status={status}
+                avatar={avatar}
+                created={created}
+                text={text}
+                likesCount={likesCount}
+                likedByCurrentUser={likedByCurrentUser}
+                likeIdByCurrentUser={likeIdByCurrentUser}
+              />
+            ),
+          )}
       </ColRightSpan>
     </ContentContainer>
   );

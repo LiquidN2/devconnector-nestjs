@@ -58,4 +58,12 @@ export class LikesController {
   ) {
     return await this.likesService.delete(user.userId, likeId);
   }
+
+  @Delete('/postId/:postId')
+  async deleteLikeByPostId(
+    @CurrentUser() user: JwtPayloadDecoded,
+    @Param('postId') postId: string,
+  ) {
+    return await this.likesService.deleteByPostId(user.userId, postId);
+  }
 }

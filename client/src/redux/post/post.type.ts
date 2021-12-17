@@ -10,6 +10,9 @@ export interface Post {
   updated: Date;
   imageName: string;
   imageUrl: string;
+  likesCount?: number;
+  likedByCurrentUser?: boolean;
+  likeIdByCurrentUser?: string;
 }
 
 export interface PostData {

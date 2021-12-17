@@ -14,6 +14,9 @@ interface PostProps {
   avatar: string;
   created: Date;
   text: string;
+  likesCount?: number;
+  likedByCurrentUser?: boolean;
+  likeIdByCurrentUser?: string;
 }
 
 const Post: React.FC<PostProps> = ({
@@ -23,6 +26,9 @@ const Post: React.FC<PostProps> = ({
   avatar,
   created,
   text,
+  likesCount = 0,
+  likedByCurrentUser = false,
+  likeIdByCurrentUser,
 }) => {
   const [commentsHidden, setCommentsHidden] = useState(false);
 
@@ -40,7 +46,13 @@ const Post: React.FC<PostProps> = ({
         created={created}
       />
       <PostContent text={text} />
-      <PostInteraction toggleCommentsHidden={toggleCommentsHidden} />
+      <PostInteraction
+        postId={id}
+        likesCount={likesCount}
+        likedByCurrentUser={likedByCurrentUser}
+        likeIdByCurrentUser={likeIdByCurrentUser}
+        toggleCommentsHidden={toggleCommentsHidden}
+      />
       {!commentsHidden && <Comments />}
     </PostContainer>
   );
