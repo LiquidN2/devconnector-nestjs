@@ -5,7 +5,6 @@ import {
   Body,
   Patch,
   Param,
-  UseGuards,
   NotFoundException,
   Delete,
   Query,
@@ -14,11 +13,6 @@ import {
 
 // Types
 import { JwtPayloadDecoded } from '../auth/strategies/jwt.strategy';
-
-// Guards
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-
-// Interceptors
 
 // Custom Decorators
 import { CurrentUser } from '../users/decorators/current-user.decorator';
@@ -31,10 +25,7 @@ import { CreateProfileDto } from './dtos/create-profile.dto';
 import { CreateExperienceDto } from './dtos/create-experience.dto';
 import { CreateEducationDto } from './dtos/create-education.dto';
 
-// Schema
-
 @Controller('/api/profiles')
-@UseGuards(JwtAuthGuard)
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 

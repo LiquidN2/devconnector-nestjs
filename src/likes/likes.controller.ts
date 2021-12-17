@@ -6,14 +6,10 @@ import {
   Body,
   Param,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 
 // Types
 import { JwtPayloadDecoded } from '../auth/strategies/jwt.strategy';
-
-// Guards
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 // Decorators
 import { CurrentUser } from '../users/decorators/current-user.decorator';
@@ -25,7 +21,6 @@ import { LikesService } from './likes.service';
 import { CreateLikeDto } from './dtos/create-like.dto';
 
 @Controller('/api/likes')
-@UseGuards(JwtAuthGuard)
 export class LikesController {
   constructor(private readonly likesService: LikesService) {}
 

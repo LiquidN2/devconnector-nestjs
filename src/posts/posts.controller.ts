@@ -1,6 +1,5 @@
 import {
   Controller,
-  UseGuards,
   Get,
   Post,
   Patch,
@@ -13,9 +12,6 @@ import {
 // Types
 import { JwtPayloadDecoded } from '../auth/strategies/jwt.strategy';
 
-// Guards
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-
 // Decorators
 import { CurrentUser } from '../users/decorators/current-user.decorator';
 
@@ -26,7 +22,6 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dtos/create-post.dto';
 
 @Controller('/api/posts')
-@UseGuards(JwtAuthGuard)
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 

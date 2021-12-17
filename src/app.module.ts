@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { AuthModule } from './auth/auth.module';
-// import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
@@ -71,7 +71,7 @@ import { LikesModule } from './likes/likes.module';
     },
 
     // Global Guard
-    // { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
   ],
 
   controllers: [AppController],
