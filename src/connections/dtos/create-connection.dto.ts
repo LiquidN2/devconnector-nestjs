@@ -1,7 +1,7 @@
 import { IsMongoId } from 'class-validator';
 import { Types } from 'mongoose';
 
-export class CreateLikeDto {
+export class CreateConnectionDto {
   @IsMongoId()
-  post: Types.ObjectId;
+  target: Types.ObjectId;
 }

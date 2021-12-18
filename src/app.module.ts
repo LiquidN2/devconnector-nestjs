@@ -20,6 +20,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
+import { ConnectionsModule } from './connections/connections.module';
 
 const env = process.env.NODE_ENV;
 
@@ -76,6 +77,8 @@ if (env === 'production') {
       rootPath: resolve(__dirname, '..', 'client', 'build'),
       exclude: ['/api*'],
     }),
+
+    ConnectionsModule,
   ],
 
   providers: [
