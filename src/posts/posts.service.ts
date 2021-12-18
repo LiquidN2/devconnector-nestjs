@@ -44,6 +44,14 @@ export class PostsService {
         },
       },
       {
+        $lookup: {
+          from: 'comments',
+          localField: '_id',
+          foreignField: 'post',
+          as: 'comments',
+        },
+      },
+      {
         $replaceRoot: {
           newRoot: {
             $mergeObjects: [
@@ -65,6 +73,7 @@ export class PostsService {
           updated: 1,
           target: 1,
           likes: { _id: 1, user: 1 },
+          comments: { _id: 1, user: 1, text: 1 },
         },
       },
       // {
@@ -78,7 +87,7 @@ export class PostsService {
     const rawPosts = await postsAgg.exec();
 
     return rawPosts.map(post => {
-      if (!post.likes || post.likes.length === 0) return post;
+      // if (!post.likes || post.likes.length === 0) return post;
 
       const like = post.likes.find(like =>
         currentUserId
@@ -91,6 +100,7 @@ export class PostsService {
         likesCount: post.likes.length,
         likedByCurrentUser: !!like,
         likeIdByCurrentUser: !!like ? Object.values(like)[0] : null,
+        commentsCount: post.comments.length,
       };
     });
   }

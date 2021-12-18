@@ -1,8 +1,10 @@
 import { IsString } from 'class-validator';
 import { Types } from 'mongoose';
 
-export class CreateLikeDto {
+export class CreateCommentDto {
   @IsString()
-  // @Transform(({ obj }) => new Types.ObjectId(obj.post))
   post: Types.ObjectId;
+
+  @IsString()
+  text: string;
 }

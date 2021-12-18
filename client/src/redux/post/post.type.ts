@@ -13,6 +13,7 @@ export interface Post {
   likesCount?: number;
   likedByCurrentUser?: boolean;
   likeIdByCurrentUser?: string;
+  commentsCount?: number;
 }
 
 export interface PostData {

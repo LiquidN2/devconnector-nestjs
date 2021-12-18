@@ -6,10 +6,11 @@ export const CommentContainer = styled.div`
   display: grid;
   grid-template-columns:
     minmax(min-content, max-content) minmax(min-content, 1fr)
-    minmax(min-content, max-content);
+    minmax(min-content, max-content) minmax(min-content, max-content);
   grid-template-rows: min-content 1fr;
   grid-column-gap: 1rem;
   grid-row-gap: 0.5rem;
+  align-items: center;
 `;
 
 export const UserPhotoContainer = styled.div`
@@ -32,4 +33,8 @@ export const CommentDateTime = styled.span`
 export const CommentContent = styled(Paragraph)`
   font-size: 1.4rem;
   grid-column: 2 / span 2;
+`;
+
+export const MenuContainer = styled.div`
+  position: relative;
 `;

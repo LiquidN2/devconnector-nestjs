@@ -4,13 +4,30 @@ import CommentItem from './comment-item.component';
 import CommentForm from './comment-form.component';
 import { CommentsContainer, ViewMoreComments } from './comments.styles';
 
-const Comments: React.FC = () => {
+import { useComments } from '../../hooks/useComments';
+
+interface CommentsProps {
+  postId: string;
+}
+
+const Comments: React.FC<CommentsProps> = ({ postId = '' }) => {
+  const { data } = useComments(postId);
+
   return (
     <CommentsContainer>
-      <CommentItem />
-      <CommentItem />
+      {data &&
+        data.length !== 0 &&
+        data.map((comment, index) => (
+          <CommentItem
+            key={index}
+            id={comment._id}
+            text={comment.text}
+            user={comment.user}
+            created={comment.created}
+          />
+        ))}
       <ViewMoreComments>View more comments</ViewMoreComments>
-      <CommentForm />
+      <CommentForm postId={postId} />
     </CommentsContainer>
   );
 };
