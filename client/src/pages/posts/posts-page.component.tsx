@@ -50,6 +50,7 @@ const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
                 likesCount,
                 likedByCurrentUser,
                 likeIdByCurrentUser,
+                commentsCount,
               },
               index,
             ) => (
@@ -64,6 +65,7 @@ const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
                 likesCount={likesCount}
                 likedByCurrentUser={likedByCurrentUser}
                 likeIdByCurrentUser={likeIdByCurrentUser}
+                commentsCount={commentsCount}
               />
             ),
           )}

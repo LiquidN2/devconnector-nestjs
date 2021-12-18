@@ -10,18 +10,27 @@ import {
   CommentContent,
 } from './comment-item.styles';
 
-const CommentItem: React.FC = () => {
+import { formatPostDate } from '../../utils/datetime-format.utils';
+
+interface CommentProps {
+  text: string;
+  created: Date;
+  user: {
+    _id: string;
+    name: string;
+    avatar: string;
+  };
+}
+
+const CommentItem: React.FC<CommentProps> = ({ text = '', user, created }) => {
   return (
     <CommentContainer>
       <UserPhotoContainer>
-        <Avatar src="/img/users/user-4.jpg" />
+        <Avatar src={user.avatar} alt={user.name} />
       </UserPhotoContainer>
-      <UserName>John Doe</UserName>
-      <CommentDateTime>30 mins ago</CommentDateTime>
-      <CommentContent>
-        Minima eos nisi autem nihil expedita magni sequi doloribus excepturi
-        illum
-      </CommentContent>
+      <UserName>{user.name}</UserName>
+      <CommentDateTime>{formatPostDate(created)}</CommentDateTime>
+      <CommentContent>{text}</CommentContent>
     </CommentContainer>
   );
 };

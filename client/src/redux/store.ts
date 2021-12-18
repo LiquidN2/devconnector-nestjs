@@ -7,12 +7,14 @@ import { userApi } from './user/user.api';
 import { profileApi } from './profile/profile.api';
 import { postApi } from './post/post.api';
 import { likeApi } from './like/like.api';
+import { commentApi } from './comment/comment.api';
 
 const middlewares = [
   userApi.middleware,
   profileApi.middleware,
   postApi.middleware,
-  likeApi.middleware
+  likeApi.middleware,
+  commentApi.middleware,
 ];
 
 export const store = configureStore({

@@ -7,6 +7,7 @@ import { userApi } from './user/user.api';
 import { profileApi } from './profile/profile.api';
 import { postApi } from './post/post.api';
 import { likeApi } from './like/like.api';
+import { commentApi } from './comment/comment.api';
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -14,6 +15,7 @@ export const rootReducer = combineReducers({
   [profileApi.reducerPath]: profileApi.reducer,
   [postApi.reducerPath]: postApi.reducer,
   [likeApi.reducerPath]: likeApi.reducer,
+  [commentApi.reducerPath]: commentApi.reducer,
 });
 
 const persistConfig = {

@@ -11,7 +11,6 @@ import { withIconAndCount } from './with-icon-n-count.component';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { selectAuthToken } from '../../redux/auth/auth.selector';
 import {
-  useDeleteLikeMutation,
   useDeleteLikeByPostIdMutation,
   useCreateLikeMutation,
 } from '../../redux/like/like.api';
