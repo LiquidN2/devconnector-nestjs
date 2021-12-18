@@ -25,7 +25,6 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
       {({ commentsCount, setCommentsCount }) => {
         const handleSubmit: FormEventHandler = e => {
           e.preventDefault();
-          console.log(text);
 
           const body = {
             text: text.trim(),

@@ -34,8 +34,25 @@ export const commentApi = createApi({
       }),
       invalidatesTags: ['Comments'],
     }),
+
+    deleteComment: build.mutation<
+      Comment,
+      { token: string | undefined; commentId: string | undefined }
+    >({
+      query: ({ token, commentId }) => ({
+        url: `/${commentId}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ['Comments'],
+    }),
   }),
 });
 
-export const { useGetCommentsByPostIdQuery, useCreateCommentMutation } =
-  commentApi;
+export const {
+  useGetCommentsByPostIdQuery,
+  useCreateCommentMutation,
+  useDeleteCommentMutation,
+} = commentApi;

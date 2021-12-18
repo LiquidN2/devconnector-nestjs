@@ -20,6 +20,7 @@ const Comments: React.FC<CommentsProps> = ({ postId = '' }) => {
         data.map((comment, index) => (
           <CommentItem
             key={index}
+            id={comment._id}
             text={comment.text}
             user={comment.user}
             created={comment.created}
