@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 import { Module, ValidationPipe, MiddlewareConsumer } from '@nestjs/common';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -50,9 +50,7 @@ const env = process.env.NODE_ENV;
     // Static Files Module
     ServeStaticModule.forRoot({
       rootPath:
-        env === 'production'
-          ? resolve(__dirname, '..', 'client', 'build')
-          : './',
+        env === 'production' ? join(__dirname, '..', 'client', 'build') : './',
       exclude: ['/api*'],
     }),
   ],
