@@ -1,8 +1,8 @@
-import { IsString } from 'class-validator';
+import { IsString, IsMongoId } from 'class-validator';
 import { Types } from 'mongoose';
 
 export class CreateCommentDto {
-  @IsString()
+  @IsMongoId()
   post: Types.ObjectId;
 
   @IsString()
