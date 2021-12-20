@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { MouseEventHandler, useState, useRef } from 'react';
 
 import Avatar from '../avatar/avatar.component';
 import MenuButton from '../dropdown-menu/button-menu.component';
@@ -15,15 +15,69 @@ import {
   ConnectionMenuContainer,
 } from './connection-item.styles';
 
+import { useClickOutside } from '../../hooks/useClickOutside';
+
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { selectAuthToken } from '../../redux/auth/auth.selector';
+import {
+  useUpdateConnectionStatusMutation,
+  useRemoveConnectionMutation,
+} from '../../redux/connection/connection.api';
+import { ConnectionType } from '../../redux/connection/connection.type';
+
 interface ConnectionItemProps {
   type?: 'pending' | 'active';
+  _id: string;
+  userId: string;
+  name: string;
+  email: string;
+  avatar: string;
+  profileStatus: string;
+  company: string;
+  location: string;
 }
 
-const ConnectionItem: React.FC<ConnectionItemProps> = ({ type = 'active' }) => {
+const ConnectionItem: React.FC<ConnectionItemProps> = ({
+  type = 'active',
+  _id,
+  userId,
+  name,
+  email,
+  avatar,
+  profileStatus,
+  location,
+  company,
+}) => {
+  const ref = useRef() as React.Ref<HTMLDivElement>;
   const [dropdownHidden, setDropdownHidden] = useState(true);
+  useClickOutside(ref, () => setDropdownHidden(true));
+
+  const authToken = useAppSelector(selectAuthToken);
+  const [updateConnection] = useUpdateConnectionStatusMutation();
+  const [removeConnection] = useRemoveConnectionMutation();
 
   const toggleDropdownHidden: MouseEventHandler<HTMLElement> = () => {
     setDropdownHidden(!dropdownHidden);
+  };
+
+  const handleAcceptConnection: MouseEventHandler<HTMLElement> = () => {
+    updateConnection({
+      token: authToken,
+      connectionId: _id,
+      body: { status: ConnectionType.Active },
+    });
+  };
+
+  const handleDeclineConnection: MouseEventHandler<HTMLElement> = () => {
+    updateConnection({
+      token: authToken,
+      connectionId: _id,
+      body: { status: ConnectionType.Rejected },
+    });
+  };
+
+  const handleRemoveConnection: MouseEventHandler<HTMLElement> = () => {
+    removeConnection({ token: authToken, connectionId: _id });
   };
 
   const renderMenu = (type: 'pending' | 'active') => {
@@ -31,12 +85,16 @@ const ConnectionItem: React.FC<ConnectionItemProps> = ({ type = 'active' }) => {
       default:
       case 'active':
         return (
-          <ConnectionMenuContainer>
+          <ConnectionMenuContainer ref={ref}>
             <MenuButton onClick={toggleDropdownHidden} />
             <DropdownMenu hidden={dropdownHidden} top="4.8rem">
+              <DropdownMenuOption type="button">
+                View Profile
+              </DropdownMenuOption>
+              <DropdownMenuOption type="button">View Posts</DropdownMenuOption>
               <DropdownMenuOption
                 type="button"
-                onClick={() => console.log('clicked')}
+                onClick={handleRemoveConnection}
               >
                 Remove
               </DropdownMenuOption>
@@ -47,8 +105,10 @@ const ConnectionItem: React.FC<ConnectionItemProps> = ({ type = 'active' }) => {
       case 'pending':
         return (
           <ConnectionMenuContainer>
-            <ButtonPrimary>Accept</ButtonPrimary>
-            <Button>Decline</Button>
+            <ButtonPrimary onClick={handleAcceptConnection}>
+              Accept
+            </ButtonPrimary>
+            <Button onClick={handleDeclineConnection}>Decline</Button>
           </ConnectionMenuContainer>
         );
     }
@@ -56,11 +116,13 @@ const ConnectionItem: React.FC<ConnectionItemProps> = ({ type = 'active' }) => {
 
   return (
     <ConnectionItemContainer>
-      <Avatar src="/img/users/user-4.jpg" />
+      <Avatar src={avatar} alt={name} />
       <UserContainer>
-        <UserName>Jane Smith</UserName>
-        <UserCompany>Developer at ABC Pty Ltd</UserCompany>
-        <UserLocation>Melbourne VIC, Australia</UserLocation>
+        <UserName>{name}</UserName>
+        <UserCompany>
+          {profileStatus} at {company}
+        </UserCompany>
+        <UserLocation>{location}</UserLocation>
       </UserContainer>
       {renderMenu(type)}
     </ConnectionItemContainer>

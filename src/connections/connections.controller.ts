@@ -1,8 +1,15 @@
-import { Controller, Post, Body, Patch, Param, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Get,
+  Delete,
+} from '@nestjs/common';
 
 // Types
 import { JwtPayloadDecoded } from '../auth/strategies/jwt.strategy';
-import { ConnectionStatus } from './schemas/connection.schema';
 
 // Decorators
 import { CurrentUser } from '../users/decorators/current-user.decorator';
@@ -47,5 +54,13 @@ export class ConnectionsController {
       connectionId,
       body,
     );
+  }
+
+  @Delete('/:connectionId')
+  async deleteConnection(
+    @CurrentUser() user: JwtPayloadDecoded,
+    @Param('connectionId') connectionId: string,
+  ) {
+    return await this.connectionsService.delete(user.userId, connectionId);
   }
 }

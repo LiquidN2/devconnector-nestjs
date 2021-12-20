@@ -39,6 +39,10 @@ export class CreateProfileDto {
   status: string;
 
   @IsOptional()
+  @IsString()
+  company: string;
+
+  @IsOptional()
   @IsArray()
   @MaxLength(20, { each: true })
   // @Transform(({ obj }) => obj.skills.split(',')) // transform string to array
