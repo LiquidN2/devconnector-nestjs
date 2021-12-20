@@ -6,8 +6,8 @@ import DropdownMenuOption from '../dropdown-menu/dropdown-menu-option.component'
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useActions } from '../../hooks/useActions';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useGetWhoAmIQuery } from '../../redux/user/user.api';
+import { selectAuthToken } from '../../redux/auth';
+import { useGetWhoAmIQuery } from '../../redux/user';
 
 import { UserNavContainer, UserNavAvatar } from './user-nav.styles';
 

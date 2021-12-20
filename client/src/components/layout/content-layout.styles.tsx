@@ -40,6 +40,8 @@ export const ColMiddle = styled.div`
 
 export const ColRightSpan = ColMiddle;
 
+export const ColLeftSpan = ColMiddle;
+
 export const SpinnerContainer = styled.div`
   width: 100%;
   display: flex;

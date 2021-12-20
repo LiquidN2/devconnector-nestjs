@@ -1,4 +1,4 @@
-import { resolve, join } from 'path';
+import { join } from 'path';
 import { Module, ValidationPipe, MiddlewareConsumer } from '@nestjs/common';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';

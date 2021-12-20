@@ -7,9 +7,9 @@ import { PostFormContainer, BtnPhotoUpload } from './post-form.styles';
 import { ButtonPrimary } from '../UI/button.component';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
+import { selectAuthToken } from '../../redux/auth';
 import { useProfile } from '../../hooks/useProfile';
-import { useCreatePostMutation } from '../../redux/post/post.api';
+import { useCreatePostMutation } from '../../redux/post';
 
 interface PostFormProps {
   target?: string;

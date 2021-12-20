@@ -1,10 +1,10 @@
 import { useAppSelector } from './useAppSelector';
-import { selectAuthToken } from '../redux/auth/auth.selector';
+import { selectAuthToken } from '../redux/auth';
 import {
   useGetProfileQuery,
   useGetProfileWithUserIdQuery,
   useGetProfileWithHandleQuery,
-} from '../redux/profile/profile.api';
+} from '../redux/profile';
 
 export const useProfile = (profileId: string | undefined) => {
   const authToken = useAppSelector(selectAuthToken);

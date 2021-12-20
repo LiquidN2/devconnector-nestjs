@@ -18,12 +18,12 @@ import {
 import { useClickOutside } from '../../hooks/useClickOutside';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
+import { selectAuthToken } from '../../redux/auth';
 import {
   useUpdateConnectionStatusMutation,
   useRemoveConnectionMutation,
-} from '../../redux/connection/connection.api';
-import { ConnectionType } from '../../redux/connection/connection.type';
+} from '../../redux/connection';
+import { ConnectionType } from '../../redux/connection';
 
 interface ConnectionItemProps {
   type?: 'pending' | 'active';

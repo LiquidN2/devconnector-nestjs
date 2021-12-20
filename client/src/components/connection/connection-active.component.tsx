@@ -2,15 +2,14 @@ import React from 'react';
 
 import ConnectionBox from './connection-box.component';
 import ConnectionItem from './connection-item.component';
-import LoadingSpinner from '../loading-spinner/loading-spinner.component';
 
 import { useConnections } from '../../hooks/useConnections';
 
-interface ConnectionActive {
+interface ConnectionActiveProps {
   userId?: string;
 }
 
-const ConnectionActive: React.FC<ConnectionActive> = ({ userId = '' }) => {
+const ConnectionActive: React.FC<ConnectionActiveProps> = ({ userId = '' }) => {
   const { data } = useConnections(userId);
 
   const activeConnections = data
