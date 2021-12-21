@@ -1,5 +1,7 @@
 import React from 'react';
 
+import SearchResult from '../../components/search/search-result.component';
+
 import {
   ContentContainer,
   ColLeftSpan,
@@ -9,7 +11,9 @@ import {
 const SearchPage: React.FC = () => {
   return (
     <ContentContainer>
-      <ColLeftSpan>Search results</ColLeftSpan>
+      <ColLeftSpan>
+        <SearchResult />
+      </ColLeftSpan>
       <ColRight>Filter Box</ColRight>
     </ContentContainer>
   );

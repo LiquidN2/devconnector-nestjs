@@ -85,7 +85,7 @@ const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({
         <SocialLink type="linkedin" url="#" label={linkedIn} target="_blank" />
       </SocialMediaContainer>
 
-      {!profileId && (
+      {!userId && (
         <BtnLinkEditPrimary to="/profile/edit/main">
           Edit Profile
         </BtnLinkEditPrimary>

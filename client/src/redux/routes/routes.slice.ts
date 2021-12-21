@@ -24,7 +24,7 @@ export const routesSlice = createSlice({
   initialState,
   reducers: {
     setRoutes: (state, action: PayloadAction<RouteActionPayload>) => {
-      switch (action.payload) {
+      switch (action.payload.routeSet) {
         case RouteSet.ProfileEdit:
           state.currentRoutes = [
             {
@@ -59,6 +59,23 @@ export const routesSlice = createSlice({
             {
               url: '/searches/posts',
               label: 'Posts',
+            },
+          ];
+          break;
+
+        case RouteSet.Visit:
+          state.currentRoutes = [
+            {
+              url: `/users/${action.payload.userId}/posts`,
+              label: 'Posts',
+            },
+            {
+              url: `/users/${action.payload.userId}/profile`,
+              label: 'Profile',
+            },
+            {
+              url: `/users/${action.payload.userId}/connections`,
+              label: 'Connections',
             },
           ];
           break;

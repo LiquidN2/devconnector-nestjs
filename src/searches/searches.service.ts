@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 
 import { User, UserDocument } from '../users/schemas/user.schema';
 import { Profile, ProfileDocument } from '../profiles/schemas/profile.schema';
+import { userInfo } from 'os';
 
 @Injectable()
 export class SearchesService {
@@ -14,7 +15,7 @@ export class SearchesService {
   ) {}
 
   async findProfile(query: string) {
-    return this.profileModel.aggregate([
+    const aggregate = this.profileModel.aggregate([
       {
         $match: {
           $or: [
@@ -34,29 +35,32 @@ export class SearchesService {
         },
       },
       {
-        $replaceRoot: {
-          newRoot: {
-            $mergeObjects: [{ $arrayElemAt: ['$userInfo', 0] }, '$$ROOT'],
-          },
-        },
-      },
-      {
         $project: {
-          id: 1,
-          name: 1,
-          email: 1,
-          avatar: 1,
+          handle: 1,
           status: 1,
           location: 1,
           company: 1,
-          handle: 1,
+          userInfo: 1,
         },
       },
     ]);
+
+    const profiles = await aggregate.exec();
+
+    return profiles.map(profile => ({
+      _id: profile.userInfo[0]._id,
+      handle: profile.handle,
+      status: profile.status,
+      location: profile.location,
+      company: profile.company,
+      name: profile.userInfo[0].name,
+      email: profile.userInfo[0].email,
+      avatar: profile.userInfo[0].avatar,
+    }));
   }
 
   async findUser(query: string) {
-    return this.userModel.aggregate([
+    const aggregate = this.userModel.aggregate([
       {
         $match: {
           $or: [
@@ -87,25 +91,30 @@ export class SearchesService {
           },
         },
       },
-      {
-        $replaceRoot: {
-          newRoot: {
-            $mergeObjects: [{ $arrayElemAt: ['$profileInfo', 0] }, '$$ROOT'],
-          },
-        },
-      },
-      {
-        $project: { profileInfo: 0 },
-      },
     ]);
+
+    const users = await aggregate.exec();
+
+    return users.map(user => ({
+      _id: user._id,
+      avatar: user.avatar,
+      email: user.email,
+      name: user.name,
+      status: user.profileInfo[0].status,
+      location: user.profileInfo[0].location,
+      handle: user.profileInfo[0].handle,
+      company: user.profileInfo[0].company,
+    }));
   }
 
   async searchPeople(query: string) {
-    const handleResults = await this.findProfile(query);
-    const nameResults = await this.findUser(query);
-    const combinedResults = [...handleResults];
-    nameResults.forEach(result => {
-      const isDuplicate = combinedResults.some(el => el.id === result.id);
+    if (!query) return [];
+
+    const profileResults = await this.findProfile(query);
+    const userResults = await this.findUser(query);
+    const combinedResults = [...profileResults];
+    userResults.forEach(result => {
+      const isDuplicate = combinedResults.some(el => el._id === result._id);
       if (!isDuplicate) combinedResults.push(result);
     });
 

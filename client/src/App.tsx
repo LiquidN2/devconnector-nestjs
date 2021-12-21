@@ -51,7 +51,8 @@ const App: React.FC = () => {
           <Route path="profile" element={<ProfilePage />} />
 
           {/* SEARCHES */}
-          <Route path="searches" element={<SearchPage />} />
+          <Route path="searches/all" element={<SearchPage />} />
+          <Route path="searches/*" element={<Navigate to="/searches/all" />} />
 
           {/* POSTS */}
           <Route path="posts" element={<PostsPage />} />
