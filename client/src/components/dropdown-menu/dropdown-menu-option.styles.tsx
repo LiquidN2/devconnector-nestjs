@@ -2,18 +2,25 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const optionStyle = css`
-  display: inline-block;
+  display: block;
   background-color: white;
   border: none;
   padding: 1rem;
   z-index: 100;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   text-align: center;
 
   color: var(--color-primary);
+  white-space: nowrap;
 
   &:hover {
     cursor: pointer;
+  }
+
+  &:disabled {
+    color: var(--color-grey-light);
+    background-color: var(--color-grey-lightest);
+    cursor: auto;
   }
 `;
 

@@ -1,7 +1,7 @@
 import { useAppSelector } from './useAppSelector';
-import { selectAuthToken } from '../redux/auth/auth.selector';
+import { selectAuthToken } from '../redux/auth';
 
-import { useGetConnectionsQuery } from '../redux/connection/connection.api';
+import { useGetConnectionsQuery } from '../redux/connection';
 
 export const useConnections = (userId: string) => {
   const authToken = useAppSelector(selectAuthToken);

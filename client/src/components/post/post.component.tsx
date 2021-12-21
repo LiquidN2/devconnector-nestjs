@@ -11,6 +11,7 @@ import { PostContext } from './post.context';
 
 interface PostProps {
   id: string;
+  userId: string;
   name: string;
   status: string;
   avatar: string;
@@ -24,6 +25,7 @@ interface PostProps {
 
 const Post: React.FC<PostProps> = ({
   id,
+  userId,
   name,
   status,
   avatar,
@@ -51,6 +53,7 @@ const Post: React.FC<PostProps> = ({
       >
         <PostHeader
           postId={id}
+          userId={userId}
           name={name}
           status={status}
           avatar={avatar}

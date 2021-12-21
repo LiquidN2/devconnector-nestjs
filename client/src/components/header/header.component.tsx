@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Container from '../UI/container.component';
 import Logo from '../UI/logo.component';
@@ -11,7 +12,9 @@ const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <Container>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <UniversalSearchContainer>
           <FormUniversalSearch />
         </UniversalSearchContainer>

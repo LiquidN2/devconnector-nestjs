@@ -45,11 +45,11 @@ const ProfilePage: React.FC = () => {
       </ColLeft>
       <ColMiddle>
         <ProfileSummary userId={userId} />
-        <ProfileEduExp type="experience" />
-        <ProfileEduExp type="education" />
+        <ProfileEduExp type="experience" userId={userId} />
+        <ProfileEduExp type="education" userId={userId} />
       </ColMiddle>
       <ColRight>
-        <ProfileSkills />
+        <ProfileSkills userId={userId} />
       </ColRight>
     </ContentContainer>
   );

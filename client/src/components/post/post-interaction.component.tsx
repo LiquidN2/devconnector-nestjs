@@ -9,11 +9,11 @@ import { InteractionContainer } from './post-interaction.styles';
 import { withIconAndCount } from './with-icon-n-count.component';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
+import { selectAuthToken } from '../../redux/auth';
 import {
   useDeleteLikeByPostIdMutation,
   useCreateLikeMutation,
-} from '../../redux/like/like.api';
+} from '../../redux/like';
 
 const ButtonLike = withIconAndCount(IconThumbsUp, true);
 const ButtonComments = withIconAndCount(IconComments, true);

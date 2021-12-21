@@ -13,12 +13,12 @@ import {
 } from './education-experience-form.styles';
 
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import { selectAuthToken } from '../../../redux/auth/auth.selector';
+import { selectAuthToken } from '../../../redux/auth';
 import { useProfile } from '../../../hooks/useProfile';
 import {
   useAddExperienceOrEducationMutation,
   useUpdateExperienceOrEducationMutation,
-} from '../../../redux/profile/profile.api';
+} from '../../../redux/profile';
 
 import LoadingSpinner from '../../loading-spinner/loading-spinner.component';
 

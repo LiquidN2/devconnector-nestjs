@@ -42,13 +42,13 @@ const EduExpListEdit: React.FC<EduExpListEditProps> = ({
           items.length !== 0 &&
           items.map((item, index) => {
             let title = '',
-              organiztion = '';
+              organization = '';
 
             if ('qualification' in item) title = item.qualification;
             if ('position' in item) title = item.position;
 
-            if ('school' in item) organiztion = item.school;
-            if ('company' in item) organiztion = item.company;
+            if ('school' in item) organization = item.school;
+            if ('company' in item) organization = item.company;
 
             return (
               <EducationExperienceItem
@@ -56,7 +56,7 @@ const EduExpListEdit: React.FC<EduExpListEditProps> = ({
                 key={index}
                 id={item._id}
                 title={title}
-                organization={organiztion}
+                organization={organization}
                 location={item.location}
                 from={item.from}
                 to={item.to}

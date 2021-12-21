@@ -3,12 +3,13 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 
 import { persistedReducer } from './rootReducer';
 
-import { userApi } from './user/user.api';
-import { profileApi } from './profile/profile.api';
-import { postApi } from './post/post.api';
-import { likeApi } from './like/like.api';
-import { commentApi } from './comment/comment.api';
-import { connectionApi } from './connection/connection.api';
+import { userApi } from './user';
+import { profileApi } from './profile';
+import { postApi } from './post';
+import { likeApi } from './like';
+import { commentApi } from './comment';
+import { connectionApi } from './connection';
+import { searchApi } from './search';
 
 const middlewares = [
   userApi.middleware,
@@ -17,6 +18,7 @@ const middlewares = [
   likeApi.middleware,
   commentApi.middleware,
   connectionApi.middleware,
+  searchApi.middleware,
 ];
 
 export const store = configureStore({

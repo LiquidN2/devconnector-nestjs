@@ -7,9 +7,9 @@ import { BtnSavePrimary, BtnLinkGoBack } from '../../UI/button.component';
 import { FormContainer, ButtonsGroup } from './edit-main.styles';
 
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import { selectAuthToken } from '../../../redux/auth/auth.selector';
+import { selectAuthToken } from '../../../redux/auth';
 import { useProfile } from '../../../hooks/useProfile';
-import { useUpdateMyProfileMutation } from '../../../redux/profile/profile.api';
+import { useUpdateMyProfileMutation } from '../../../redux/profile';
 
 const EditMain: React.FC = () => {
   const [inputHandle, setInputHandle] = useState('');

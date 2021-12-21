@@ -5,8 +5,8 @@ import { FormContainer, BtnAddComment } from './comment-form.styles';
 import FormInput from '../form/form-input.component';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useCreateCommentMutation } from '../../redux/comment/comment.api';
+import { selectAuthToken } from '../../redux/auth';
+import { useCreateCommentMutation } from '../../redux/comment';
 
 import { PostContext } from '../post/post.context';
 

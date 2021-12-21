@@ -2,28 +2,34 @@ import { combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 
-import { authReducer } from './auth';
-import { userApi } from './user/user.api';
-import { profileApi } from './profile/profile.api';
-import { postApi } from './post/post.api';
-import { likeApi } from './like/like.api';
-import { commentApi } from './comment/comment.api';
-import { connectionApi } from './connection/connection.api';
+import { authSlice } from './auth';
+import { routesSlice } from './routes';
+import { querySlice } from './query';
+import { userApi } from './user';
+import { profileApi } from './profile';
+import { postApi } from './post';
+import { likeApi } from './like';
+import { commentApi } from './comment';
+import { connectionApi } from './connection';
+import { searchApi } from './search';
 
 export const rootReducer = combineReducers({
-  auth: authReducer,
+  [authSlice.name]: authSlice.reducer,
+  [routesSlice.name]: routesSlice.reducer,
+  [querySlice.name]: querySlice.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [profileApi.reducerPath]: profileApi.reducer,
   [postApi.reducerPath]: postApi.reducer,
   [likeApi.reducerPath]: likeApi.reducer,
   [commentApi.reducerPath]: commentApi.reducer,
   [connectionApi.reducerPath]: connectionApi.reducer,
+  [searchApi.reducerPath]: searchApi.reducer,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth'],
+  whitelist: [authSlice.name, routesSlice.name],
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);

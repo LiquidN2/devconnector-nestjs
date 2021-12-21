@@ -8,8 +8,8 @@ import { ButtonPrimary, Button } from '../../UI/button.component';
 import { FormContainer, FormError } from './profile-init-form.styles';
 
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import { selectAuthToken } from '../../../redux/auth/auth.selector';
-import { useCreateProfileMutation } from '../../../redux/profile/profile.api';
+import { selectAuthToken } from '../../../redux/auth';
+import { useCreateProfileMutation } from '../../../redux/profile';
 import { useActions } from '../../../hooks/useActions';
 
 const ProfileInitForm: React.FC = () => {

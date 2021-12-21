@@ -3,18 +3,20 @@ import React from 'react';
 import ContentBox from '../content-box/content-box.component';
 import EducationExperienceItem from './education-experience-item.component';
 
-import { useProfile } from '../../hooks/useProfile';
+import { useProfileWithUserId } from '../../hooks/useProfile';
 
 interface ProfileEduExpProps {
   type: 'experience' | 'education';
+  userId?: string;
   profileId?: string;
 }
 
 const ProfileEduExp: React.FC<ProfileEduExpProps> = ({
   type,
   profileId = '',
+  userId = '',
 }) => {
-  const { data } = useProfile(profileId);
+  const { data } = useProfileWithUserId(userId);
 
   const items = data && data[`${type}s`];
 

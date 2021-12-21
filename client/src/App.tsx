@@ -5,16 +5,15 @@ import DefaultLayout from './components/layout/default-layout.component';
 import AuthPage from './pages/auth/auth-page.component';
 import SignIn from './components/signin/signin.component';
 import SignUp from './components/signup/signup.component';
-import ProfilePage from './pages/profile/profile-page.component';
 import PostsPage from './pages/posts/posts-page.component';
 import ConnectionsPage from './pages/connections/connections-page.component';
+import ProfilePage from './pages/profile/profile-page.component';
+import SearchPage from './pages/search/search-page.component';
 
 import ProfileEdit from './pages/profile/profile-edit.component';
 
 import PrivateRoute from './routes/private-route.component';
 import PublicRoute from './routes/public-route.component';
-
-// import './App.scss';
 
 const App: React.FC = () => {
   return (
@@ -29,7 +28,10 @@ const App: React.FC = () => {
             </PrivateRoute>
           }
         >
+          {/* INDEX */}
           <Route index element={<Navigate to="/posts" />} />
+
+          {/* PROFILE */}
           <Route
             path="profile/edit/main"
             element={<ProfileEdit section="main" />}
@@ -47,8 +49,18 @@ const App: React.FC = () => {
             element={<Navigate to="/profile/edit/main" />}
           />
           <Route path="profile" element={<ProfilePage />} />
+
+          {/* SEARCHES */}
+          <Route path="searches/all" element={<SearchPage />} />
+          <Route path="searches/*" element={<Navigate to="/searches/all" />} />
+
+          {/* POSTS */}
           <Route path="posts" element={<PostsPage />} />
+
+          {/* CONNECTIONS */}
           <Route path="connections" element={<ConnectionsPage />} />
+
+          {/* WILDCARDS */}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
 
@@ -62,6 +74,7 @@ const App: React.FC = () => {
         >
           <Route index element={<Navigate to="profile" />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="posts" element={<PostsPage />} />
         </Route>
 
         {/* PUBLIC Access Only  */}

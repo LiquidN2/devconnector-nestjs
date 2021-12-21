@@ -17,8 +17,8 @@ import {
 
 import { formatPostDate } from '../../utils/datetime-format.utils';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useDeleteCommentMutation } from '../../redux/comment/comment.api';
+import { selectAuthToken } from '../../redux/auth';
+import { useDeleteCommentMutation } from '../../redux/comment';
 
 interface CommentProps {
   id: string;

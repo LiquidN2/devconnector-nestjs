@@ -4,7 +4,6 @@ export const MenuContainer = styled.div`
   position: absolute;
   right: 0;
   top: 3.3rem;
-  width: 10rem;
   border: 1px solid var(--color-grey-lighter);
   display: flex;
   flex-direction: column;

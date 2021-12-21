@@ -1,31 +1,46 @@
-import React from 'react';
+import React, { FormEventHandler, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-import {
-  SearchContainer,
-  SearchInput,
-  SearchIcon,
-} from './form-universal-search.styles';
+import IconSearch from '../icons/icon-search.component';
+
+import { SearchContainer, SearchInput } from './form-universal-search.styles';
+
+import { useActions } from '../../hooks/useActions';
+import { useSearch } from '../../hooks/useSearch';
 
 const FormUniversalSearch: React.FC = () => {
+  const [inputQuery, setInputQuery] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { setQuery } = useActions();
+  const { refetch } = useSearch();
+
+  const handleSubmit: FormEventHandler = e => {
+    e.preventDefault();
+    const query = inputQuery.trim();
+    if (!query) return;
+    setQuery(query);
+    refetch();
+    if (location.pathname.startsWith('/searches')) return;
+    navigate('/searches');
+  };
+
   return (
-    <SearchContainer>
-      <SearchIcon
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
-      </SearchIcon>
+    <SearchContainer onSubmit={handleSubmit}>
+      <IconSearch
+        style={{
+          transform: 'translateX(3rem)',
+          height: '1.6rem',
+          width: '1.6rem',
+        }}
+      />
       <SearchInput
         type="text"
         name="search"
         id="search"
-        placeholder="Search for other developers"
+        value={inputQuery}
+        onChange={e => setInputQuery(e.currentTarget.value)}
+        placeholder="Search for people to connect"
       />
     </SearchContainer>
   );

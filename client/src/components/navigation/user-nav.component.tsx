@@ -5,9 +5,7 @@ import DropdownMenuOption from '../dropdown-menu/dropdown-menu-option.component'
 
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useActions } from '../../hooks/useActions';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useGetWhoAmIQuery } from '../../redux/user/user.api';
+import { useMe } from '../../hooks/useUser';
 
 import { UserNavContainer, UserNavAvatar } from './user-nav.styles';
 
@@ -16,8 +14,7 @@ const UserNav: React.FC = () => {
   const [dropdownHidden, setDropdownHidden] = useState(true);
 
   const { signout } = useActions();
-  const authToken = useAppSelector(selectAuthToken);
-  const { data } = useGetWhoAmIQuery(authToken);
+  const { data } = useMe();
   useClickOutside(ref, () => setDropdownHidden(true));
 
   const handleToggleDropdown: MouseEventHandler<HTMLImageElement> = () => {

@@ -7,9 +7,9 @@ import { PostFormContainer, BtnPhotoUpload } from './post-form.styles';
 import { ButtonPrimary } from '../UI/button.component';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useProfile } from '../../hooks/useProfile';
-import { useCreatePostMutation } from '../../redux/post/post.api';
+import { selectAuthToken } from '../../redux/auth';
+import { useProfileWithUserId } from '../../hooks/useProfile';
+import { useCreatePostMutation } from '../../redux/post';
 
 interface PostFormProps {
   target?: string;
@@ -18,7 +18,7 @@ interface PostFormProps {
 const PostForm: React.FC<PostFormProps> = ({ target = '' }) => {
   const [text, setText] = useState('');
 
-  const { data } = useProfile(target);
+  const { data } = useProfileWithUserId('');
   const authToken = useAppSelector(selectAuthToken);
   const [createPost] = useCreatePostMutation();
 

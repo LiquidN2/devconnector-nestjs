@@ -1,6 +1,6 @@
 import { useAppSelector } from './useAppSelector';
-import { selectAuthToken } from '../redux/auth/auth.selector';
-import { useGetPostsQuery } from '../redux/post/post.api';
+import { selectAuthToken } from '../redux/auth';
+import { useGetPostsQuery } from '../redux/post';
 
 export const usePosts = (target: string | undefined) => {
   const authToken = useAppSelector(selectAuthToken);
