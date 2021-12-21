@@ -17,6 +17,7 @@ import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
 import { ConnectionsModule } from './connections/connections.module';
+import { SearchesModule } from './searches/searches.module';
 
 const env = process.env.NODE_ENV;
 
@@ -46,6 +47,7 @@ const env = process.env.NODE_ENV;
     CommentsModule,
     LikesModule,
     ConnectionsModule,
+    SearchesModule,
 
     // Static Files Module
     ServeStaticModule.forRoot({

@@ -47,31 +47,9 @@ export const routesSlice = createSlice({
           state.currentRoutes = initialState.currentRoutes;
       }
     },
-
-    setDefaultRoutes: state => {
-      state.currentRoutes = initialState.currentRoutes;
-    },
-
-    setProfileEditRoutes: state => {
-      state.currentRoutes = [
-        {
-          url: '/profile/edit/main',
-          label: 'Main Profile',
-        },
-        {
-          url: '/profile/edit/experience',
-          label: 'Experience',
-        },
-        {
-          url: '/profile/edit/education',
-          label: 'Education',
-        },
-      ];
-    },
   },
 });
 
-export const { setDefaultRoutes, setProfileEditRoutes, setRoutes } =
-  routesSlice.actions;
+export const { setRoutes } = routesSlice.actions;
 
 export const routesReducer = routesSlice.reducer;
