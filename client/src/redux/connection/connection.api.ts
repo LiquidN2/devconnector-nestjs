@@ -52,6 +52,21 @@ export const connectionApi = createApi({
       }),
       invalidatesTags: ['Connections'],
     }),
+
+    requestConnection: build.mutation<
+      Connection,
+      { token: string | undefined; body: { target: string | undefined } }
+    >({
+      query: ({ token, body }) => ({
+        url: '',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body,
+      }),
+      invalidatesTags: ['Connections'],
+    }),
   }),
 });
 
@@ -59,4 +74,5 @@ export const {
   useGetConnectionsQuery,
   useUpdateConnectionStatusMutation,
   useRemoveConnectionMutation,
+  useRequestConnectionMutation,
 } = connectionApi;
