@@ -3,7 +3,7 @@ import React from 'react';
 import ContentBox from '../content-box/content-box.component';
 import { Badge } from '../UI/badge.component';
 import { SkillsContainer } from './profile-skills.styles';
-import { useProfile, useProfileWithUserId } from '../../hooks/useProfile';
+import { useProfileWithUserId } from '../../hooks/useProfile';
 
 interface ProfileSkillsProps {
   profileId?: string;

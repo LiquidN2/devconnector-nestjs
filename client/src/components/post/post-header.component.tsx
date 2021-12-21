@@ -1,10 +1,12 @@
 import React, { MouseEventHandler, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import { formatPostDate } from '../../utils/datetime-format.utils';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { selectAuthToken } from '../../redux/auth/auth.selector';
-import { useDeletePostMutation } from '../../redux/post/post.api';
+import { selectAuthToken } from '../../redux/auth';
+import { useDeletePostMutation } from '../../redux/post';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { useMe } from '../../hooks/useUser';
 
 import Avatar from '../avatar/avatar.component';
 import MenuButton from '../dropdown-menu/button-menu.component';
@@ -23,6 +25,7 @@ import {
 
 interface PostHeaderProps {
   postId: string;
+  userId: string;
   name: string;
   status: string;
   avatar: string;
@@ -31,6 +34,7 @@ interface PostHeaderProps {
 
 const PostHeader: React.FC<PostHeaderProps> = ({
   postId,
+  userId,
   name,
   status,
   avatar,
@@ -42,6 +46,8 @@ const PostHeader: React.FC<PostHeaderProps> = ({
 
   const authToken = useAppSelector(selectAuthToken);
   const [deletePost] = useDeletePostMutation();
+  const { data } = useMe();
+  const myUserId = data && data.id ? data.id : '';
 
   const toggleDropDownHidden: MouseEventHandler<HTMLElement> = () => {
     setDropDownHidden(!dropDownHidden);
@@ -54,9 +60,14 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   return (
     <HeaderContainer>
       <UserContainer>
-        <Avatar src={`${avatar}`} />
+        <Avatar src={`${avatar}`} alt={name} />
         <UserDescription>
-          <UserName>{name}</UserName>
+          <Link
+            style={{ textDecoration: 'none' }}
+            to={myUserId !== userId ? `/users/${userId}` : '/'}
+          >
+            <UserName>{name}</UserName>
+          </Link>
           <UserTitle>{status}</UserTitle>
         </UserDescription>
       </UserContainer>
@@ -66,7 +77,9 @@ const PostHeader: React.FC<PostHeaderProps> = ({
         <div ref={ref}>
           <MenuButton onClick={toggleDropDownHidden} />
           <DropdownMenu hidden={dropDownHidden}>
-            <DropdownMenuOption type="button">Edit Post</DropdownMenuOption>
+            {myUserId === userId && (
+              <DropdownMenuOption type="button">Edit Post</DropdownMenuOption>
+            )}
             <DropdownMenuOption type="button" onClick={handleDeletePost}>
               Delete Post
             </DropdownMenuOption>

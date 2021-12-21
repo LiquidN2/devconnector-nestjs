@@ -45,6 +45,7 @@ const PostPage: React.FC<PostPageProps> = () => {
             (
               {
                 _id,
+                user,
                 name,
                 status,
                 avatar,
@@ -60,6 +61,7 @@ const PostPage: React.FC<PostPageProps> = () => {
               <Post
                 key={index}
                 id={_id}
+                userId={user}
                 name={name}
                 status={status}
                 avatar={avatar}

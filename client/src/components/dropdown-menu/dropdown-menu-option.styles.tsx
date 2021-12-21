@@ -16,6 +16,12 @@ const optionStyle = css`
   &:hover {
     cursor: pointer;
   }
+
+  &:disabled {
+    color: var(--color-grey-light);
+    background-color: var(--color-grey-lightest);
+    cursor: auto;
+  }
 `;
 
 export const MenuBtn = styled.button`

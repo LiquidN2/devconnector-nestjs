@@ -21,7 +21,8 @@ const SearchResultItemMenu: React.FC<SearchResultItemMenuProps> = ({
   const ref = useRef() as React.Ref<HTMLDivElement>;
   const [dropdownHidden, setDropdownHidden] = useState(true);
   const authToken = useAppSelector(selectAuthToken);
-  const [requestConnection] = useRequestConnectionMutation();
+  const [requestConnection, { isLoading, isSuccess }] =
+    useRequestConnectionMutation();
   useClickOutside(ref, () => setDropdownHidden(true));
 
   const toggleDropdownHidden: MouseEventHandler<HTMLElement> = () => {
@@ -40,8 +41,14 @@ const SearchResultItemMenu: React.FC<SearchResultItemMenuProps> = ({
         <DropdownMenuOption type="link" url={`/users/${userId}`}>
           View Profile
         </DropdownMenuOption>
-        <DropdownMenuOption type="button">
-          Request connection
+        <DropdownMenuOption
+          type="button"
+          onClick={handleRequestConnection}
+          disabled={isLoading || isSuccess}
+        >
+          {isLoading && 'Requesting..'}
+          {!isLoading && isSuccess && 'Request sent'}
+          {!isLoading && !isSuccess && 'Connect'}
         </DropdownMenuOption>
         <DropdownMenuOption type="button">Send message</DropdownMenuOption>
       </DropdownMenu>

@@ -4,6 +4,10 @@ import { Model } from 'mongoose';
 
 import { User, UserDocument } from '../users/schemas/user.schema';
 import { Profile, ProfileDocument } from '../profiles/schemas/profile.schema';
+import {
+  Connection,
+  ConnectionDocument,
+} from '../connections/schemas/connection.schema';
 import { userInfo } from 'os';
 
 @Injectable()
@@ -12,7 +16,17 @@ export class SearchesService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
     @InjectModel(Profile.name)
     private readonly profileModel: Model<ProfileDocument>,
+    @InjectModel(Connection.name)
+    private readonly connectionModel: Model<ConnectionDocument>,
   ) {}
+
+  async isConnected(userId: string) {
+    const connection = await this.connectionModel.find({
+      $or: [{ user: userId }, { target: userId }],
+    });
+
+    return !!connection.length;
+  }
 
   async findProfile(query: string) {
     const aggregate = this.profileModel.aggregate([
@@ -120,6 +134,14 @@ export class SearchesService {
       if (!isDuplicate) combinedResults.push(result);
     });
 
-    return combinedResults;
+    // return combinedResults;
+    const results = [];
+
+    for (const result of userResults) {
+      const connected = await this.isConnected(result._id);
+      if (!connected) results.push(result);
+    }
+
+    return results;
   }
 }

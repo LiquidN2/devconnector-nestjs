@@ -18,6 +18,7 @@ export const searchApi = createApi({
         },
       }),
       providesTags: ['Searches'],
+      keepUnusedDataFor: 1,
     }),
   }),
 });

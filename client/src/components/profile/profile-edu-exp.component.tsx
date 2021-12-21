@@ -3,7 +3,7 @@ import React from 'react';
 import ContentBox from '../content-box/content-box.component';
 import EducationExperienceItem from './education-experience-item.component';
 
-import { useProfile, useProfileWithUserId } from '../../hooks/useProfile';
+import { useProfileWithUserId } from '../../hooks/useProfile';
 
 interface ProfileEduExpProps {
   type: 'experience' | 'education';
