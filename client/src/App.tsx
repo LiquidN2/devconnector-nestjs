@@ -28,7 +28,10 @@ const App: React.FC = () => {
             </PrivateRoute>
           }
         >
+          {/* INDEX */}
           <Route index element={<Navigate to="/posts" />} />
+
+          {/* PROFILE */}
           <Route
             path="profile/edit/main"
             element={<ProfileEdit section="main" />}
@@ -46,9 +49,17 @@ const App: React.FC = () => {
             element={<Navigate to="/profile/edit/main" />}
           />
           <Route path="profile" element={<ProfilePage />} />
+
+          {/* SEARCHES */}
+          <Route path="searches" element={<SearchPage />} />
+
+          {/* POSTS */}
           <Route path="posts" element={<PostsPage />} />
+
+          {/* CONNECTIONS */}
           <Route path="connections" element={<ConnectionsPage />} />
-          <Route path="search" element={<SearchPage />} />
+
+          {/* WILDCARDS */}
           <Route path="*" element={<Navigate to="/" />} />
         </Route>
 

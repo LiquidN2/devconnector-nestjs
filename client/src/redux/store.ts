@@ -9,6 +9,7 @@ import { postApi } from './post';
 import { likeApi } from './like';
 import { commentApi } from './comment';
 import { connectionApi } from './connection';
+import { searchApi } from './search';
 
 const middlewares = [
   userApi.middleware,
@@ -17,6 +18,7 @@ const middlewares = [
   likeApi.middleware,
   commentApi.middleware,
   connectionApi.middleware,
+  searchApi.middleware,
 ];
 
 export const store = configureStore({

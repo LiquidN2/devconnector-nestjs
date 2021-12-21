@@ -7,7 +7,12 @@ import {
 } from '../../components/layout/content-layout.styles';
 
 const SearchPage: React.FC = () => {
-  return <ContentContainer>Search</ContentContainer>;
+  return (
+    <ContentContainer>
+      <ColLeftSpan>Search results</ColLeftSpan>
+      <ColRight>Filter Box</ColRight>
+    </ContentContainer>
+  );
 };
 
 export default SearchPage;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ConnectionBox from './connection-box.component';
+import ContentBox from '../content-box/content-box.component';
 import ConnectionItem from './connection-item.component';
 
 import { useConnections } from '../../hooks/useConnections';
@@ -17,14 +17,14 @@ const ConnectionActive: React.FC<ConnectionActiveProps> = ({ userId = '' }) => {
     : [];
 
   return (
-    <ConnectionBox
+    <ContentBox
       heading="Connections"
       subHeading={`${activeConnections.length} connection(s)`}
     >
       {activeConnections.map((connection, index) => (
         <ConnectionItem key={index} {...connection} />
       ))}
-    </ConnectionBox>
+    </ContentBox>
   );
 };
 

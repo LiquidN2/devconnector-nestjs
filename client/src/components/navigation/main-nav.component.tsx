@@ -13,14 +13,21 @@ export const MainNav: React.FC = () => {
   const { setRoutes } = useActions();
 
   const location = useLocation();
+  const { pathname } = location;
 
   useEffect(() => {
-    if (location.pathname.startsWith('/profile/edit')) {
+    if (pathname.startsWith('/profile/edit')) {
       setRoutes(RouteSet.ProfileEdit);
-    } else {
-      setRoutes(RouteSet.Default);
+      return;
     }
-  }, [location.pathname]);
+
+    if (pathname.startsWith('/searches')) {
+      setRoutes(RouteSet.Search);
+      return;
+    }
+
+    setRoutes(RouteSet.Default);
+  }, [pathname]);
 
   return (
     <MainNavContainer>

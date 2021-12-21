@@ -42,6 +42,27 @@ export const routesSlice = createSlice({
           ];
           break;
 
+        case RouteSet.Search:
+          state.currentRoutes = [
+            {
+              url: '/searches/all',
+              label: 'All',
+            },
+            {
+              url: '/searches/people',
+              label: 'People',
+            },
+            {
+              url: '/searches/groups',
+              label: 'Groups',
+            },
+            {
+              url: '/searches/posts',
+              label: 'Posts',
+            },
+          ];
+          break;
+
         case RouteSet.Default:
         default:
           state.currentRoutes = initialState.currentRoutes;
