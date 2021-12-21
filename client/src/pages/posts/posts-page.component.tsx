@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
 
 import ProfileBaseBox from '../../components/profile/profile-base-box.component';
 import PostForm from '../../components/post/post-form.component';
@@ -19,7 +20,9 @@ interface PostPageProps {
   target?: string;
 }
 
-const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
+const PostPage: React.FC<PostPageProps> = () => {
+  const params = useParams();
+  const target = params.userId || '';
   const { data, isLoading, isFetching } = usePosts(target);
 
   return (
@@ -28,10 +31,10 @@ const PostPage: React.FC<PostPageProps> = ({ target = '' }) => {
         <title>DevConnector | Posts</title>
       </Helmet>
       <ColLeft>
-        <ProfileBaseBox />
+        <ProfileBaseBox userId={target} />
       </ColLeft>
       <ColRightSpan>
-        <PostForm />
+        <PostForm target={target} />
         {(isLoading || isFetching) && (
           <SpinnerContainer>
             <LoadingSpinner />

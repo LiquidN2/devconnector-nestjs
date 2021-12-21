@@ -74,6 +74,7 @@ const App: React.FC = () => {
         >
           <Route index element={<Navigate to="profile" />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="posts" element={<PostsPage />} />
         </Route>
 
         {/* PUBLIC Access Only  */}

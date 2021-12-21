@@ -131,8 +131,7 @@ export class PostsService {
 
   async delete(userId: string, postId: string) {
     const query = this.postModel.findOneAndDelete({
-      id: postId,
-      user: userId,
+      $and: [{ id: postId }, { $or: [{ user: userId }, { target: userId }] }],
     });
 
     return await query.exec();

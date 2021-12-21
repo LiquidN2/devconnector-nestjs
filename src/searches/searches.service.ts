@@ -114,7 +114,9 @@ export class SearchesService {
     const userResults = await this.findUser(query);
     const combinedResults = [...profileResults];
     userResults.forEach(result => {
-      const isDuplicate = combinedResults.some(el => el._id === result._id);
+      const isDuplicate = combinedResults.some(
+        el => el._id.toString() === result._id.toString(),
+      );
       if (!isDuplicate) combinedResults.push(result);
     });
 
