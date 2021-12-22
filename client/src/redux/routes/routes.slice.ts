@@ -73,10 +73,10 @@ export const routesSlice = createSlice({
               url: `/users/${action.payload.userId}/profile`,
               label: 'Profile',
             },
-            {
-              url: `/users/${action.payload.userId}/connections`,
-              label: 'Connections',
-            },
+            // {
+            //   url: `/users/${action.payload.userId}/connections`,
+            //   label: 'Connections',
+            // },
           ];
           break;
 

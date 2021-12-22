@@ -6,6 +6,7 @@ import {
   Param,
   Get,
   Delete,
+  Query,
 } from '@nestjs/common';
 
 // Types
@@ -26,7 +27,7 @@ export class ConnectionsController {
   constructor(private readonly connectionsService: ConnectionsService) {}
 
   @Get('')
-  async getConnectionsForUser(@Param('userId') userId: string) {
+  async getConnectionsForUser(@Query('userId') userId: string) {
     return await this.connectionsService.findByUserId(userId);
   }
 

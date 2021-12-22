@@ -22,6 +22,8 @@ import {
 import { BtnLinkEditPrimary } from '../UI/button.component';
 
 import { useProfileWithUserId } from '../../hooks/useProfile';
+import { useConnections } from '../../hooks/useConnections';
+import { usePosts } from '../../hooks/usePosts';
 
 interface ProfileBaseBoxProps {
   userId?: string;
@@ -32,8 +34,9 @@ const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({
   profileId = '',
   userId = '',
 }) => {
-  // const { data } = useProfile(profileId);
   const { data } = useProfileWithUserId(userId);
+  const { data: connectionsData } = useConnections(userId);
+  const { data: postsData } = usePosts(userId);
 
   if (!data) return <div>No user data</div>;
 
@@ -47,6 +50,9 @@ const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({
     user: { name, email, avatar },
   } = data;
 
+  const numConnections = connectionsData ? connectionsData.length : 0;
+  const numPosts = postsData ? postsData.length : 0;
+
   return (
     <BoxContainer>
       <PhotoContainer>
@@ -58,12 +64,12 @@ const ProfileBaseBox: React.FC<ProfileBaseBoxProps> = ({
 
       <ConnectionsPostsContainer>
         <ConnectionsBox>
-          <ConnectionsCount>300</ConnectionsCount>
-          <ConnectionsText>connections</ConnectionsText>
+          <ConnectionsCount>{numConnections}</ConnectionsCount>
+          <ConnectionsText>connection(s)</ConnectionsText>
         </ConnectionsBox>
         <PostsBox>
-          <PostsCount>250</PostsCount>
-          <PostsText>posts</PostsText>
+          <PostsCount>{numPosts}</PostsCount>
+          <PostsText>post(s)</PostsText>
         </PostsBox>
       </ConnectionsPostsContainer>
 

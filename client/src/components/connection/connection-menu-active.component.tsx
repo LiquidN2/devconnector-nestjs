@@ -12,10 +12,12 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 
 interface ConnectionMenuActiveProps {
   connectionId: string;
+  userId: string;
 }
 
 const ConnectionMenuActive: React.FC<ConnectionMenuActiveProps> = ({
   connectionId,
+  userId,
 }) => {
   const [dropdownHidden, setDropdownHidden] = useState(true);
 
@@ -37,8 +39,12 @@ const ConnectionMenuActive: React.FC<ConnectionMenuActiveProps> = ({
     <MenuContainer ref={ref}>
       <MenuButton onClick={toggleDropdownHidden} />
       <DropdownMenu hidden={dropdownHidden} top="4.8rem">
-        <DropdownMenuOption type="button">View Profile</DropdownMenuOption>
-        <DropdownMenuOption type="button">View Posts</DropdownMenuOption>
+        <DropdownMenuOption type="link" url={`/users/${userId}/profile`}>
+          View Profile
+        </DropdownMenuOption>
+        <DropdownMenuOption type="link" url={`/users/${userId}/posts`}>
+          View Posts
+        </DropdownMenuOption>
         <DropdownMenuOption type="button" onClick={handleRemoveConnection}>
           Remove
         </DropdownMenuOption>
