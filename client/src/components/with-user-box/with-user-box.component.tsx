@@ -6,7 +6,7 @@ import {
   UserContainer,
   UserName,
   UserLocation,
-  MenuContainer,
+  ProfileLink,
 } from './with-user-box.styles';
 import Avatar from '../avatar/avatar.component';
 
@@ -18,6 +18,7 @@ interface UserBoxProps {
   profileStatus: string;
   company: string;
   location: string;
+  connectionId?: string;
 }
 
 export function withUserBox<P extends object>(
@@ -36,12 +37,16 @@ export function withUserBox<P extends object>(
     <ItemContainer>
       <Avatar src={avatar} alt={name} />
       <UserContainer>
-        <UserName>{name}</UserName>
+        <ProfileLink to={`/users/${props.userId}`}>
+          <UserName>{name}</UserName>
+        </ProfileLink>
         <UserCompany>
           {profileStatus} at {company}
         </UserCompany>
         <UserLocation>{location}</UserLocation>
       </UserContainer>
+
+      {/* This should be a menu component */}
       <WrappedMenuComponent {...(props as P)} />
     </ItemContainer>
   );

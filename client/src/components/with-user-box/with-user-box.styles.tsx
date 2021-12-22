@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const ItemContainer = styled.div`
   display: flex;
@@ -43,4 +44,10 @@ export const MenuContainer = styled.div`
   & > button:not(:last-child) {
     margin-right: 1rem;
   }
+`;
+
+export const ProfileLink = styled(Link)`
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
 `;

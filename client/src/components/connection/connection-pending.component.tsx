@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ContentBox from '../content-box/content-box.component';
-import ConnectionItem from './connection-item.component';
+import ConnectionItemPending from './connection-item-pending.component';
 
 import { useConnections } from '../../hooks/useConnections';
 
@@ -29,9 +29,33 @@ const ConnectionPending: React.FC<ConnectionPendingProps> = ({
       heading="Pending Connection Request"
       subHeading={`${numberOfPendingConnections} request(s)`}
     >
-      {pendingConnections.map((connection, index) => (
-        <ConnectionItem key={index} type="pending" {...connection} />
-      ))}
+      {pendingConnections.map(
+        (
+          {
+            _id,
+            userId,
+            name,
+            email,
+            avatar,
+            profileStatus,
+            company,
+            location,
+          },
+          index,
+        ) => (
+          <ConnectionItemPending
+            key={index}
+            userId={userId}
+            name={name}
+            avatar={avatar}
+            profileStatus={profileStatus}
+            company={company}
+            location={location}
+            email={email}
+            connectionId={_id}
+          />
+        ),
+      )}
     </ContentBox>
   ) : null;
 };
